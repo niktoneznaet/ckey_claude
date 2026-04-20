@@ -1,10 +1,23 @@
 ---
-description: Транскрибация аудио/видео/YouTube локально через MLX Whisper (бесплатно, on-device). Принимает файл или URL (YouTube, TikTok, Instagram, Vimeo — 1000+ сайтов через yt-dlp)
+description: Транскрибация аудио/видео/YouTube локально. Для URL сначала ищет ручные субтитры автора (мгновенно), если их нет — качает аудио и прогоняет MLX Whisper
 ---
 
 # Транскрибация аудио/видео/URL
 
-Локально на Mac через **MLX Whisper** (Apple Silicon). Бесплатно, без API-ключей, ничего не уходит в интернет. Поддерживает и файлы, и ссылки на YouTube/TikTok/Instagram/Vimeo.
+Локально на Mac. Бесплатно, без API-ключей. Принимает:
+- Локальные файлы (mp3/m4a/wav/mp4/mov/mkv/webm/…)
+- URL YouTube/TikTok/Instagram/Vimeo и 1000+ других сайтов (через yt-dlp)
+
+## Логика для URL
+
+1. **Пробуем ручные субтитры автора** (`--write-subs`, не автосабы). Если есть — парсим VTT в чистый текст, готово за 2 секунды
+2. **Если ручных нет** — скачиваем аудио (mp3, макс качество) и прогоняем MLX Whisper с `whisper-large-v3-turbo`
+
+Почему только **ручные** субтитры:
+- Ручные (написанные автором) — идеал, часто лучше Whisper'а
+- Авто-субтитры YouTube, особенно на русском — хуже Whisper'а, брать не стоит
+
+Форсировать Whisper даже если сабы есть: `FORCE_WHISPER=1 bash tools/transcribe.sh URL`
 
 ## Шаги
 
@@ -14,48 +27,52 @@ description: Транскрибация аудио/видео/YouTube локал
 command -v ffmpeg && command -v yt-dlp && ls "$(python3 -m site --user-base)/bin/mlx_whisper" 2>/dev/null || echo "нужна установка"
 ```
 
-Если чего-то не хватает — запусти однократно установщик:
-
+Если чего-то нет — разово:
 ```bash
 bash ~/.claude/commands/install-transcribe.sh
 ```
 
-Он поставит `ffmpeg`, `yt-dlp` и `mlx-whisper` через Homebrew и pip. Требования: macOS Apple Silicon (M1+) и Homebrew.
+### 2. Запусти wrapper
 
-### 2. Определи что дал пользователь
-
-**URL** (начинается с `http://` или `https://`) — скачиваем через yt-dlp, потом транскрибируем. Работает для YouTube, TikTok, Instagram Reels, Twitter, Vimeo и 1000+ других сайтов.
-
-**Путь к файлу** — транскрибируем напрямую.
-
-**Нет аргумента** — посмотри свежие файлы в `inbox/`:
-```bash
-ls -lt inbox/ 2>/dev/null | head -10
-```
-
-### 3. Запусти
-
-**Предпочтительно — через wrapper** (если есть `tools/transcribe.sh` в проекте):
 ```bash
 bash tools/transcribe.sh "<URL_ИЛИ_ФАЙЛ>" ru
 ```
 
-Скрипт сам:
+Wrapper сам:
 - Определит URL это или файл
-- Скачает аудио через yt-dlp (если URL) в `inbox/`
-- Найдёт mlx_whisper универсально (через `python3 -m site --user-base`)
-- Прогонит через whisper-large-v3-turbo
+- Для URL: попробует ручные субтитры → fallback на аудио+Whisper
+- Найдёт mlx_whisper универсально
 - Положит результат в `outbox/<имя>-transcript.txt`
 
-**Напрямую** (без wrapper-а):
+Если в проекте нет `tools/transcribe.sh` — скачать или вызвать напрямую (см. ниже).
 
-Для URL:
+### 3. Отдай результат
+
+- Результат в `outbox/<имя>-transcript.txt`
+- Длинный (>2000 слов) — файлом в Telegram через `mcp__telegram__send_file`
+- Короткий — в чат
+
+## Прямые вызовы (без wrapper-а)
+
+**Проверить какие субтитры есть на YouTube-видео:**
 ```bash
-yt-dlp -x --audio-format mp3 -o "inbox/%(title).80B [%(id)s].%(ext)s" --no-playlist "<URL>"
-# → потом транскрибируем скачанный файл
+yt-dlp --list-subs "<URL>"
 ```
 
-Для файла:
+**Скачать только ручные субтитры (без видео):**
+```bash
+yt-dlp --write-subs --sub-langs "ru,uk,en" --sub-format vtt \
+  --skip-download --no-playlist \
+  -o "inbox/%(title).80B [%(id)s].%(ext)s" "<URL>"
+```
+
+**Скачать только аудио для Whisper:**
+```bash
+yt-dlp -x --audio-format mp3 --audio-quality 0 --no-playlist \
+  -o "inbox/%(title).80B [%(id)s].%(ext)s" "<URL>"
+```
+
+**Запустить Whisper на файле:**
 ```bash
 MLX="$(python3 -m site --user-base)/bin/mlx_whisper"
 "$MLX" "<файл>" \
@@ -65,29 +82,22 @@ MLX="$(python3 -m site --user-base)/bin/mlx_whisper"
   --output-dir outbox/
 ```
 
-### 4. Отдай результат
-
-- Результат в `outbox/<имя>-transcript.txt` (или рядом с файлом, если воркспейса нет)
-- Если >2000 слов — файлом в Telegram через `mcp__telegram__send_file`
-- Если короткий — в чат
-
 ## Параметры
 
-- `--language ru` / `uk` / `en` — явно указывай если знаешь, auto-detect иногда путает
-- **Модель по умолчанию:** `large-v3-turbo` (1.5GB, ~3 мин на час аудио)
-- **Макс качество:** `large-v3` (3GB, в 3-5 раз медленнее)
-- **Формат:** `txt` (по умолчанию), `srt` (субтитры с таймкодами), `vtt`, `json`, `all`
+- **Язык:** `ru` / `uk` / `en` — явно указывай если знаешь. Для URL также определяет приоритет языков субтитров
+- **Модель:** `large-v3-turbo` (по умолчанию, 1.5GB, ~3 мин/час аудио) / `large-v3` (3GB, макс качество) / `medium` / `small` / `base` / `tiny`
+- **Формат:** `txt` / `srt` (таймкоды) / `vtt` / `json` / `all`
 
 ## Важно
 
 - **Первый запуск долгий** — качается модель (~1.5GB) в `~/.cache/huggingface/hub/`. Следующие — мгновенно
-- **yt-dlp пропускает плейлисты** (`--no-playlist`) — скачает только одно видео по ссылке
-- **Длинные видео (2+ часа):** нарежь через ffmpeg перед транскрибацией
-- **Приватные/возрастные видео:** yt-dlp умеет cookies, но это надо настраивать отдельно (`--cookies-from-browser chrome`)
+- **Плейлисты** не распаковываются (`--no-playlist` по умолчанию) — только одно видео по ссылке
+- **Приватные/возрастные видео:** yt-dlp умеет куки: `--cookies-from-browser chrome`
+- **macOS Apple Silicon only** — mlx-whisper не работает на Intel Mac / Windows
 
 ## Типичные запросы
 
-- «Транскрибируй https://youtu.be/XXX» → wrapper с URL, язык `ru` по дефолту для русскоязычных каналов
-- «Сделай субтитры к видео» → формат `srt`
-- «Транскрибируй видео из инбокса» → ищи свежий медиафайл, запускай с `--language ru`
+- «Транскрибируй https://youtu.be/XXX» → wrapper с URL, язык `ru`
+- «Сделай субтитры к видео из ютуба» → формат `srt` (если есть ручные сабы — возьмём VTT, конвертируем в SRT; иначе Whisper с таймкодами)
+- «Транскрибируй видео из инбокса» → ищи свежий медиафайл в `inbox/`
 - «Переведи английское аудио на русский» → `--task translate --language en`
