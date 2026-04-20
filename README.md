@@ -57,7 +57,7 @@ Slash-команды (skills) для Claude Code — система автома
 | `/text-editing-ru` | Редактор текстов (RU/UA) |
 | `/translator-ru-en` | RU → EN переводчик |
 | `/humanize` | Убираем следы ИИ-генерации из текста |
-| `/transcribe` | Транскрибация аудио/видео локально через MLX Whisper (бесплатно, без API-ключей) |
+| `/transcribe` | Транскрибация файлов и YouTube/TikTok/Instagram-ссылок локально через MLX Whisper (бесплатно). Зависимости ставит: `bash ~/.claude/commands/install-transcribe.sh` |
 | `/skills` | Полный список всех доступных команд |
 
 ## Interface Design (подкоманды)
