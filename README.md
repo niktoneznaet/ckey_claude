@@ -50,6 +50,12 @@ Slash-команды (skills) для Claude Code — система автома
 | `/stats-analysis` | Анализ статистики курса / воронки |
 | `/ad-creative` | Рекламный креатив |
 
+## Дизайн / сайты
+
+| Команда | Описание |
+|---------|----------|
+| `/sites-vova` | Генератор шаблонов CK-лендингов: 3 HTML+Tailwind скелета (paid course / free course / event) с master-токенами CK. Бриф → готовый standalone .html в `outbox/` |
+
 ## Утилиты
 
 | Команда | Описание |

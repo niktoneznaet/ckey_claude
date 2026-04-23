@@ -1,0 +1,347 @@
+/* ============================================================
+   CK DESIGN TOKENS — master brand layer
+   Used by: all templates in sites-vova
+   Fixes: brand fragmentation across CK landings (FTT/Base Camp/
+   Plan B/FinHub were drifting into different visual identities).
+   ============================================================ */
+
+:root {
+  /* ---------- Base canvas ---------- */
+  --ck-bg:            #0A0A0A;
+  --ck-surface:       #141414;
+  --ck-surface-2:     #1D1D1D;
+  --ck-text-primary:  #FFFFFF;
+  --ck-text-muted:    #8B8B8B;
+  --ck-text-subtle:   #5A5A5A;
+  --ck-border:        rgba(255, 255, 255, 0.08);
+  --ck-border-strong: rgba(255, 255, 255, 0.18);
+
+  /* ---------- Accent (variable per product) ---------- */
+  --ck-accent:          #4A9EFF;   /* default = paid-course electric blue */
+  --ck-accent-2:        #FF8A3D;   /* FTT secondary orange */
+  --ck-accent-contrast: #000000;
+
+  /* Semantic status colors */
+  --ck-success: #4AFB4A;
+  --ck-warning: #FFB648;
+  --ck-danger:  #FF4A4A;
+
+  /* ---------- Typography ---------- */
+  --font-display: "Unbounded", "Druk Wide", "Russo One", system-ui, sans-serif;
+  --font-body:    "Manrope", "Inter", system-ui, sans-serif;
+
+  --fs-display-xl: clamp(72px, 10vw, 180px);
+  --fs-display-l:  clamp(56px, 7vw, 120px);
+  --fs-display-m:  clamp(40px, 5vw, 80px);
+  --fs-h1:         clamp(36px, 4vw, 64px);
+  --fs-h2:         clamp(28px, 3vw, 48px);
+  --fs-h3:         24px;
+  --fs-body:       16px;
+  --fs-body-l:     18px;
+  --fs-caption:    13px;
+  --fs-chip:       11px;
+
+  /* ---------- Radii ---------- */
+  --radius-pill:   9999px;
+  --radius-card:   20px;
+  --radius-input:  12px;
+  --radius-chip:   8px;
+
+  /* ---------- Spacing ---------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-32: 128px;
+
+  /* ---------- Shadows ---------- */
+  --shadow-card:  0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-glow:  0 0 40px color-mix(in srgb, var(--ck-accent) 35%, transparent);
+
+  /* ---------- Max widths ---------- */
+  --content-max: 1280px;
+  --hero-max:    1440px;
+  --narrow-max:  720px;
+}
+
+/* ============================================================
+   PRODUCT VARIANTS — set on <body data-variant="...">
+   ============================================================ */
+
+/* Free course: Base Camp vibe — neon green on black */
+[data-variant="free-course"] {
+  --ck-accent:          #4AFB4A;
+  --ck-accent-contrast: #0A0A0A;
+}
+
+/* Event: OKX Summit / NeKonfa vibe — light canvas + lime */
+[data-variant="event"] {
+  --ck-bg:            #DFDCF5;
+  --ck-surface:       #FFFFFF;
+  --ck-surface-2:     #F3F1FC;
+  --ck-text-primary:  #0A0A0A;
+  --ck-text-muted:    #4A4A4A;
+  --ck-text-subtle:   #6B6B6B;
+  --ck-border:        rgba(0, 0, 0, 0.08);
+  --ck-border-strong: rgba(0, 0, 0, 0.18);
+  --ck-accent:        #C8FF47;
+  --ck-accent-contrast:#0A0A0A;
+}
+
+/* Paid course (default) — already set in :root */
+[data-variant="paid-course"] {
+  --ck-accent:          #4A9EFF;
+  --ck-accent-contrast: #FFFFFF;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ck-bg);
+  color: var(--ck-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.ck-display-xl { font-size: var(--fs-display-xl); }
+.ck-display-l  { font-size: var(--fs-display-l); }
+.ck-display-m  { font-size: var(--fs-display-m); }
+.ck-h1 { font-size: var(--fs-h1); }
+.ck-h2 { font-size: var(--fs-h2); }
+.ck-h3 { font-size: var(--fs-h3); }
+
+.ck-container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.ck-narrow {
+  max-width: var(--narrow-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* ============================================================
+   SIGNATURE COMPONENTS
+   ============================================================ */
+
+/* CTA pill with arrow — CK's most recognizable element.
+   Always use for primary actions. */
+.ck-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 16px 28px;
+  background: var(--ck-accent);
+  color: var(--ck-accent-contrast);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.ck-cta:hover { transform: translateY(-1px); box-shadow: var(--shadow-glow); }
+.ck-cta::after {
+  content: "↗";
+  font-weight: 700;
+  transform: translate(0, -1px);
+}
+
+.ck-cta--ghost {
+  background: transparent;
+  color: var(--ck-text-primary);
+  border: 1px solid var(--ck-border-strong);
+}
+.ck-cta--ghost::after { opacity: 0.6; }
+
+/* Chip — for labels, categories, durations */
+.ck-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 6px 12px;
+  background: var(--ck-surface);
+  color: var(--ck-text-primary);
+  font-size: var(--fs-chip);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-chip);
+  border: 1px solid var(--ck-border);
+}
+.ck-chip--accent {
+  background: var(--ck-accent);
+  color: var(--ck-accent-contrast);
+  border-color: transparent;
+}
+
+/* Card — surface for content blocks */
+.ck-card {
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+}
+.ck-card--outline {
+  background: transparent;
+  border: 1px solid var(--ck-border-strong);
+}
+
+/* Mentor card — signature CK component */
+.ck-mentor {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-6);
+  background: var(--ck-surface);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--ck-border);
+}
+.ck-mentor__photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+  object-fit: cover;
+  background: var(--ck-surface-2);
+}
+.ck-mentor__name {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-2);
+}
+.ck-mentor__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+.ck-mentor__bio {
+  color: var(--ck-text-muted);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Timer (flip-board style) */
+.ck-timer {
+  display: inline-flex;
+  gap: var(--space-3);
+}
+.ck-timer__cell {
+  min-width: 64px;
+  text-align: center;
+  padding: 10px 14px;
+  background: var(--ck-surface);
+  border-radius: var(--radius-chip);
+  border: 1px solid var(--ck-border);
+}
+.ck-timer__num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+.ck-timer__label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ck-text-muted);
+  margin-top: 4px;
+}
+
+/* Stats row — avatars + numbers in hero */
+.ck-stats {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+.ck-stats__item { display: flex; flex-direction: column; gap: 2px; }
+.ck-stats__num {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ck-accent);
+}
+.ck-stats__label {
+  font-size: var(--fs-caption);
+  color: var(--ck-text-muted);
+}
+
+/* Section spacing */
+.ck-section {
+  padding: var(--space-20) 0;
+}
+.ck-section--tight { padding: var(--space-12) 0; }
+
+/* Eyebrow (small accent label above section heading) */
+.ck-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--fs-chip);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-accent);
+  margin-bottom: var(--space-3);
+}
+
+/* FAQ accordion */
+.ck-faq__item {
+  border-top: 1px solid var(--ck-border);
+  padding: var(--space-6) 0;
+}
+.ck-faq__item:last-child { border-bottom: 1px solid var(--ck-border); }
+.ck-faq__q {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.ck-faq__a {
+  margin-top: var(--space-3);
+  color: var(--ck-text-muted);
+}
+
+/* Input */
+.ck-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--ck-surface);
+  border: 1px solid var(--ck-border-strong);
+  border-radius: var(--radius-input);
+  color: var(--ck-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+}
+.ck-input::placeholder { color: var(--ck-text-muted); }
+.ck-input:focus { outline: 2px solid var(--ck-accent); outline-offset: 2px; }

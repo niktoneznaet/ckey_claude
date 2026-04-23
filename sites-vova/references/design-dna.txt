@@ -1,0 +1,128 @@
+# CK Design DNA
+
+Кодифицированная дизайн-система, выделенная из анализа 12 лендингов CK (FTT, Alpha Trader, Base Camp, NeKonfa, OKX Summit, Plan B, FinHub, Black Friday, PROP BASE x3, 9 STEPS OKX, Workshop EB).
+
+## 1. Двенадцать модулей
+
+Любой CK-лендинг — пересобранный набор из этих блоков. Порядок варьируется, но словарь тот же.
+
+| # | Модуль | Обязателен в | Пример |
+|---|---|---|---|
+| 1 | Sticky nav | везде | лого слева, меню центр, CTA-pill справа |
+| 2 | Hero | везде | большой display H1 + sub + CTA + stats-row |
+| 3 | Trust strip | paid/event | партнёры (OKX, TradingView, Forbes) в ряд |
+| 4 | Benefits grid | везде | 3-6 карточек "для кого / що отримаєш" |
+| 5 | Program | paid/free | таблица тарифов (paid) или список уроков (free) |
+| 6 | Format | paid/free | "як навчаємось" 4 иконки + текст |
+| 7 | Mentor cards | везде | фото + имя + chip стажа + направления |
+| 8 | Results | paid | скриншоты выплат $$$, кейсы |
+| 9 | Comparison | paid | "твій результат" checklist |
+| 10 | FAQ | везде | accordion 5-7 вопросов |
+| 11 | CTA form + timer | везде | форма + countdown |
+| 12 | Footer | везде | полный (paid) или lean (free) |
+
+**Event** переопределяет некоторые: вместо benefits — "навіщо дивитись" bento, вместо program — schedule-list с timestamps, вместо mentors — speakers с брендами.
+
+## 2. Палитра
+
+**Master (фиксирован на всех):**
+- BG: `#0A0A0A` (тёмные) / `#DFDCF5` (event лавандовый) / `#FFFFFF` (light)
+- Surface: `#141414`
+- Text primary: `#FFFFFF` (тёмная тема) / `#0A0A0A` (светлая)
+- Text muted: `#8B8B8B`
+- Border: `rgba(255,255,255,.08)`
+
+**Accent (один на продукт, не смешивать):**
+- `#4A9EFF` — электрик-блю (paid courses, FTT)
+- `#4AFB4A` — неон-грин (free courses, Base Camp)
+- `#C8FF47` — лайм (event, OKX Summit)
+- `#FF8A3D` — оранж (secondary, FTT highlights)
+- `#1D4FD8` — ярко-синий (Plan B)
+
+**Правило:** ОДИН accent-цвет на лендинг. Не четыре. Если хочется "ещё ярче" — играй яркостью, не новым цветом.
+
+## 3. Типографика
+
+**Display (заголовки):** Unbounded / Druk Wide / Russo One — condensed/stencil bold, веса 700-900, letter-spacing -0.02em, line-height 1.05. Размеры от 36px (H1 mobile) до 180px (display-xl в hero).
+
+**Body:** Manrope / Inter — нейтральный гротеск, 400-600, letter-spacing 0, line-height 1.5. Размеры 13px (caption) / 16px (body) / 18px (body-l).
+
+**UI / chips:** Manrope 600, 11-13px, letter-spacing 0.08-0.12em, ВСЕ CAPS.
+
+**Правило:** один display-шрифт + один body-шрифт. Никаких serif, никаких 3-го и 4-го семейств.
+
+## 4. Компоненты (ключевые signatures)
+
+### CTA-капсула со стрелкой ↗
+- Pill-shape (`border-radius: 9999px`)
+- Solid fill на accent-цвете
+- Стрелка `↗` после текста — **самый узнаваемый sign CK**
+- Hover: `translateY(-1px)` + accent-glow
+
+### Mentor card
+- Grid 120px photo + 1fr content
+- Имя 28px display bold
+- Chip "Досвід N років" + chip направления
+- Bio 1-2 строки muted
+- **Фиксированная структура — не переставлять**
+
+### Stats row
+- 3-4 блока в ряд
+- Каждый: огромная цифра (32-48px display) + caption (13px muted)
+- Используется в hero, не в других секциях
+
+### Timer (flip-board)
+- 3 ячейки: Дні / Год / Хв
+- Цифры display bold 28px
+- Ячейки squared с border
+- **Использовать ТОЛЬКО для реальных дедлайнов** (EB, закрытие набора, ивент)
+
+### Chip
+- Squared corners 6-8px (не pill!)
+- Uppercase, 11px, letter-spacing 0.08em
+- Варианты: `ck-chip` (surface), `ck-chip--accent` (цветной)
+
+## 5. Сетка и ритм
+
+- **Content max:** 1280px
+- **Narrow max:** 720px (для hero, forms, FAQ)
+- **Gutter:** 24px
+- **Section padding:** 64-80px сверху/снизу (80 = default, 64 = tight)
+- **Card padding:** 24px
+- **Card gap в grid:** 16px
+
+**Длина лендинга:**
+- Free course: ~8000px (8 секций)
+- Paid course: ~12000px (12 секций)
+- Event: ~9000px (8 секций)
+
+Если длиннее — ты **слишком длинный**. Срезай.
+
+## 6. Tone of voice (кратко, полное в 01-brand-voice.md)
+
+- "Батя, который сам через это прошёл"
+- Уровень формальности 2/10
+- Ты-обращение, украинский/русский микс
+- Без "уважаемые слушатели", без "дорогие друзья"
+- Конкретные цифры ($3000/міс, 4-5%, 90 днів)
+- Самоирония, метафоры из быта ("рельсы для поезда", "борщ")
+- Никаких обещаний "лёгких денег"
+- Честно про убытки, отсев, "у каждого по-своему"
+
+## 7. Что НИКОГДА не делаем
+
+- Не смешиваем 3+ accent-цветов
+- Не используем 2 display-шрифта
+- Не ставим timer "для красоты" (только реальный дедлайн)
+- Не оставляем плейсхолдер-силуэты "спікер #1" без фото
+- Не копируем цвета из другого продукта (FTT-блю в Base Camp-лендинге — нет)
+- Не делаем футер из "лого + 4 иконки" — минимум 3 колонки ссылок
+- Не ставим H1 длиннее 2 строк
+- Не делаем лендинг длиннее 12000px
+
+## 8. Эталоны
+
+- **FTT** — эталон paid-course. 18+ секций, электрик-блю+оранж, iso-3D rooms, program-таблица 4 тарифа, stats-row с $49K.
+- **Base Camp** — эталон free-course. Узкая колонка, неон-грин glow, timer, 5 уроков в списке, bonus-карточка с border-accent.
+- **OKX Summit** — эталон event. Лавандовый bg, jumbo display "ВПЕРВЫЕ ВМЕСТЕ", bento-grid с brutal icons, schedule-list с timestamps, 3-tier tickets.
+- **NeKonfa** — editorial event. Черный bento + лавандовый, jumbo "4 ГОДИНИ / 5 ДИСКУСІЙ".

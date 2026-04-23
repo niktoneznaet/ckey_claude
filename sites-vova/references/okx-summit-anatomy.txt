@@ -1,0 +1,85 @@
+# OKX Summit anatomy — эталон event
+
+OKX Summit — офлайн-ивент 19 мая 2026, Варшава. 1920×10926px. Разобрано по слайсам сессии 028. Также релевантен NeKonfa 2025 (более editorial вариация).
+
+## Секции по порядку
+
+1. **Nav** — лого CK × OKX, меню "Зачем / Программа / Спикеры / Билеты", CTA "Купить билет →".
+
+2. **Hero** — eyebrow "— ТРИ КОМЬЮНИТИ. ОДИН OKX SUMMIT". H1 огромный black display. Sub "Событие года в трейдинге, ради которого стоит закрыть терминал и поехать в Варшаву".
+    - 3 meta-cards в сетке: Дата 19 МАЯ/14:00 / Город ВАРШАВА, PL / Формат ОФЛАЙН.
+    - Chips в ряд: + CRYPTOLOGY KEY / + CRYPTOMANNN / + DOUBLETOP / + OKX PARTNERS / + SECRET GUEST / + LECTURES / + GIFTS / + AFTERPARTY.
+    - CTA "Купить билет" + "Первые 100 мест по цене $170".
+
+3. **"Впервые вместе" (organizers)** — 3 column cards:
+   - 01 CRYPTOLOGY KEY — Образовательная экосистема + закрытое комьюнити
+   - 02 CRYPTOMANNN — Комьюнити с глубокой аналитикой
+   - 03 DOUBLETOP — Сообщество практиков
+   - OKX партнер — отдельная широкая card снизу.
+
+4. **"Такого не было и не будет"** — jumbo display H2. 3 cards:
+   - 01 Три комьюнити вместе (впервые)
+   - 02 Secret guest — интрига
+   - 03 Выступления спикеров уровня, которого не было
+
+5. **"Наполнение"** — 6-cards grid: Лекції / Нетворкинг / Конкурсы та подарки / Сюрпризы / Аналитика / Afterparty. **Bento-style** с brutal icons (◐, ✕, +, D).
+
+6. **Program schedule** — horizontal list с timestamps:
+   - 14:00 Открытие саммита
+   - 15:00 Тема 1 (раскроется за 10 дней)
+   - 16:00 Тема 2
+   - 17:00 Тема 3
+   - Секретный гость
+   - All guests AMA
+   - Afterparty & Drinks
+   - **Placeholder** "Тема розкриється за 10 днів до старту" — гарный прием для интриги.
+
+7. **Speakers** — 3×2 grid, 6 cards. КАЖДАЯ с:
+   - "// Cryptology Key" / "// Cryptomannn" / "// Doubletop" — brand-tag
+   - Placeholder-фото (серый silhouette) [⚠️ в реальности — заменить на фото]
+   - "СПИКЕР #1" + "Информацию о спикере и тему выступления объявим ближе к дате"
+
+8. **Ticket tiers (3 waves)**:
+   - WAVE 1 — $170 — "Всего 100 мест". 4 buллета.
+   - WAVE 2 — $200 — "Всего 400 мест". 4 bullets.
+   - VIP — $350 — "$0 для VIP-юзеров OKX". Отдельная VIP-зона, меню.
+
+9. **Skidka OKX** — secondary card: "Получи скидку $50 — зарегистрируйся на сайте OKX".
+
+10. **FAQ "Еще инфа"** — 6 вопросов accordion.
+
+11. **CTA + form** — блок с формой регистрации.
+
+12. **Footer** — лого + партнеры + копирайт.
+
+## Цвета
+
+- BG: `#DFDCF5` (лавандовый!) — единственный CK-лендинг на светлом canvas
+- Text primary: `#0A0A0A`
+- Text muted: `#4A4A4A`
+- Accent: `#C8FF47` (лайм — чипы eyebrow и highlights)
+- Chip black `#0A0A0A`/white text — для времени, категорий
+
+**Важно:** event использует chip-ы как основной визуальный якорь. Программа — это 15+ chip-ов в schedule list.
+
+## Типографика
+
+- Display: Unbounded Black 900 — очень жирный (в paid/free используется 700-800)
+- Huge H1: clamp(56px, 8vw, 130px) — editorial mass
+- Body: Manrope 400-500
+- Chips: Manrope 700 uppercase, tighter letter-spacing
+
+## Что забрать в шаблон
+
+- **Лавандовый bg как signature event-mode**
+- Meta-cards row в hero (Date / City / Format) — 3 cards instead of stats
+- Bento-grid с brutal display icons
+- Schedule-list с timestamps и category-chips
+- 3-tier tickets с "Рекомендуем" badge
+- Brand-tag "// Название" над именем спикера
+
+## Что пересмотреть (слабые места оригинала)
+
+- Серые силуэты "СПИКЕР #1" — убивают trust. Либо фото, либо креатив (пиксель-арт, "раскроем в N дней" с countdown).
+- "Тема розкриється" в program — ок для интриги, но если таких 4 из 7 — выглядит как недоделанный анонс.
+- CTA-форма прячется в footer-section, лучше вывести в отдельную jumbo-секцию на тёмном canvas.

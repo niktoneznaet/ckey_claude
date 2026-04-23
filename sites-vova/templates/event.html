@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CK LANDING TEMPLATE: EVENT
+  Reference: OKX Summit, NeKonfa 2025
+  Sections: 8
+  Target length: ~9000px
+  Vibe: light canvas (лавандовий/сіро-білий), огромная editorial
+        типографика, жирні black chips, bento-grid cards, lime accent
+  ============================================================
+  Placeholders:
+    {{ event_name }}, {{ h1 }}, {{ event_date_human }}, {{ event_date_iso }}
+    {{ event_city }}, {{ event_format }} — онлайн/офлайн/гібрид
+    {{ ticket_price_wave1/2/vip }}
+    {{ speaker_N_name }}, {{ speaker_N_brand }} — з яких команд
+-->
+<html lang="uk" data-variant="event">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ event_name }} — {{ event_date_human }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --ck-bg:#DFDCF5;--ck-surface:#FFFFFF;--ck-surface-2:#F3F1FC;
+  --ck-text-primary:#0A0A0A;--ck-text-muted:#4A4A4A;--ck-text-subtle:#6B6B6B;
+  --ck-border:rgba(0,0,0,.08);--ck-border-strong:rgba(0,0,0,.18);
+  --ck-accent:#C8FF47;--ck-accent-contrast:#0A0A0A;
+  --ck-dark:#0A0A0A;
+  --font-display:"Unbounded","Druk Wide",system-ui,sans-serif;
+  --font-body:"Manrope","Inter",system-ui,sans-serif;
+  --radius-pill:9999px;--radius-card:16px;--radius-input:12px;--radius-chip:6px;
+  --content-max:1280px;--narrow-max:720px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ck-bg);color:var(--ck-text-primary);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.95;margin:0}
+.ck-container{max-width:var(--content-max);margin:0 auto;padding:0 24px}
+.ck-section{padding:64px 0}
+.ck-display-xl{font-size:clamp(80px,11vw,200px)}
+.ck-display-l{font-size:clamp(56px,8vw,130px)}
+.ck-display-m{font-size:clamp(40px,5vw,80px)}
+.ck-h1{font-size:clamp(32px,4vw,56px)}
+.ck-eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ck-text-primary);margin-bottom:12px}
+.ck-eyebrow::before{content:"— ";color:var(--ck-accent-contrast);background:var(--ck-accent);padding:2px 6px;border-radius:4px;margin-right:8px}
+.ck-cta{display:inline-flex;align-items:center;gap:8px;padding:16px 28px;background:var(--ck-dark);color:#fff;font-weight:700;font-size:16px;text-decoration:none;border:none;border-radius:var(--radius-pill);cursor:pointer;transition:transform .15s}
+.ck-cta:hover{transform:translateY(-1px)}
+.ck-cta::after{content:"↗";font-weight:700}
+.ck-cta--accent{background:var(--ck-accent);color:var(--ck-accent-contrast)}
+.ck-cta--ghost{background:transparent;color:var(--ck-text-primary);border:2px solid var(--ck-dark)}
+.ck-chip{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;background:var(--ck-dark);color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:var(--radius-chip)}
+.ck-chip--light{background:var(--ck-surface);color:var(--ck-text-primary)}
+.ck-chip--accent{background:var(--ck-accent);color:var(--ck-accent-contrast)}
+.ck-card{background:var(--ck-surface);border:1px solid var(--ck-border);border-radius:var(--radius-card);padding:24px}
+.ck-card--dark{background:var(--ck-dark);color:#fff;border:none}
+.ck-brutal-icon{width:48px;height:48px;display:grid;place-items:center;font-family:var(--font-display);font-weight:900;font-size:32px;background:var(--ck-dark);color:#fff;border-radius:8px;margin-bottom:24px}
+.ck-schedule__item{display:grid;grid-template-columns:80px 120px 1fr;gap:16px;padding:16px;background:var(--ck-surface);border-radius:var(--radius-card);margin-bottom:8px;align-items:center}
+.ck-schedule__time{font-family:var(--font-display);font-size:16px;font-weight:700}
+@media(max-width:768px){
+  .ck-section{padding:40px 0}
+  .md-grid-2,.md-grid-3{grid-template-columns:1fr!important}
+  .ck-schedule__item{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. NAV ============ -->
+<header style="position:sticky;top:0;z-index:50;background:rgba(223,220,245,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ck-border);">
+  <div class="ck-container" style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;">
+    <a href="#" style="display:inline-flex;align-items:center;gap:10px;color:var(--ck-text-primary);text-decoration:none;">
+      <span style="width:32px;height:32px;background:var(--ck-dark);color:#fff;border-radius:8px;display:grid;place-items:center;font-family:var(--font-display);font-weight:900;">C</span>
+      <span style="font-family:var(--font-display);font-weight:900;letter-spacing:-.02em;">{{ event_name_short }}</span>
+    </a>
+    <nav style="display:flex;gap:28px;font-size:14px;font-weight:600;">
+      <a href="#why" style="color:var(--ck-text-primary);text-decoration:none;">Навіщо</a>
+      <a href="#program" style="color:var(--ck-text-primary);text-decoration:none;">Програма</a>
+      <a href="#speakers" style="color:var(--ck-text-primary);text-decoration:none;">Спікери</a>
+      <a href="#tickets" style="color:var(--ck-text-primary);text-decoration:none;">Квитки</a>
+    </nav>
+    <a href="#tickets" class="ck-cta" style="padding:12px 22px;font-size:14px;">Купити квиток</a>
+  </div>
+</header>
+
+<!-- ============ 2. HERO ============ -->
+<section class="ck-section" id="hero" style="padding-top:64px;padding-bottom:96px;">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Подія року в трейдингу</span>
+    <h1 class="ck-display-l" style="margin-bottom:32px;max-width:1100px;">{{ h1 }}</h1>
+    <p style="color:var(--ck-text-muted);font-size:20px;max-width:720px;margin-bottom:40px;">{{ h1_subtitle }}</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));gap:16px;max-width:720px;margin-bottom:40px;">
+      <div class="ck-card">
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ck-text-muted);margin-bottom:8px;">Дата</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:900;">{{ event_date_human }}</div>
+      </div>
+      <div class="ck-card">
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ck-text-muted);margin-bottom:8px;">Місто</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:900;">{{ event_city }}</div>
+      </div>
+      <div class="ck-card">
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ck-text-muted);margin-bottom:8px;">Формат</div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:900;">{{ event_format }}</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="#tickets" class="ck-cta ck-cta--accent">Купити квиток</a>
+      <a href="#program" class="ck-cta ck-cta--ghost">Подивитись програму</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. WHY WATCH (bento grid, brutal icons) ============ -->
+<section class="ck-section" id="why">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Навіщо дивитись</span>
+    <h2 class="ck-display-m" style="margin-bottom:48px;max-width:800px;">Найцікавіша трейдинг-подія року</h2>
+    <div class="md-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="ck-card">
+        <div class="ck-brutal-icon">◐</div>
+        <h3 style="font-size:40px;margin-bottom:12px;">4<br>години</h3>
+        <p style="color:var(--ck-text-muted);">3000+ учасників та атмосфера комʼюніті</p>
+      </div>
+      <div class="ck-card">
+        <div class="ck-brutal-icon">✕</div>
+        <h3 style="font-size:40px;margin-bottom:12px;">5<br>дискусій</h3>
+        <p style="color:var(--ck-text-muted);">Відверті розмови про трейдинг у 2026</p>
+      </div>
+      <div class="ck-card">
+        <div class="ck-brutal-icon">+</div>
+        <h3 style="font-size:40px;margin-bottom:12px;">12<br>розіграшів</h3>
+        <p style="color:var(--ck-text-muted);">11 призів + грант від Cryptology Key</p>
+      </div>
+      <div class="ck-card" style="grid-column:span 2;">
+        <div class="ck-brutal-icon">D</div>
+        <h3 style="font-size:40px;margin-bottom:12px;">17 профі трейдерів</h3>
+        <p style="color:var(--ck-text-muted);">Почуєш історії, аналітику та новини ринку. А ще зрозумієш, хто і як заробляє у трейдингу великі гроші.</p>
+      </div>
+      <div class="ck-card ck-card--dark">
+        <div class="ck-brutal-icon" style="background:var(--ck-accent);color:var(--ck-accent-contrast);">!</div>
+        <h3 style="font-size:32px;margin-bottom:12px;">Новий продукт</h3>
+        <p style="color:#ccc;">Презентація нового формату навчання</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. PROGRAM SCHEDULE ============ -->
+<section class="ck-section" id="program">
+  <div class="ck-container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:48px;">
+      <div>
+        <span class="ck-eyebrow">Програма</span>
+        <h2 class="ck-display-m">{{ event_date_human }}</h2>
+      </div>
+      <a href="#tickets" class="ck-cta">Взяти квиток</a>
+    </div>
+
+    <div>
+      <div class="ck-schedule__item">
+        <span class="ck-chip">15:00</span>
+        <span class="ck-chip ck-chip--light">Старт</span>
+        <div>
+          <div style="font-weight:700;">Відкриття події</div>
+          <div style="font-size:13px;color:var(--ck-text-muted);margin-top:4px;">Спікери: GZK + команди</div>
+        </div>
+      </div>
+      <div class="ck-schedule__item">
+        <span class="ck-chip">15:10</span>
+        <span class="ck-chip ck-chip--light">Дискусія</span>
+        <div>
+          <div style="font-weight:700;">Мислі як трейдер. Що зараз працює, що ні та куди рухатись далі</div>
+          <div style="font-size:13px;color:var(--ck-text-muted);margin-top:4px;">GZK, Solva, Garry</div>
+        </div>
+      </div>
+      <div class="ck-schedule__item">
+        <span class="ck-chip">16:00</span>
+        <span class="ck-chip ck-chip--light">Дискусія</span>
+        <div>
+          <div style="font-weight:700;">Трейдинг у 2026. Міфи, пропи та нова логіка ринку</div>
+          <div style="font-size:13px;color:var(--ck-text-muted);margin-top:4px;">GM Traders</div>
+        </div>
+      </div>
+      <div class="ck-schedule__item">
+        <span class="ck-chip">16:55</span>
+        <span class="ck-chip ck-chip--light">Розіграш</span>
+        <div>
+          <div style="font-weight:700;">Магазин на дивані. Розіграш 10 подарунків</div>
+          <div style="font-size:13px;color:var(--ck-text-muted);margin-top:4px;">D-Trader</div>
+        </div>
+      </div>
+      <div class="ck-schedule__item">
+        <span class="ck-chip">17:20</span>
+        <span class="ck-chip ck-chip--light">Дискусія</span>
+        <div>
+          <div style="font-weight:700;">Крипта, Трамп і кава. Несерйозний розбір серйозних новин</div>
+          <div style="font-size:13px;color:var(--ck-text-muted);margin-top:4px;">GZK, Solva, Garry, Алан</div>
+        </div>
+      </div>
+      <div class="ck-schedule__item">
+        <span class="ck-chip">18:00</span>
+        <span class="ck-chip ck-chip--accent">Анонс</span>
+        <div>
+          <div style="font-weight:700;">Презентація нового навчального продукту. Знижки та бонуси</div>
+          <div style="font-size:13px;color:var(--ck-text-muted);margin-top:4px;">GZK, Solva, Garry, Алан</div>
+        </div>
+      </div>
+      <!-- TODO: адаптувати програму під реальний таймлайн події -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. SPEAKERS ============ -->
+<section class="ck-section" id="speakers">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Спікери</span>
+    <h2 class="ck-display-m" style="margin-bottom:48px;">Ті, хто змінює індустрію</h2>
+    <div class="md-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+      <div class="ck-card">
+        <div style="aspect-ratio:1;background:var(--ck-surface-2);border-radius:12px;margin-bottom:16px;"><!-- TODO: photo {{ speaker_1_name }} --></div>
+        <span style="font-size:13px;color:var(--ck-text-subtle);font-weight:600;">// {{ speaker_1_brand }}</span>
+        <h3 style="font-size:28px;margin:8px 0;">{{ speaker_1_name }}</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">{{ speaker_1_bio }}</p>
+      </div>
+      <div class="ck-card">
+        <div style="aspect-ratio:1;background:var(--ck-surface-2);border-radius:12px;margin-bottom:16px;"></div>
+        <span style="font-size:13px;color:var(--ck-text-subtle);font-weight:600;">// {{ speaker_2_brand }}</span>
+        <h3 style="font-size:28px;margin:8px 0;">{{ speaker_2_name }}</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">{{ speaker_2_bio }}</p>
+      </div>
+      <div class="ck-card">
+        <div style="aspect-ratio:1;background:var(--ck-surface-2);border-radius:12px;margin-bottom:16px;"></div>
+        <span style="font-size:13px;color:var(--ck-text-subtle);font-weight:600;">// {{ speaker_3_brand }}</span>
+        <h3 style="font-size:28px;margin:8px 0;">{{ speaker_3_name }}</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">{{ speaker_3_bio }}</p>
+      </div>
+      <!-- TODO: додати 3-6 ще спікерів -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. TICKET TIERS (3 waves) ============ -->
+<section class="ck-section" id="tickets" style="background:var(--ck-surface);">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Квитки</span>
+    <h2 class="ck-display-m" style="margin-bottom:48px;">Ти не можеш пропустити</h2>
+    <div class="md-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+      <div class="ck-card" style="border:1px solid var(--ck-border);">
+        <div style="font-family:var(--font-display);font-weight:900;font-size:14px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">🐣 WAVE 1</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:8px;">
+          <span style="font-family:var(--font-display);font-size:20px;">$</span>
+          <span style="font-family:var(--font-display);font-size:56px;font-weight:900;">{{ ticket_price_wave1 }}</span>
+        </div>
+        <div style="color:var(--ck-text-muted);margin-bottom:24px;font-size:13px;letter-spacing:.05em;text-transform:uppercase;">Всього 100 місць</div>
+        <ul style="list-style:none;padding:0;margin:0 0 24px;display:grid;gap:8px;color:var(--ck-text-muted);">
+          <li>→ Повний доступ до івенту</li>
+          <li>→ Всі спікери й таємний гість</li>
+          <li>→ Афтерпаті до ночі</li>
+        </ul>
+        <a href="#form" class="ck-cta" style="width:100%;justify-content:center;">Купити</a>
+      </div>
+
+      <div class="ck-card" style="border:2px solid var(--ck-accent);position:relative;">
+        <span class="ck-chip ck-chip--accent" style="position:absolute;top:-12px;right:16px;">Рекомендуємо</span>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:14px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">🎯 WAVE 2</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:8px;">
+          <span style="font-family:var(--font-display);font-size:20px;">$</span>
+          <span style="font-family:var(--font-display);font-size:56px;font-weight:900;">{{ ticket_price_wave2 }}</span>
+        </div>
+        <div style="color:var(--ck-text-muted);margin-bottom:24px;font-size:13px;letter-spacing:.05em;text-transform:uppercase;">Всього 400 місць</div>
+        <ul style="list-style:none;padding:0;margin:0 0 24px;display:grid;gap:8px;color:var(--ck-text-muted);">
+          <li>→ Повний доступ до івенту</li>
+          <li>→ Всі спікери й таємний гість</li>
+          <li>→ Афтерпаті до ночі</li>
+          <li>→ Нетворкінг-зона</li>
+        </ul>
+        <a href="#form" class="ck-cta ck-cta--accent" style="width:100%;justify-content:center;">Купити</a>
+      </div>
+
+      <div class="ck-card" style="border:1px solid var(--ck-border);">
+        <div style="font-family:var(--font-display);font-weight:900;font-size:14px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;">👑 VIP</div>
+        <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:8px;">
+          <span style="font-family:var(--font-display);font-size:20px;">$</span>
+          <span style="font-family:var(--font-display);font-size:56px;font-weight:900;">{{ ticket_price_vip }}</span>
+        </div>
+        <div style="color:var(--ck-text-muted);margin-bottom:24px;font-size:13px;letter-spacing:.05em;text-transform:uppercase;">$0 для VIP-юзерів OKX</div>
+        <ul style="list-style:none;padding:0;margin:0 0 24px;display:grid;gap:8px;color:var(--ck-text-muted);">
+          <li>→ Окрема VIP-зона</li>
+          <li>→ Ексклюзивне меню</li>
+          <li>→ Особиста зустріч зі спікерами</li>
+        </ul>
+        <a href="#form" class="ck-cta" style="width:100%;justify-content:center;">Купити</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. CTA FORM ============ -->
+<section class="ck-section" id="form" style="background:var(--ck-dark);color:#fff;">
+  <div class="ck-container" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;" class="md-grid-2">
+    <div>
+      <span class="ck-eyebrow" style="color:#fff;">Реєстрація</span>
+      <h2 class="ck-display-m" style="color:#fff;margin-bottom:16px;">Реєструйся на {{ event_name_short }}</h2>
+      <p style="color:#ccc;font-size:18px;">Щоб прокачатися у трейдингу та зрозуміти, куди рухається ринок.</p>
+    </div>
+    <form style="display:grid;gap:12px;" onsubmit="event.preventDefault();alert('Stub');">
+      <input type="text" placeholder="Імʼя" required style="padding:14px 16px;background:#1D1D1D;border:1px solid rgba(255,255,255,.18);border-radius:12px;color:#fff;font-family:var(--font-body);font-size:16px;">
+      <input type="email" placeholder="Email" required style="padding:14px 16px;background:#1D1D1D;border:1px solid rgba(255,255,255,.18);border-radius:12px;color:#fff;font-family:var(--font-body);font-size:16px;">
+      <input type="tel" placeholder="+380 XX XXX XX XX" required style="padding:14px 16px;background:#1D1D1D;border:1px solid rgba(255,255,255,.18);border-radius:12px;color:#fff;font-family:var(--font-body);font-size:16px;">
+      <label style="display:flex;gap:8px;font-size:13px;color:#ccc;">
+        <input type="checkbox" checked required>
+        Погоджуюсь з Правилами обробки персональних даних
+      </label>
+      <button type="submit" class="ck-cta ck-cta--accent" style="justify-content:center;">Взяти квиток</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ 8. FOOTER ============ -->
+<footer style="padding:48px 0;background:var(--ck-dark);color:#fff;border-top:1px solid rgba(255,255,255,.08);">
+  <div class="ck-container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+    <div>
+      <div style="font-family:var(--font-display);font-size:20px;font-weight:900;margin-bottom:8px;">
+        {{ event_name_short }} 2026
+      </div>
+      <div style="font-size:13px;color:#999;">За підтримки партнера — {{ partner_name }}</div>
+    </div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:#999;">
+      <a href="#" style="color:inherit;">Телеграм ↗</a>
+      <a href="#" style="color:inherit;">Instagram ↗</a>
+      <a href="#" style="color:inherit;">YouTube ↗</a>
+      <a href="#" style="color:inherit;">Публічна оферта</a>
+      <a href="#" style="color:inherit;">Політика конфіденційності</a>
+    </div>
+  </div>
+  <div class="ck-container" style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);font-size:13px;color:#999;">
+    © {{ event_name_short }} 2026 · Усі права захищені
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CK LANDING TEMPLATE: FREE COURSE (lead-magnet)
+  Reference: Base Camp, FinHub, 9 STEPS OKX
+  Sections: 8
+  Target length: ~8000px
+  Vibe: neon green on black, narrow column, countdown timer,
+        high urgency / "стартуй сьогодні"
+  ============================================================
+  Placeholders:
+    {{ product_name }}, {{ h1 }}, {{ h1_subtitle }}
+    {{ lessons_count }}   — "5", "9"
+    {{ bonus }}           — "пак інструментів для старту"
+    {{ mentor_1..3_* }}
+    {{ start_date_iso }}  — для countdown
+-->
+<html lang="uk" data-variant="free-course">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ product_name }} — безкоштовний курс | Cryptology Key</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --ck-bg:#0A0A0A;--ck-surface:#141414;--ck-surface-2:#1D1D1D;
+  --ck-text-primary:#FFFFFF;--ck-text-muted:#8B8B8B;
+  --ck-border:rgba(255,255,255,.08);--ck-border-strong:rgba(255,255,255,.18);
+  --ck-accent:#4AFB4A;--ck-accent-contrast:#0A0A0A;
+  --font-display:"Unbounded","Druk Wide",system-ui,sans-serif;
+  --font-body:"Manrope","Inter",system-ui,sans-serif;
+  --radius-pill:9999px;--radius-card:20px;--radius-input:12px;--radius-chip:8px;
+  --content-max:1280px;--narrow-max:640px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ck-bg);color:var(--ck-text-primary);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0}
+.ck-container{max-width:var(--content-max);margin:0 auto;padding:0 24px}
+.ck-narrow{max-width:var(--narrow-max);margin:0 auto;padding:0 24px}
+.ck-section{padding:64px 0}
+.ck-display-l{font-size:clamp(44px,6vw,80px)}
+.ck-display-m{font-size:clamp(32px,4vw,56px)}
+.ck-h1{font-size:clamp(32px,4vw,48px)}
+.ck-eyebrow{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ck-accent);margin-bottom:12px}
+.ck-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 28px;background:var(--ck-accent);color:var(--ck-accent-contrast);font-weight:700;font-size:16px;text-decoration:none;border:none;border-radius:var(--radius-pill);cursor:pointer;transition:transform .15s,box-shadow .15s}
+.ck-cta:hover{transform:translateY(-1px);box-shadow:0 0 40px color-mix(in srgb,var(--ck-accent) 35%,transparent)}
+.ck-cta::after{content:"↗";font-weight:700}
+.ck-chip{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;background:var(--ck-surface);color:var(--ck-text-primary);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:var(--radius-chip);border:1px solid var(--ck-border)}
+.ck-chip--accent{background:var(--ck-accent);color:var(--ck-accent-contrast);border-color:transparent}
+.ck-card{background:var(--ck-surface);border:1px solid var(--ck-border);border-radius:var(--radius-card);padding:24px}
+.ck-timer{display:inline-flex;gap:12px}
+.ck-timer__cell{min-width:64px;text-align:center;padding:10px 14px;background:var(--ck-surface);border-radius:var(--radius-chip);border:1px solid var(--ck-border)}
+.ck-timer__num{font-family:var(--font-display);font-size:28px;font-weight:700;line-height:1}
+.ck-timer__label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ck-text-muted);margin-top:4px}
+.ck-faq__item{border-top:1px solid var(--ck-border);padding:24px 0}
+.ck-faq__item:last-child{border-bottom:1px solid var(--ck-border)}
+.ck-faq__q{font-family:var(--font-display);font-size:20px;font-weight:600;display:flex;justify-content:space-between;cursor:pointer;list-style:none}
+.ck-faq__q::-webkit-details-marker{display:none}
+.ck-faq__a{margin-top:12px;color:var(--ck-text-muted)}
+.ck-input{width:100%;padding:14px 16px;background:var(--ck-surface);border:1px solid var(--ck-border-strong);border-radius:var(--radius-input);color:var(--ck-text-primary);font-family:var(--font-body);font-size:16px}
+.ck-input::placeholder{color:var(--ck-text-muted)}
+.ck-input:focus{outline:2px solid var(--ck-accent);outline-offset:2px}
+.glow-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--ck-accent) 25%, transparent), transparent 55%);pointer-events:none}
+@media(max-width:768px){.ck-section{padding:40px 0}.md-grid-2,.md-grid-3{grid-template-columns:1fr!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. NAV ============ -->
+<header style="position:sticky;top:0;z-index:50;background:rgba(10,10,10,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ck-border);">
+  <div class="ck-container" style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;">
+    <a href="#" style="display:inline-flex;align-items:center;gap:10px;color:var(--ck-text-primary);text-decoration:none;">
+      <span style="width:32px;height:32px;background:var(--ck-accent);border-radius:8px;display:grid;place-items:center;color:var(--ck-accent-contrast);font-family:var(--font-display);font-weight:900;">C</span>
+      <span style="font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;">CRYPTOLOGY<span style="color:var(--ck-accent);">.KEY</span></span>
+    </a>
+    <a href="#cta" class="ck-cta" style="padding:12px 22px;font-size:14px;">Почати безкоштовно</a>
+  </div>
+</header>
+
+<!-- ============ 2. HERO + timer (Base Camp style — narrow, glow) ============ -->
+<section class="ck-section" style="padding-top:64px;padding-bottom:80px;position:relative;overflow:hidden;">
+  <div class="glow-bg"></div>
+  <div class="ck-narrow" style="text-align:center;position:relative;">
+    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px;">
+      <span class="ck-chip ck-chip--accent">Старт сьогодні</span>
+      <span class="ck-chip">{{ lessons_count }} уроків</span>
+      <span class="ck-chip">Криптоінтенсив</span>
+    </div>
+    <h1 class="ck-display-m" style="margin-bottom:24px;">{{ h1 }}</h1>
+    <p style="color:var(--ck-text-muted);font-size:18px;margin-bottom:32px;">{{ h1_subtitle }}</p>
+
+    <div style="display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:24px;">
+      <span style="font-size:13px;color:var(--ck-text-muted);">Ціна сьогодні:</span>
+      <span style="text-decoration:line-through;color:var(--ck-text-muted);">1 499 грн</span>
+      <span style="font-family:var(--font-display);font-size:32px;color:var(--ck-accent);font-weight:800;">0 грн</span>
+    </div>
+
+    <a href="#cta" class="ck-cta" style="margin-bottom:32px;">Отримати доступ до уроків</a>
+
+    <div>
+      <div style="font-size:13px;color:var(--ck-text-muted);margin-bottom:8px;letter-spacing:.1em;text-transform:uppercase;">Бонус зникне через:</div>
+      <div class="ck-timer">
+        <div class="ck-timer__cell"><div class="ck-timer__num" id="d">00</div><div class="ck-timer__label">Дні</div></div>
+        <div class="ck-timer__cell"><div class="ck-timer__num" id="h">00</div><div class="ck-timer__label">Год</div></div>
+        <div class="ck-timer__cell"><div class="ck-timer__num" id="m">00</div><div class="ck-timer__label">Хв</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. BENEFITS (Для кого цей курс) ============ -->
+<section class="ck-section">
+  <div class="ck-narrow">
+    <h2 class="ck-h1" style="margin-bottom:32px;">Навчайся в успішних трейдерів, якщо хочеш:</h2>
+    <div style="display:grid;gap:12px;">
+      <div class="ck-card" style="display:flex;gap:16px;align-items:flex-start;">
+        <span style="width:36px;height:36px;background:var(--ck-accent);color:var(--ck-accent-contrast);border-radius:10px;display:grid;place-items:center;font-weight:700;flex-shrink:0;">01</span>
+        <div><strong>Зрозуміти, як стартувати в трейдингу</strong>, щоб мати прибуткове хобі чи нову повноцінну професію.</div>
+      </div>
+      <div class="ck-card" style="display:flex;gap:16px;align-items:flex-start;">
+        <span style="width:36px;height:36px;background:var(--ck-accent);color:var(--ck-accent-contrast);border-radius:10px;display:grid;place-items:center;font-weight:700;flex-shrink:0;">02</span>
+        <div><strong>Дізнатись, як вийти на стабільні $1000 на місяць</strong>, заробляючи як на зростанні активу, так і на його падінні.</div>
+      </div>
+      <div class="ck-card" style="display:flex;gap:16px;align-items:flex-start;">
+        <span style="width:36px;height:36px;background:var(--ck-accent);color:var(--ck-accent-contrast);border-radius:10px;display:grid;place-items:center;font-weight:700;flex-shrink:0;">03</span>
+        <div><strong>Мати надійну систему</strong>, яка щомісяця примножує капітал на 4-5% без стресу, зливів, вигорання.</div>
+      </div>
+      <div class="ck-card" style="display:flex;gap:16px;align-items:flex-start;">
+        <span style="width:36px;height:36px;background:var(--ck-accent);color:var(--ck-accent-contrast);border-radius:10px;display:grid;place-items:center;font-weight:700;flex-shrink:0;">04</span>
+        <div><strong>Мати більше свободи</strong>, вільний графік і працювати онлайн з будь-якої точки світу, хоч з Балі.</div>
+      </div>
+      <!-- TODO: адаптувати болі під аудиторію продукту -->
+    </div>
+    <p style="margin-top:24px;color:var(--ck-text-muted);font-size:14px;">Випускники Cryptology Key мають дохід від $3000/міс та отримують в управління до $200,000 від проп-компаній.</p>
+  </div>
+</section>
+
+<!-- ============ 4. PROGRAM ({{ lessons_count }} уроків) ============ -->
+<section class="ck-section" style="background:var(--ck-surface);">
+  <div class="ck-narrow">
+    <span class="ck-eyebrow">Програма</span>
+    <h2 class="ck-h1" style="margin-bottom:32px;">Що всередині</h2>
+    <div style="display:grid;gap:12px;">
+      <div class="ck-card">
+        <div style="display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="ck-chip">Урок 1</span>
+          <span class="ck-chip">13 хв</span>
+          <span class="ck-chip">+ методичка</span>
+        </div>
+        <h3 style="font-size:18px;">{{ lesson_1_title }}</h3>
+      </div>
+      <div class="ck-card">
+        <div style="display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="ck-chip">Урок 2</span>
+          <span class="ck-chip">14 хв</span>
+          <span class="ck-chip">+ методичка</span>
+        </div>
+        <h3 style="font-size:18px;">{{ lesson_2_title }}</h3>
+      </div>
+      <div class="ck-card">
+        <div style="display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="ck-chip">Урок 3</span>
+          <span class="ck-chip">15 хв</span>
+          <span class="ck-chip">+ роадмап</span>
+        </div>
+        <h3 style="font-size:18px;">{{ lesson_3_title }}</h3>
+      </div>
+      <div class="ck-card">
+        <div style="display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="ck-chip">Урок 4</span>
+          <span class="ck-chip">11 хв</span>
+          <span class="ck-chip">+ методичка</span>
+        </div>
+        <h3 style="font-size:18px;">{{ lesson_4_title }}</h3>
+      </div>
+      <div class="ck-card">
+        <div style="display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="ck-chip">Урок 5</span>
+          <span class="ck-chip">8 хв</span>
+          <span class="ck-chip">+ методичка</span>
+        </div>
+        <h3 style="font-size:18px;">{{ lesson_5_title }}</h3>
+      </div>
+      <!-- TODO: додати уроки 6-9 якщо курс довший -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. BONUS ============ -->
+<section class="ck-section">
+  <div class="ck-narrow">
+    <div class="ck-card" style="padding:32px;text-align:center;border:2px solid var(--ck-accent);">
+      <span class="ck-chip ck-chip--accent" style="margin-bottom:16px;">Бонус</span>
+      <h2 class="ck-h1" style="margin-bottom:16px;">{{ bonus }}</h2>
+      <p style="color:var(--ck-text-muted);margin-bottom:24px;">Отримаєш одразу після реєстрації. Всього 300 безкоштовних місць.</p>
+      <a href="#cta" class="ck-cta">Забрати бонус</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. MENTORS ============ -->
+<section class="ck-section" style="background:var(--ck-surface);">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Ментори</span>
+    <h2 class="ck-h1" style="margin-bottom:48px;max-width:600px;">Автори мінікурсу</h2>
+    <div class="md-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="ck-card">
+        <div style="aspect-ratio:1;background:var(--ck-surface-2);border-radius:16px;margin-bottom:16px;"><!-- TODO: фото {{ mentor_1_name }} --></div>
+        <h3 style="font-size:22px;margin-bottom:8px;">{{ mentor_1_name }}</h3>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+          <span class="ck-chip">Досвід {{ mentor_1_years }} років</span>
+        </div>
+        <p style="color:var(--ck-text-muted);font-size:14px;">{{ mentor_1_bio }}</p>
+      </div>
+      <div class="ck-card">
+        <div style="aspect-ratio:1;background:var(--ck-surface-2);border-radius:16px;margin-bottom:16px;"></div>
+        <h3 style="font-size:22px;margin-bottom:8px;">{{ mentor_2_name }}</h3>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+          <span class="ck-chip">Досвід {{ mentor_2_years }} років</span>
+        </div>
+        <p style="color:var(--ck-text-muted);font-size:14px;">{{ mentor_2_bio }}</p>
+      </div>
+      <div class="ck-card">
+        <div style="aspect-ratio:1;background:var(--ck-surface-2);border-radius:16px;margin-bottom:16px;"></div>
+        <h3 style="font-size:22px;margin-bottom:8px;">{{ mentor_3_name }}</h3>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+          <span class="ck-chip">Досвід {{ mentor_3_years }} років</span>
+        </div>
+        <p style="color:var(--ck-text-muted);font-size:14px;">{{ mentor_3_bio }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. CTA FORM ============ -->
+<section class="ck-section" id="cta" style="position:relative;overflow:hidden;">
+  <div class="glow-bg"></div>
+  <div class="ck-narrow" style="text-align:center;position:relative;">
+    <span class="ck-eyebrow">Долучайся</span>
+    <h2 class="ck-display-m" style="margin-bottom:16px;">Реєструйся зараз та отримай бонус</h2>
+    <p style="color:var(--ck-text-muted);font-size:18px;margin-bottom:32px;">{{ bonus }}. Всього 300 безкоштовних місць.</p>
+
+    <form style="display:grid;gap:12px;max-width:440px;margin:0 auto;" onsubmit="event.preventDefault();alert('Submit stub');">
+      <input type="text" class="ck-input" placeholder="Імʼя" required>
+      <input type="email" class="ck-input" placeholder="Email" required>
+      <input type="tel" class="ck-input" placeholder="+380 XX XXX XX XX" required>
+      <label style="display:flex;gap:8px;font-size:13px;color:var(--ck-text-muted);text-align:left;">
+        <input type="checkbox" checked required>
+        Погоджуюсь з правилами обробки персональних даних
+      </label>
+      <button type="submit" class="ck-cta">Отримати доступ до уроків</button>
+    </form>
+
+    <div style="margin-top:32px;">
+      <div style="font-size:13px;color:var(--ck-text-muted);margin-bottom:8px;letter-spacing:.1em;text-transform:uppercase;">Бонус зникне через:</div>
+      <div class="ck-timer">
+        <div class="ck-timer__cell"><div class="ck-timer__num" id="d2">00</div><div class="ck-timer__label">Дні</div></div>
+        <div class="ck-timer__cell"><div class="ck-timer__num" id="h2">00</div><div class="ck-timer__label">Год</div></div>
+        <div class="ck-timer__cell"><div class="ck-timer__num" id="m2">00</div><div class="ck-timer__label">Хв</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. FOOTER (lean) ============ -->
+<footer style="padding:48px 0;border-top:1px solid var(--ck-border);">
+  <div class="ck-container" style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;">
+    <div style="font-family:var(--font-display);font-size:20px;font-weight:800;">
+      CRYPTOLOGY<span style="color:var(--ck-accent);">.KEY</span>
+    </div>
+    <div style="display:flex;gap:16px;">
+      <a href="#" style="color:var(--ck-text-muted);text-decoration:none;">YouTube ↗</a>
+      <a href="#" style="color:var(--ck-text-muted);text-decoration:none;">Instagram ↗</a>
+      <a href="#" style="color:var(--ck-text-muted);text-decoration:none;">Telegram ↗</a>
+      <a href="#" style="color:var(--ck-text-muted);text-decoration:none;">TikTok ↗</a>
+    </div>
+    <div style="display:flex;gap:16px;font-size:13px;color:var(--ck-text-muted);flex-wrap:wrap;justify-content:center;">
+      <a href="#" style="color:inherit;">Публічна оферта</a>
+      <a href="#" style="color:inherit;">Політика конфіденційності</a>
+    </div>
+    <span style="font-size:13px;color:var(--ck-text-muted);">© Cryptology Key, 2026 · Усі права захищені</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const target = new Date(Date.now() + 20*3600*1000 + 20*60*1000).getTime();
+  function tick(){
+    const diff = Math.max(0, target - Date.now());
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    ['d','d2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=String(d).padStart(2,'0');});
+    ['h','h2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=String(h).padStart(2,'0');});
+    ['m','m2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=String(m).padStart(2,'0');});
+  }
+  tick(); setInterval(tick, 30000);
+})();
+</script>
+</body>
+</html>

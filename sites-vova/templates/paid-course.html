@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CK LANDING TEMPLATE: PAID COURSE
+  Reference: Full-time Trader (edu.cryptology.school)
+  Sections: 12
+  Target length: ~12000px
+  ============================================================
+  Placeholders to replace (done by /sites-vova skill):
+    {{ product_name }}       — "Full-time Trader"
+    {{ product_slug }}       — "full-time-trader" (for IDs, file paths)
+    {{ h1 }}                 — hero headline
+    {{ h1_subtitle }}        — hero sub
+    {{ start_date_human }}   — "Старт 30 червня"
+    {{ start_date_iso }}     — "2026-06-30"
+    {{ price }}              — "24 000 грн" or "$" amount
+    {{ mentor_1_name }}, {{ mentor_1_years }}, {{ mentor_1_focus }}
+    ... up to mentor_5_*
+  Search for <!-- TODO --> blocks and fill those manually.
+-->
+<html lang="uk" data-variant="paid-course">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ product_name }} — Cryptology Key</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+/* ==== CK TOKENS — synced from design-system/tokens.css ==== */
+:root{
+  --ck-bg:#0A0A0A;--ck-surface:#141414;--ck-surface-2:#1D1D1D;
+  --ck-text-primary:#FFFFFF;--ck-text-muted:#8B8B8B;--ck-text-subtle:#5A5A5A;
+  --ck-border:rgba(255,255,255,.08);--ck-border-strong:rgba(255,255,255,.18);
+  --ck-accent:#4A9EFF;--ck-accent-2:#FF8A3D;--ck-accent-contrast:#FFFFFF;
+  --ck-success:#4AFB4A;--ck-warning:#FFB648;--ck-danger:#FF4A4A;
+  --font-display:"Unbounded","Druk Wide","Russo One",system-ui,sans-serif;
+  --font-body:"Manrope","Inter",system-ui,sans-serif;
+  --radius-pill:9999px;--radius-card:20px;--radius-input:12px;--radius-chip:8px;
+  --content-max:1280px;--narrow-max:720px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ck-bg);color:var(--ck-text-primary);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0}
+.ck-container{max-width:var(--content-max);margin:0 auto;padding:0 24px}
+.ck-narrow{max-width:var(--narrow-max);margin:0 auto;padding:0 24px}
+.ck-section{padding:80px 0}
+.ck-display-xl{font-size:clamp(72px,10vw,180px)}
+.ck-display-l{font-size:clamp(56px,7vw,120px)}
+.ck-display-m{font-size:clamp(40px,5vw,80px)}
+.ck-h1{font-size:clamp(36px,4vw,64px)}
+.ck-h2{font-size:clamp(28px,3vw,48px)}
+.ck-eyebrow{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ck-accent);margin-bottom:12px}
+.ck-cta{display:inline-flex;align-items:center;gap:8px;padding:16px 28px;background:var(--ck-accent);color:var(--ck-accent-contrast);font-weight:600;font-size:16px;text-decoration:none;border:none;border-radius:var(--radius-pill);cursor:pointer;transition:transform .15s,box-shadow .15s}
+.ck-cta:hover{transform:translateY(-1px);box-shadow:0 0 40px color-mix(in srgb,var(--ck-accent) 35%,transparent)}
+.ck-cta::after{content:"↗";font-weight:700}
+.ck-cta--ghost{background:transparent;color:var(--ck-text-primary);border:1px solid var(--ck-border-strong)}
+.ck-cta--ghost::after{opacity:.6}
+.ck-chip{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;background:var(--ck-surface);color:var(--ck-text-primary);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:var(--radius-chip);border:1px solid var(--ck-border)}
+.ck-chip--accent{background:var(--ck-accent);color:var(--ck-accent-contrast);border-color:transparent}
+.ck-card{background:var(--ck-surface);border:1px solid var(--ck-border);border-radius:var(--radius-card);padding:24px}
+.ck-mentor{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start;padding:24px;background:var(--ck-surface);border-radius:var(--radius-card);border:1px solid var(--ck-border)}
+.ck-mentor__photo{width:120px;height:120px;border-radius:16px;background:var(--ck-surface-2)}
+.ck-mentor__name{font-family:var(--font-display);font-size:28px;font-weight:700;margin-bottom:8px}
+.ck-mentor__chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.ck-mentor__bio{color:var(--ck-text-muted);margin:0}
+.ck-timer{display:inline-flex;gap:12px}
+.ck-timer__cell{min-width:64px;text-align:center;padding:10px 14px;background:var(--ck-surface);border-radius:var(--radius-chip);border:1px solid var(--ck-border)}
+.ck-timer__num{font-family:var(--font-display);font-size:28px;font-weight:700;line-height:1}
+.ck-timer__label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ck-text-muted);margin-top:4px}
+.ck-stats{display:flex;gap:32px;flex-wrap:wrap}
+.ck-stats__num{font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--ck-accent)}
+.ck-stats__label{font-size:13px;color:var(--ck-text-muted)}
+.ck-faq__item{border-top:1px solid var(--ck-border);padding:24px 0}
+.ck-faq__item:last-child{border-bottom:1px solid var(--ck-border)}
+.ck-faq__q{font-family:var(--font-display);font-size:20px;font-weight:600;display:flex;justify-content:space-between;cursor:pointer;list-style:none}
+.ck-faq__q::-webkit-details-marker{display:none}
+.ck-faq__a{margin-top:12px;color:var(--ck-text-muted)}
+.ck-input{width:100%;padding:14px 16px;background:var(--ck-surface);border:1px solid var(--ck-border-strong);border-radius:var(--radius-input);color:var(--ck-text-primary);font-family:var(--font-body);font-size:16px}
+.ck-input::placeholder{color:var(--ck-text-muted)}
+.ck-input:focus{outline:2px solid var(--ck-accent);outline-offset:2px}
+.ck-program-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--ck-border);border-radius:var(--radius-card);overflow:hidden}
+.ck-program-table th,.ck-program-table td{padding:16px;text-align:left;border-bottom:1px solid var(--ck-border)}
+.ck-program-table thead th{background:var(--ck-surface);font-family:var(--font-display);font-size:18px}
+.ck-program-table tbody tr:last-child td{border-bottom:none}
+.ck-check::before{content:"✓ ";color:var(--ck-accent);font-weight:700}
+.ck-nope::before{content:"— ";color:var(--ck-text-subtle)}
+@media(max-width:768px){
+  .ck-section{padding:48px 0}
+  .md-grid-2,.md-grid-3,.md-grid-4{grid-template-columns:1fr!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. NAV ============ -->
+<header style="position:sticky;top:0;z-index:50;background:rgba(10,10,10,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ck-border);">
+  <div class="ck-container" style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;">
+    <a href="#" style="display:inline-flex;align-items:center;gap:10px;color:var(--ck-text-primary);text-decoration:none;">
+      <span style="width:32px;height:32px;background:var(--ck-accent);border-radius:8px;display:grid;place-items:center;color:var(--ck-accent-contrast);font-family:var(--font-display);font-weight:900;">C</span>
+      <span style="font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;">CRYPTOLOGY<span style="color:var(--ck-accent);">.KEY</span></span>
+    </a>
+    <nav style="display:flex;gap:28px;font-size:14px;">
+      <a href="#about" style="color:var(--ck-text-primary);text-decoration:none;">Про курс</a>
+      <a href="#program" style="color:var(--ck-text-primary);text-decoration:none;">Програма</a>
+      <a href="#mentors" style="color:var(--ck-text-primary);text-decoration:none;">Ментори</a>
+      <a href="#results" style="color:var(--ck-text-primary);text-decoration:none;">Результати</a>
+      <a href="#faq" style="color:var(--ck-text-primary);text-decoration:none;">FAQ</a>
+    </nav>
+    <a href="#cta" class="ck-cta" style="padding:12px 22px;font-size:14px;">Записатись</a>
+  </div>
+</header>
+
+<!-- ============ 2. HERO ============ -->
+<section class="ck-section" id="hero" style="padding-top:96px;padding-bottom:96px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%, color-mix(in srgb, var(--ck-accent) 20%, transparent), transparent 60%);pointer-events:none;"></div>
+  <div class="ck-container md-grid-2" style="display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;position:relative;">
+    <div>
+      <div style="display:flex;gap:8px;margin-bottom:20px;">
+        <span class="ck-chip ck-chip--accent">{{ start_date_human }}</span>
+        <span class="ck-chip">Оновлено 2026</span>
+      </div>
+      <h1 class="ck-display-l">{{ h1 }}</h1>
+      <p style="color:var(--ck-text-muted);font-size:20px;max-width:560px;margin:24px 0 32px;">{{ h1_subtitle }}</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="#cta" class="ck-cta">Записатись на курс</a>
+        <a href="#program" class="ck-cta ck-cta--ghost">Дивитись програму</a>
+      </div>
+      <div class="ck-stats" style="margin-top:48px;">
+        <div>
+          <div class="ck-stats__num">$49K</div>
+          <div class="ck-stats__label">макс. виплата студента</div>
+        </div>
+        <div>
+          <div class="ck-stats__num">4.8</div>
+          <div class="ck-stats__label">рейтинг • 3К відгуків</div>
+        </div>
+        <div>
+          <div class="ck-stats__num">15K+</div>
+          <div class="ck-stats__label">випускників</div>
+        </div>
+      </div>
+    </div>
+    <!-- TODO: hero-visual — скриншот терміналу / ізометрична кімната / фото менторів -->
+    <div style="aspect-ratio:4/5;background:var(--ck-surface);border-radius:var(--radius-card);border:1px solid var(--ck-border-strong);display:grid;place-items:center;color:var(--ck-text-muted);">
+      <span style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;">HERO VISUAL</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. TRUST STRIP ============ -->
+<section style="padding:32px 0;background:var(--ck-surface);border-block:1px solid var(--ck-border);">
+  <div class="ck-container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px;">
+    <span style="color:var(--ck-text-muted);font-size:13px;letter-spacing:.1em;text-transform:uppercase;">Партнери та платформи</span>
+    <div style="display:flex;gap:40px;flex-wrap:wrap;color:var(--ck-text-muted);font-weight:700;">
+      <span>OKX</span><span>TradingView</span><span>Forbes UA</span><span>AIN.UA</span><span>SpeakUp</span>
+    </div>
+  </div>
+  <!-- TODO: замінити на реальні лого партнерів -->
+</section>
+
+<!-- ============ 4. BENEFITS (для кого) ============ -->
+<section class="ck-section" id="about">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Для кого цей курс</span>
+    <h2 class="ck-h1" style="max-width:720px;margin-bottom:48px;">Курс для тебе, якщо ти хочеш вийти на стабільний дохід від трейдингу</h2>
+    <div class="md-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="ck-card">
+        <div style="width:48px;height:48px;background:var(--ck-accent);border-radius:12px;margin-bottom:16px;"></div>
+        <h3 style="font-size:20px;margin-bottom:12px;">Змінити професію</h3>
+        <p style="color:var(--ck-text-muted);">Перейти з найманої роботи на трейдинг як основне джерело доходу.</p>
+      </div>
+      <div class="ck-card">
+        <div style="width:48px;height:48px;background:var(--ck-accent-2);border-radius:12px;margin-bottom:16px;"></div>
+        <h3 style="font-size:20px;margin-bottom:12px;">Мати другий дохід</h3>
+        <p style="color:var(--ck-text-muted);">Заробляти додатково 30 хвилин-1 година на день, паралельно з основною роботою.</p>
+      </div>
+      <div class="ck-card">
+        <div style="width:48px;height:48px;background:var(--ck-success);border-radius:12px;margin-bottom:16px;"></div>
+        <h3 style="font-size:20px;margin-bottom:12px;">Зрозуміти ринок</h3>
+        <p style="color:var(--ck-text-muted);">Нарешті розібратись, як реально працюють гроші, інфляція та стабільність.</p>
+      </div>
+      <!-- TODO: додати ще 3 картки або прибрати 1 із зайвих -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. PROGRAM (tier comparison table) ============ -->
+<section class="ck-section" id="program" style="background:var(--ck-surface);">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Програма</span>
+    <h2 class="ck-h1" style="margin-bottom:48px;">Обери свій рівень</h2>
+    <div style="overflow-x:auto;">
+    <table class="ck-program-table">
+      <thead>
+        <tr>
+          <th>Що входить</th>
+          <th style="background:var(--ck-accent);color:var(--ck-accent-contrast);">Junior</th>
+          <th>Middle</th>
+          <th>Senior</th>
+          <th>Supercharged</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Базовий курс (4 тижні)</td><td class="ck-check"></td><td class="ck-check"></td><td class="ck-check"></td><td class="ck-check"></td></tr>
+        <tr><td>Практика на деморахунку</td><td class="ck-check"></td><td class="ck-check"></td><td class="ck-check"></td><td class="ck-check"></td></tr>
+        <tr><td>Закрите комʼюніті</td><td class="ck-nope"></td><td class="ck-check"></td><td class="ck-check"></td><td class="ck-check"></td></tr>
+        <tr><td>Особистий ментор</td><td class="ck-nope"></td><td class="ck-nope"></td><td class="ck-check"></td><td class="ck-check"></td></tr>
+        <tr><td>Доступ до proped-компанії</td><td class="ck-nope"></td><td class="ck-nope"></td><td class="ck-nope"></td><td class="ck-check"></td></tr>
+        <tr style="background:var(--ck-surface-2);">
+          <td style="font-weight:700;">Ціна</td>
+          <td style="font-weight:700;">{{ price_junior }}</td>
+          <td style="font-weight:700;">{{ price_middle }}</td>
+          <td style="font-weight:700;">{{ price_senior }}</td>
+          <td style="font-weight:700;">{{ price_supercharged }}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <!-- TODO: уточнити ціни тарифів та перелік того що входить -->
+  </div>
+</section>
+
+<!-- ============ 6. FORMAT (як навчаємось) ============ -->
+<section class="ck-section" id="format">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Формат</span>
+    <h2 class="ck-h1" style="margin-bottom:48px;">Як навчаємось</h2>
+    <div class="md-grid-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+      <div class="ck-card">
+        <div style="font-family:var(--font-display);font-size:32px;color:var(--ck-accent);margin-bottom:12px;">01</div>
+        <h3 style="font-size:18px;margin-bottom:8px;">Відеоуроки</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">Короткі модулі 10-20 хв. Дивишся коли зручно.</p>
+      </div>
+      <div class="ck-card">
+        <div style="font-family:var(--font-display);font-size:32px;color:var(--ck-accent);margin-bottom:12px;">02</div>
+        <h3 style="font-size:18px;margin-bottom:8px;">Практика</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">Завдання на реальних графіках. Без практики — без результату.</p>
+      </div>
+      <div class="ck-card">
+        <div style="font-family:var(--font-display);font-size:32px;color:var(--ck-accent);margin-bottom:12px;">03</div>
+        <h3 style="font-size:18px;margin-bottom:8px;">Живі сесії</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">Щотижня — розбір угод і Q&A з менторами.</p>
+      </div>
+      <div class="ck-card">
+        <div style="font-family:var(--font-display);font-size:32px;color:var(--ck-accent);margin-bottom:12px;">04</div>
+        <h3 style="font-size:18px;margin-bottom:8px;">Комʼюніті</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">Закрита група студентів. Там де народжуються партнерства.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. MENTORS ============ -->
+<section class="ck-section" id="mentors" style="background:var(--ck-surface);">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Ментори</span>
+    <h2 class="ck-h1" style="margin-bottom:48px;">Команда Cryptology Key</h2>
+    <div class="md-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+
+      <div class="ck-mentor">
+        <div class="ck-mentor__photo"><!-- TODO: <img src="{{ mentor_1_photo }}"> --></div>
+        <div>
+          <h3 class="ck-mentor__name">{{ mentor_1_name }}</h3>
+          <div class="ck-mentor__chips">
+            <span class="ck-chip">Досвід {{ mentor_1_years }} років</span>
+            <span class="ck-chip">{{ mentor_1_focus }}</span>
+          </div>
+          <p class="ck-mentor__bio">{{ mentor_1_bio }}</p>
+        </div>
+      </div>
+
+      <div class="ck-mentor">
+        <div class="ck-mentor__photo"></div>
+        <div>
+          <h3 class="ck-mentor__name">{{ mentor_2_name }}</h3>
+          <div class="ck-mentor__chips">
+            <span class="ck-chip">Досвід {{ mentor_2_years }} років</span>
+            <span class="ck-chip">{{ mentor_2_focus }}</span>
+          </div>
+          <p class="ck-mentor__bio">{{ mentor_2_bio }}</p>
+        </div>
+      </div>
+
+      <div class="ck-mentor">
+        <div class="ck-mentor__photo"></div>
+        <div>
+          <h3 class="ck-mentor__name">{{ mentor_3_name }}</h3>
+          <div class="ck-mentor__chips">
+            <span class="ck-chip">Досвід {{ mentor_3_years }} років</span>
+            <span class="ck-chip">{{ mentor_3_focus }}</span>
+          </div>
+          <p class="ck-mentor__bio">{{ mentor_3_bio }}</p>
+        </div>
+      </div>
+      <!-- TODO: додати mentor 4 і 5 якщо є -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. RESULTS (скриншоти виплат) ============ -->
+<section class="ck-section" id="results">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Результати студентів</span>
+    <h2 class="ck-h1" style="margin-bottom:48px;">Не обіцяємо — показуємо</h2>
+    <div class="md-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="ck-card" style="position:relative;">
+        <span class="ck-chip ck-chip--accent" style="position:absolute;top:16px;right:16px;">$40,000</span>
+        <div style="aspect-ratio:4/3;background:var(--ck-surface-2);border-radius:12px;margin-bottom:16px;"></div>
+        <h3 style="font-size:18px;margin-bottom:8px;">Max</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">Став трейдером з трьома пропами.</p>
+      </div>
+      <div class="ck-card" style="position:relative;">
+        <span class="ck-chip ck-chip--accent" style="position:absolute;top:16px;right:16px;">$30,000</span>
+        <div style="aspect-ratio:4/3;background:var(--ck-surface-2);border-radius:12px;margin-bottom:16px;"></div>
+        <h3 style="font-size:18px;margin-bottom:8px;">Viktor</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">$30K прибутку за 3 місяці після першої виплати.</p>
+      </div>
+      <div class="ck-card" style="position:relative;">
+        <span class="ck-chip ck-chip--accent" style="position:absolute;top:16px;right:16px;">$230,000</span>
+        <div style="aspect-ratio:4/3;background:var(--ck-surface-2);border-radius:12px;margin-bottom:16px;"></div>
+        <h3 style="font-size:18px;margin-bottom:8px;">Gabak</h3>
+        <p style="color:var(--ck-text-muted);font-size:14px;">Управління $230K аллокації.</p>
+      </div>
+    </div>
+    <!-- TODO: замінити на реальні кейси з KB (05-free-course-funnels.md або 14-landing-pages.md) -->
+  </div>
+</section>
+
+<!-- ============ 9. COMPARISON CHECKLIST (твій результат) ============ -->
+<section class="ck-section" style="background:var(--ck-surface);">
+  <div class="ck-narrow">
+    <span class="ck-eyebrow">Після курсу</span>
+    <h2 class="ck-h1" style="margin-bottom:32px;">Твій результат як трейдера</h2>
+    <div style="display:grid;gap:16px;">
+      <div style="display:flex;gap:16px;padding:16px;background:var(--ck-bg);border-radius:12px;border:1px solid var(--ck-border);">
+        <span style="width:32px;height:32px;background:var(--ck-accent);color:var(--ck-accent-contrast);border-radius:8px;display:grid;place-items:center;font-weight:700;flex-shrink:0;">1</span>
+        <div><strong>Бачиш структуру ринку.</strong> Точки входу, стоп-лос, RR — як таблицю множення.</div>
+      </div>
+      <div style="display:flex;gap:16px;padding:16px;background:var(--ck-bg);border-radius:12px;border:1px solid var(--ck-border);">
+        <span style="width:32px;height:32px;background:var(--ck-accent);color:var(--ck-accent-contrast);border-radius:8px;display:grid;place-items:center;font-weight:700;flex-shrink:0;">2</span>
+        <div><strong>Маєш робочу ТС.</strong> Власний журнал, чек-лист входу, правила менеджменту.</div>
+      </div>
+      <div style="display:flex;gap:16px;padding:16px;background:var(--ck-bg);border-radius:12px;border:1px solid var(--ck-border);">
+        <span style="width:32px;height:32px;background:var(--ck-accent);color:var(--ck-accent-contrast);border-radius:8px;display:grid;place-items:center;font-weight:700;flex-shrink:0;">3</span>
+        <div><strong>Готовий до пропу.</strong> Пройти челендж і отримати капітал у менеджмент.</div>
+      </div>
+      <div style="display:flex;gap:16px;padding:16px;background:var(--ck-bg);border-radius:12px;border:1px solid var(--ck-border);">
+        <span style="width:32px;height:32px;background:var(--ck-accent);color:var(--ck-accent-contrast);border-radius:8px;display:grid;place-items:center;font-weight:700;flex-shrink:0;">4</span>
+        <div><strong>Контролюєш емоції.</strong> Без FOMO, без тілту, без "рагнути на 5-му плечі".</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. CTA FORM ============ -->
+<section class="ck-section" id="cta">
+  <div class="ck-narrow" style="text-align:center;">
+    <span class="ck-eyebrow">Долучайся</span>
+    <h2 class="ck-display-m" style="margin-bottom:16px;">Готовий стати {{ product_name }}?</h2>
+    <p style="color:var(--ck-text-muted);font-size:18px;margin-bottom:40px;">{{ cta_sub }}</p>
+
+    <!-- Timer: прибрати якщо немає реального дедлайну -->
+    <div class="ck-timer" style="margin-bottom:32px;">
+      <div class="ck-timer__cell"><div class="ck-timer__num" id="d">00</div><div class="ck-timer__label">Дні</div></div>
+      <div class="ck-timer__cell"><div class="ck-timer__num" id="h">00</div><div class="ck-timer__label">Год</div></div>
+      <div class="ck-timer__cell"><div class="ck-timer__num" id="m">00</div><div class="ck-timer__label">Хв</div></div>
+    </div>
+
+    <form style="display:grid;gap:12px;max-width:440px;margin:0 auto;" onsubmit="event.preventDefault();alert('Form submitted — stub');">
+      <input type="text" class="ck-input" placeholder="Імʼя" required>
+      <input type="email" class="ck-input" placeholder="Email" required>
+      <input type="tel" class="ck-input" placeholder="+380 XX XXX XX XX" required>
+      <label style="display:flex;gap:8px;font-size:13px;color:var(--ck-text-muted);text-align:left;">
+        <input type="checkbox" checked required>
+        Погоджуюсь з правилами використання та обробки персональних даних
+      </label>
+      <button type="submit" class="ck-cta" style="justify-content:center;">Записатись на курс</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ 11. FAQ ============ -->
+<section class="ck-section" id="faq" style="background:var(--ck-surface);">
+  <div class="ck-narrow">
+    <span class="ck-eyebrow">FAQ</span>
+    <h2 class="ck-h1" style="margin-bottom:48px;">Ще трохи інфи</h2>
+    <details class="ck-faq__item" open>
+      <summary class="ck-faq__q">Скільки часу треба на навчання?<span>+</span></summary>
+      <p class="ck-faq__a">Базовий курс — 4 тижні, 1-2 години в день. Практика — далі в твоєму темпі.</p>
+    </details>
+    <details class="ck-faq__item">
+      <summary class="ck-faq__q">Чи треба стартовий капітал?<span>+</span></summary>
+      <p class="ck-faq__a">Ні. Навчаємось на деморахунку. Після курсу можна брати капітал у проп-компанії.</p>
+    </details>
+    <details class="ck-faq__item">
+      <summary class="ck-faq__q">Що якщо не розумію нічого в трейдингу?<span>+</span></summary>
+      <p class="ck-faq__a">70% студентів приходять з нуля. Програма побудована від базових понять.</p>
+    </details>
+    <details class="ck-faq__item">
+      <summary class="ck-faq__q">Чи є розстрочка?<span>+</span></summary>
+      <p class="ck-faq__a">Так. До 12 міс без переплат через Mono або ПриватБанк.</p>
+    </details>
+    <details class="ck-faq__item">
+      <summary class="ck-faq__q">Скільки реально заробляють студенти?<span>+</span></summary>
+      <p class="ck-faq__a">Без обіцянок. Показуємо реальні кейси — $3-30K/міс після 6-12 місяців практики.</p>
+    </details>
+    <!-- TODO: додати ще 2-3 питання специфічні для продукту -->
+  </div>
+</section>
+
+<!-- ============ 12. FOOTER ============ -->
+<footer style="padding:80px 0 32px;background:var(--ck-bg);border-top:1px solid var(--ck-border);">
+  <div class="ck-container">
+    <div class="md-grid-4" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;">
+      <div>
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;margin-bottom:12px;">
+          CRYPTOLOGY<span style="color:var(--ck-accent);">.KEY</span>
+        </div>
+        <p style="color:var(--ck-text-muted);max-width:320px;">Освітня екосистема для успішного шляху в трейдингу. Ми поважаємо впевненість, а ринок — знання.</p>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-body);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ck-text-muted);margin-bottom:16px;font-weight:600;">Корисне</h4>
+        <a href="#" style="display:block;color:var(--ck-text-primary);text-decoration:none;padding:4px 0;">Новачкам</a>
+        <a href="#" style="display:block;color:var(--ck-text-primary);text-decoration:none;padding:4px 0;">Відгуки</a>
+        <a href="#" style="display:block;color:var(--ck-text-primary);text-decoration:none;padding:4px 0;">Блог</a>
+        <a href="#" style="display:block;color:var(--ck-text-primary);text-decoration:none;padding:4px 0;">Карʼєра</a>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-body);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ck-text-muted);margin-bottom:16px;font-weight:600;">Контакти</h4>
+        <p style="color:var(--ck-text-primary);margin:0 0 6px;">Telegram: <a href="https://t.me/cryptology_edu" style="color:inherit;">@cryptology_edu</a></p>
+        <p style="color:var(--ck-text-primary);margin:0 0 6px;">support@cryptology.school</p>
+        <p style="color:var(--ck-text-primary);margin:0;">+38 (044) 334 44 55</p>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-body);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ck-text-muted);margin-bottom:16px;font-weight:600;">Соцмережі</h4>
+        <a href="#" style="display:block;color:var(--ck-text-primary);text-decoration:none;padding:4px 0;">YouTube ↗</a>
+        <a href="#" style="display:block;color:var(--ck-text-primary);text-decoration:none;padding:4px 0;">Instagram ↗</a>
+        <a href="#" style="display:block;color:var(--ck-text-primary);text-decoration:none;padding:4px 0;">TikTok ↗</a>
+        <a href="#" style="display:block;color:var(--ck-text-primary);text-decoration:none;padding:4px 0;">Twitter/X ↗</a>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:24px;border-top:1px solid var(--ck-border);font-size:13px;color:var(--ck-text-muted);">
+      <span>© Cryptology Key, 2026</span>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;">
+        <a href="#" style="color:inherit;">Публічна оферта</a>
+        <a href="#" style="color:inherit;">Політика конфіденційності</a>
+        <a href="#" style="color:inherit;">Допустимі клієнти</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Countdown timer — auto-updates to {{ start_date_iso }} -->
+<script>
+(function(){
+  const target = new Date("{{ start_date_iso }}T00:00:00").getTime();
+  if(isNaN(target)) return;
+  function tick(){
+    const now = Date.now();
+    const diff = Math.max(0, target - now);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const dEl=document.getElementById('d'),hEl=document.getElementById('h'),mEl=document.getElementById('m');
+    if(dEl) dEl.textContent = String(d).padStart(2,'0');
+    if(hEl) hEl.textContent = String(h).padStart(2,'0');
+    if(mEl) mEl.textContent = String(m).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 30000);
+})();
+</script>
+
+</body>
+</html>

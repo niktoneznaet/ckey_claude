@@ -1,0 +1,183 @@
+<!--
+  ============================================================
+  CK COMPONENTS LIBRARY — copy-paste snippets
+  Used by: templates/*.html (reference)
+  Requires: design-system/tokens.css
+
+  Each block is self-contained HTML. Just copy into template,
+  replace {{ placeholders }}, done.
+  ============================================================
+-->
+
+<!-- =============== NAV (sticky) =============== -->
+<header style="position:sticky; top:0; z-index:50; background:var(--ck-bg); border-bottom:1px solid var(--ck-border);">
+  <div class="ck-container" style="display:flex; align-items:center; justify-content:space-between; padding:20px 24px;">
+    <a href="#" style="display:inline-flex; align-items:center; gap:8px; color:var(--ck-text-primary); text-decoration:none; font-weight:700;">
+      <span style="width:32px; height:32px; background:var(--ck-accent); border-radius:8px; display:grid; place-items:center; color:var(--ck-accent-contrast); font-family:var(--font-display); font-weight:800;">C</span>
+      <span style="font-family:var(--font-display); letter-spacing:-0.02em;">CRYPTOLOGY<span style="color:var(--ck-accent);">.KEY</span></span>
+    </a>
+    <nav style="display:flex; gap:28px; font-size:14px;">
+      <a href="#about" style="color:var(--ck-text-primary); text-decoration:none;">Про курс</a>
+      <a href="#program" style="color:var(--ck-text-primary); text-decoration:none;">Програма</a>
+      <a href="#mentors" style="color:var(--ck-text-primary); text-decoration:none;">Ментори</a>
+      <a href="#faq" style="color:var(--ck-text-primary); text-decoration:none;">FAQ</a>
+    </nav>
+    <a href="#cta" class="ck-cta">Записатись</a>
+  </div>
+</header>
+
+<!-- =============== HERO (paid-course) =============== -->
+<section class="ck-section" id="hero" style="background:var(--ck-bg); position:relative; overflow:hidden;">
+  <div class="ck-container" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
+    <div>
+      <span class="ck-chip ck-chip--accent">{{ start_date_human }}</span>
+      <h1 class="ck-display-l" style="margin:24px 0 16px;">{{ h1 }}</h1>
+      <p style="color:var(--ck-text-muted); font-size:18px; max-width:560px;">{{ h1_subtitle }}</p>
+      <div style="display:flex; gap:16px; margin-top:32px;">
+        <a href="#cta" class="ck-cta">Записатись на курс</a>
+        <a href="#program" class="ck-cta ck-cta--ghost">Програма</a>
+      </div>
+      <div class="ck-stats" style="margin-top:48px;">
+        <div class="ck-stats__item">
+          <div class="ck-stats__num">$49K</div>
+          <div class="ck-stats__label">макс. виплата студента</div>
+        </div>
+        <div class="ck-stats__item">
+          <div class="ck-stats__num">4.8</div>
+          <div class="ck-stats__label">рейтинг (3K відгуків)</div>
+        </div>
+        <div class="ck-stats__item">
+          <div class="ck-stats__num">15K+</div>
+          <div class="ck-stats__label">випускників</div>
+        </div>
+      </div>
+    </div>
+    <div style="position:relative; aspect-ratio:4/5; background:var(--ck-surface); border-radius:var(--radius-card); border:1px solid var(--ck-border);">
+      <!-- TODO: hero-visual (скриншот терміналу / ізометрична кімната FTT / фото ментора) -->
+    </div>
+  </div>
+</section>
+
+<!-- =============== TRUST STRIP =============== -->
+<section style="padding:32px 0; background:var(--ck-surface); border-block:1px solid var(--ck-border);">
+  <div class="ck-container" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:32px;">
+    <span style="color:var(--ck-text-muted); font-size:13px; letter-spacing:0.1em; text-transform:uppercase;">Партнери та платформи</span>
+    <div style="display:flex; gap:40px; flex-wrap:wrap; color:var(--ck-text-muted); font-weight:600;">
+      <span>OKX</span>
+      <span>TradingView</span>
+      <span>Forbes UA</span>
+      <span>AIN.UA</span>
+      <!-- TODO: реальні лого -->
+    </div>
+  </div>
+</section>
+
+<!-- =============== BENEFITS GRID (4-up) =============== -->
+<section class="ck-section" id="benefits">
+  <div class="ck-container">
+    <span class="ck-eyebrow">Для кого цей курс</span>
+    <h2 class="ck-h1" style="max-width:720px; margin-bottom:48px;">Якщо ти хочеш {{ benefit_headline }}</h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
+      <div class="ck-card">
+        <div style="width:48px; height:48px; background:var(--ck-accent); border-radius:12px; margin-bottom:16px;"></div>
+        <h3 class="ck-h3" style="margin-bottom:12px;">{{ benefit_1_title }}</h3>
+        <p style="color:var(--ck-text-muted);">{{ benefit_1_body }}</p>
+      </div>
+      <!-- повторити для 2-4 -->
+    </div>
+  </div>
+</section>
+
+<!-- =============== MENTOR CARD =============== -->
+<div class="ck-mentor">
+  <div class="ck-mentor__photo">
+    <!-- TODO: <img src="..." alt="{{ mentor_1_name }}"> -->
+  </div>
+  <div>
+    <h3 class="ck-mentor__name">{{ mentor_1_name }}</h3>
+    <div class="ck-mentor__chips">
+      <span class="ck-chip">Досвід {{ mentor_1_years }} років</span>
+      <span class="ck-chip">{{ mentor_1_focus }}</span>
+    </div>
+    <p class="ck-mentor__bio">{{ mentor_1_bio }}</p>
+  </div>
+</div>
+
+<!-- =============== CTA FORM BLOCK =============== -->
+<section class="ck-section" id="cta" style="background:var(--ck-surface);">
+  <div class="ck-narrow" style="text-align:center;">
+    <span class="ck-eyebrow">Долучайся</span>
+    <h2 class="ck-display-m" style="margin-bottom:24px;">{{ cta_headline }}</h2>
+    <p style="color:var(--ck-text-muted); font-size:18px; margin-bottom:40px;">{{ cta_sub }}</p>
+
+    <!-- Timer (опціонально, тільки якщо є реальний дедлайн) -->
+    <div class="ck-timer" style="margin-bottom:32px;">
+      <div class="ck-timer__cell"><div class="ck-timer__num">00</div><div class="ck-timer__label">Дні</div></div>
+      <div class="ck-timer__cell"><div class="ck-timer__num">00</div><div class="ck-timer__label">Год</div></div>
+      <div class="ck-timer__cell"><div class="ck-timer__num">00</div><div class="ck-timer__label">Хв</div></div>
+    </div>
+
+    <form style="display:grid; gap:12px; max-width:440px; margin:0 auto;">
+      <input type="text" class="ck-input" placeholder="Ім'я">
+      <input type="email" class="ck-input" placeholder="Email">
+      <input type="tel" class="ck-input" placeholder="+380 XX XXX XX XX">
+      <label style="display:flex; gap:8px; font-size:13px; color:var(--ck-text-muted); text-align:left;">
+        <input type="checkbox" checked>
+        Погоджуюсь з правилами обробки персональних даних
+      </label>
+      <button type="submit" class="ck-cta" style="justify-content:center;">Отримати доступ до уроків</button>
+    </form>
+  </div>
+</section>
+
+<!-- =============== FAQ =============== -->
+<section class="ck-section" id="faq">
+  <div class="ck-narrow">
+    <span class="ck-eyebrow">FAQ</span>
+    <h2 class="ck-h1" style="margin-bottom:48px;">Ще трохи інфи</h2>
+    <details class="ck-faq__item" open>
+      <summary class="ck-faq__q">{{ faq_q1 }}<span>+</span></summary>
+      <p class="ck-faq__a">{{ faq_a1 }}</p>
+    </details>
+    <!-- повторити 5-7 разів -->
+  </div>
+</section>
+
+<!-- =============== FOOTER =============== -->
+<footer style="padding:80px 0 32px; background:var(--ck-bg); border-top:1px solid var(--ck-border);">
+  <div class="ck-container">
+    <div style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px;">
+      <div>
+        <div style="font-family:var(--font-display); font-size:24px; font-weight:800; margin-bottom:12px;">
+          CRYPTOLOGY<span style="color:var(--ck-accent);">.KEY</span>
+        </div>
+        <p style="color:var(--ck-text-muted); max-width:320px;">Освітня екосистема для успішного шляху в трейдингу.</p>
+      </div>
+      <div>
+        <h4 style="font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ck-text-muted); margin-bottom:16px;">Корисне</h4>
+        <a href="#" style="display:block; color:var(--ck-text-primary); text-decoration:none; padding:4px 0;">Новачкам</a>
+        <a href="#" style="display:block; color:var(--ck-text-primary); text-decoration:none; padding:4px 0;">Відгуки</a>
+        <a href="#" style="display:block; color:var(--ck-text-primary); text-decoration:none; padding:4px 0;">Блог</a>
+      </div>
+      <div>
+        <h4 style="font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ck-text-muted); margin-bottom:16px;">Контакти</h4>
+        <p style="color:var(--ck-text-primary); margin:0 0 4px;">Telegram: <a href="https://t.me/cryptology_edu" style="color:inherit;">@cryptology_edu</a></p>
+        <p style="color:var(--ck-text-primary); margin:0 0 4px;">support@cryptology.school</p>
+        <p style="color:var(--ck-text-primary); margin:0;">+38 (044) 334 44 55</p>
+      </div>
+      <div>
+        <h4 style="font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ck-text-muted); margin-bottom:16px;">Соцмережі</h4>
+        <a href="#" style="display:block; color:var(--ck-text-primary); text-decoration:none; padding:4px 0;">YouTube ↗</a>
+        <a href="#" style="display:block; color:var(--ck-text-primary); text-decoration:none; padding:4px 0;">Instagram ↗</a>
+        <a href="#" style="display:block; color:var(--ck-text-primary); text-decoration:none; padding:4px 0;">TikTok ↗</a>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:space-between; padding-top:24px; border-top:1px solid var(--ck-border); font-size:13px; color:var(--ck-text-muted);">
+      <span>© Cryptology Key, 2026</span>
+      <div style="display:flex; gap:24px;">
+        <a href="#" style="color:inherit;">Публічна оферта</a>
+        <a href="#" style="color:inherit;">Політика конфіденційності</a>
+      </div>
+    </div>
+  </div>
+</footer>
