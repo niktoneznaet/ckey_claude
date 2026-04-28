@@ -1,0 +1,11 @@
+If you're wondering why the stock market just saw one of the most aggressive rallies we have
+ever seen in history, let me break it down for you. CTAs, or Commodity Trading Advisors,
+are algorithmic strategies that automatically add exposure or reduce exposure based off of
+market volatility. If you study the VIX, the VIX compressed very sharply during the market's
+rebound. And what ended up happening is a combination of short covering, options expiry,
+and CTA buying was all mechanically driving the market higher over the past 12 sessions.
+That's what drove us to all-time highs. It wasn't a change in the fundamentals. It wasn't a massive
+change in sentiment. It was a change in the mechanics of how markets are moving. If you
+want to stay on the right side of the markets and understand what actually drives markets,
+comment the word podcast on this video, and I'll send you the link to our 40-minute episode
+talking about the markets and two specific stocks that we're watching in Q2.

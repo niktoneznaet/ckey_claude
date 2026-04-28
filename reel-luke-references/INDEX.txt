@@ -1,0 +1,42 @@
+# Luke Davis Talking-Head Reels — Reference Library
+
+14 транскрипций рилсов Luke Davis (формат "говорящая голова") за период октябрь 2025 – апрель 2026. Используются скиллом `/reel-luke` как эталон стиля для talking-head формата.
+
+## ANALYSIS
+
+- [ANALYSIS.md](ANALYSIS.md) — полный структурный разбор формата (5 блоков, языковые паттерны, отличия от animated-формата, источники актуалки)
+
+## Транскрипции
+
+| # | Файл | Тема | Рубрика | CTA |
+|---|---|---|---|---|
+| 01 | [01-altcoins-vs-btc-dominance.txt](01-altcoins-vs-btc-dominance.txt) | Альты проигрывают BTC, цикловая теория | cycle-theory + warning | workshop |
+| 02 | [02-bitcoin-make-or-break-week.txt](02-bitcoin-make-or-break-week.txt) | BTC у bull market support band | price-action | workshop |
+| 03 | [03-powell-out-warsh-in-fed-chair.txt](03-powell-out-warsh-in-fed-chair.txt) | Смена председателя ФРС, тестирование рынком | news-reaction | (нет) |
+| 04 | [04-tom-lee-sp-prediction-reaction.txt](04-tom-lee-sp-prediction-reaction.txt) | Реакция на прогноз Tom Lee про S&P 7300 | other-creator | podcast |
+| 05 | [05-pdt-rule-robinhood-catalyst.txt](05-pdt-rule-robinhood-catalyst.txt) | Отмена PDT-правила, Robinhood-выгода | news-reaction | podcast |
+| 06 | [06-oil-shock-stock-rally-sustainable.txt](06-oil-shock-stock-rally-sustainable.txt) | Stock market shook off oil shock | mechanic + engagement | (нет — engagement) |
+| 07 | [07-real-estate-xlre-breakout.txt](07-real-estate-xlre-breakout.txt) | XLRE прорыв, ротация в недвижимость | price-action + watchlist | process |
+| 08 | [08-bitcoin-support-band-week.txt](08-bitcoin-support-band-week.txt) | BTC у support band, 2 сценария | price-action | workshop |
+| 09 | [09-us-iran-ceasefire-strait-hormuz.txt](09-us-iran-ceasefire-strait-hormuz.txt) | Иран-США ceasefire, Strait of Hormuz | news-reaction (geopolitics) | podcast |
+| 10 | [10-cta-vix-mechanical-rally.txt](10-cta-vix-mechanical-rally.txt) | CTAs/VIX механика ралли | mechanic | podcast |
+| 11 | [11-bitcoin-cycle-systematic-framework.txt](11-bitcoin-cycle-systematic-framework.txt) | BTC цикл, systematic framework | cycle-theory | BNB (high-ticket) |
+| 12 | [12-strait-hormuz-narrative-control.txt](12-strait-hormuz-narrative-control.txt) | Strait of Hormuz, narrative control | news-reaction | BMB (high-ticket) |
+| 13 | [13-bitcoin-consolidation-max-pain.txt](13-bitcoin-consolidation-max-pain.txt) | BTC консолидация, max pain trade | cycle-theory | BTC (high-ticket) |
+| 14 | [14-bull-market-plan-prepared.txt](14-bull-market-plan-prepared.txt) | Готов ли ты к булрану? | pre-emptive | BTC (high-ticket) |
+
+## Как использовать
+
+При генерации talking-head рилса через `/reel-luke` скилл может опираться на эти транскрипции как на эталон:
+- Хук-формулы → транскрипты 01, 02, 03, 07
+- Структура "2 сценария" → 02, 08, 11, 13, 14
+- Hedge-формулы → 01, 11, 13
+- Pre-qualification в CTA → 11, 12 (high-ticket BNB/BMB)
+- Engagement-формат без CTA → 06
+- News-jacking первые 8 секунд → 03, 04, 05, 09
+
+## Что НЕ копировать
+
+- **Reel 13** содержит Whisper-петлю в конце ("I'll show you guys the next one" × 17) — артефакт транскрибации, не структура.
+- **Reel 6** — слабый CTA (engagement без триггера), скорее всего по метрикам хуже остальных.
+- **Reel 11** — явный pre-qualification "$100K+ investors" заточен под Luke's BMB, у CK маппинг другой (см. ЧАСТЬ 8 скилла).

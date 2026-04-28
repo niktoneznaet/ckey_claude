@@ -1,0 +1,209 @@
+# Luke Davis — Talking Head рилсы. Структурный разбор
+
+**Сэмпл:** 14 рилсов с октября 2025 по апрель 2026 (макро + крипто).
+**Формат:** говорящая голова (без анимированной инфографики), 40–75 сек, вертикаль 9:16.
+**Источник:** instagram.com/lukedavis_ (предположительно).
+
+---
+
+## TL;DR — чем этот формат отличается от animated-формата
+
+Существующий скилл `/reel-luke` обслуживает **анимационный** формат (закадровый голос + flat-design инфографика, аналогии-картинки, караоке-субтитры). Новые рилсы — **другая жанровая ветка** того же автора:
+
+| Параметр | Animated (текущий скилл) | Talking Head (новый) |
+|---|---|---|
+| Хронометраж | 60–90 сек | **40–75 сек** |
+| В кадре | автора нет | автор в кадре, прямо в камеру |
+| Аналогии-картинки | ключевой элемент (пылесос, кардиомонитор) | **отсутствуют** |
+| Плотность цифр | 4–7 на рилс | 2–4 на рилс (меньше) |
+| Тон | объяснительный, "умный друг" | **личный/авторитетный**, "я вам сейчас скажу" |
+| Цель | образование → охват/сейвы | **CTA-воронка** → comment trigger → DM |
+| Привязка к новости | ~30% | **~70%** (news-jacking) |
+| Тип контента | evergreen-объяснялки | **реактивный комментарий** на текущие события |
+
+Главный вывод: **это sales-машина, а не education-машина.** 11 из 14 рилсов заканчиваются конкретным triggerом (workshop / podcast / BMB / BTC / process) для DM-воронки. Animated-формат ловит охват и сейвы, talking-head — лиды.
+
+---
+
+## ЧАСТЬ 1. СТРУКТУРНЫЙ ПАТТЕРН (5 блоков)
+
+### БЛОК 1: ХУК (0:00–0:08)
+
+**3 рабочие формулы (по убыванию частоты):**
+
+**A. Прямое обращение к сегменту + "listen up"** (~50% сэмпла)
+- "Crypto investors, it's time to listen up." (reel 2)
+- "Real estate investors, listen up." (reel 7)
+- "If you're an investor, you need to listen up..." (reel 3)
+- "If you're looking at the crypto charts right now thinking [X], then you are dead wrong..." (reel 1)
+
+Работает как фильтр: первые 1.5 секунды отсеивают не-ЦА, удерживают целевую.
+
+**B. Декларативный факт + усилитель** (~30%)
+- "The stock market just shook off the **worst** disruption we have **ever seen**..." (reel 6)
+- "The elimination of the pattern day trader rule **may be one of the biggest catalysts**..." (reel 5)
+- "Bitcoin. This is a **make it or break it** week." (reel 8)
+
+Превосходные степени ("worst", "biggest", "make it or break it") — обязательны.
+
+**C. Вопрос-провокация / самотест** (~20%)
+- "Is the Strait of Hormuz open or closed?" (reel 12)
+- "Let me ask you a question. If the next crypto bull market was to take off **right now**, would you be prepared?" (reel 14)
+- "If you're wondering why the stock market just saw one of the most aggressive rallies..." (reel 10)
+
+Чего НЕТ в talking-head хуках (в отличие от animated):
+- "Что, если я скажу вам..." (А-формула animated)
+- Шокирующая цифра в первой секунде
+- "Все делают X, но никто не видит Y"
+
+### БЛОК 2: ПОСТАНОВКА (0:08–0:20)
+
+Цель: за 10–12 секунд зафиксировать "что произошло" + почему именно сейчас.
+
+**Шаблоны:**
+- "Over the next one to two weeks, Bitcoin has just closed above..." (reel 2) — таймфрейм + событие
+- "Previously, if you were trading more than three times per week, you had to register as a day trader. This has removed..." (reel 5) — было/стало
+- "The big question on everyone's minds in the world of crypto right now is..." (reel 8) — формулировка вопроса от лица аудитории
+
+**Правило:** 1–2 конкретные цифры (не больше) — не перегружать, talking-head не выдерживает плотность чисел как анимация.
+
+### БЛОК 3: АНАЛИЗ — "ДВА СЦЕНАРИЯ" (0:20–0:50)
+
+**Это ядро формата.** В 9 из 14 рилсов Luke раскладывает событие на 2 (реже 3) сценария.
+
+**Шаблон:**
+> "Now, there are two options for us going forward. **Number one,** [сценарий А]. **And number two,** [сценарий Б]."
+
+**Примеры:**
+- Reel 2: новый булран VS эхо-пузырь 2019
+- Reel 8: rejection и продолжение медвежьего VS прорыв вверх
+- Reel 11: запуск нового цикла VS повторение сценария 2019
+- Reel 13: классический медвежий до Q4 VS Max Pain — раннее дно
+- Reel 14: булран через 30/60/90 дней VS полный цикл медвежьего
+
+**Зачем работает:** даёт зрителю иллюзию полного покрытия темы за 30 сек + создаёт интригу ("что выберет автор?") + готовит CTA ("у меня план для ОБОИХ сценариев").
+
+**Альтернативные паттерны (когда не "2 сценария"):**
+- Историческая аналогия: "10 out of 13 Fed chairs were tested with a market correction" (reel 3, 4)
+- Механика: "CTAs + short covering + options expiry drove the market" (reel 10)
+- Geopolitics-таймлайн: "4 weeks for tankers + 2 weeks refinement" (reel 9)
+
+### БЛОК 4: PERSONAL TAKE / HEDGE (0:50–1:00)
+
+**Микроблок 5–10 сек.** Снимает обещания доходности и переводит в личное мнение.
+
+**Формулы хеджа (часто комбинируются):**
+- "Now, **I'm not saying** [крайнее утверждение], **but what I am saying is** [мягкая версия]" (reel 1, 5)
+- "**The reality is none of us know**, not you and not I." (reel 8)
+- "**My take** — Trump is a deal maker..." (reel 9)
+- "**In my opinion**, I don't care what happens here because I'm just going to follow my framework" (reel 11)
+
+**Зачем:** легально обходит compliance + позиционирует как "честного эксперта" vs "крикуна с прогнозом".
+
+### БЛОК 5: CTA (последние 5–15 сек)
+
+**Структура:** "Если хочешь [ценность], comment/DM the word [триггер], и я пришлю [конкретный артефакт]."
+
+**Типология триггеров в сэмпле:**
+
+| Триггер | Артефакт | Цель | Частота |
+|---|---|---|---|
+| `workshop` | живой воркшоп Saturday May 2 | high-intent лид | 3/14 |
+| `podcast` | ссылка на эпизод BMB | средний intent / nurture | 4/14 |
+| `BMB` / `BTC` / `BNB` | DM с фреймворком | high-ticket кросс-продажа ($100K+) | 4/14 |
+| `process` | YouTube канал | top-funnel | 1/14 |
+| (нет) | engagement-вопрос | охват / сейвы | 2/14 |
+
+**Особенность:** в high-ticket рилсах (BMB) Luke прямо отсекает не-ЦА: *"if you're a serious investor, well capitalized, investing $100K or more"* (reel 11). Это не отпугивает — это работает как pre-qualification.
+
+---
+
+## ЧАСТЬ 2. ЯЗЫКОВЫЕ ПАТТЕРНЫ ФОРМАТА
+
+**Командные глаголы для удержания:**
+- "Listen up" / "let me break it down for you" / "let me tell you why"
+- "Keep these stocks on your radar"
+- "Watch the signals" / "look out for it"
+
+**Поворотные фразы:**
+- "But what most people are not considering is..."
+- "What's interesting to note about..."
+- "Now, in my opinion..."
+- "The truth is..."
+- "Here's what's interesting..."
+
+**Личное позиционирование:**
+- "My equities analyst and I..." — команда + экспертиза
+- "I'm hosting a free live workshop..." — личное приглашение
+- "Gabriel and I just shot for the Bull Market Blueprint channel" — name-dropping своего бренда
+- "My members that work with me privately" — статус + дефицит
+
+**Финал — открытая петля или мантра:**
+- "Comment the word X and let's go." — лёгкое, без давления
+- "The punch bowl never stays spiked forever." (reel 12) — мантра-якорь
+- "If you don't have a plan, you're going to be caught off guard." (reel 14) — FOMO-закрытие
+
+---
+
+## ЧАСТЬ 3. СИЛЬНЫЕ И СЛАБЫЕ СТОРОНЫ САМПЛА
+
+### Что работает (надо красть в скилл)
+
+1. **Сценарный анализ "А или Б"** — главное отличие от animated. В RU-адаптации работает идеально под крипту/макро.
+2. **Pre-qualification в CTA для high-ticket** — отсекает мусор в DM, повышает качество лидов.
+3. **News-jacking первые 8 секунд** — конкретное событие текущей недели в хуке.
+4. **Hedge "I'm not saying X, but Y"** — обходит compliance, не звучит как guru.
+5. **Прямое обращение к сегменту в первой секунде** — фильтр на ЦА.
+
+### Слабые места сэмпла
+
+1. **Reel 6 (oil shock)** — нет CTA на триггер, только engagement-вопрос. Скорее всего по метрикам слабее остальных. Не копировать без причины.
+2. **Reel 13 (BTC consolidation)** — Whisper словил петлю "I'll show you guys the next one" × 17. Скорее всего видос обрывается резко или есть монтажный косяк. (Не структурная проблема, но проверить оригинал.)
+3. **3 рилса подряд про один и тот же Bitcoin support band** (reel 2, 8, 11) — Luke тиражирует одну тему под разные углы. Для CK эта плотность повторов опасна — выгорание аудитории. Делать так только если меняется новостной триггер.
+4. **Хуки С-формулы (вопрос-провокация)** менее цепляют, чем А (прямое обращение). В RU-адаптации первичен А.
+5. **Длина 40–50 сек** на reel 4, 5, 6 — короче, чем animated скилл рекомендует. Но для talking-head это нормально: меньше плотность → меньше времени на удержание.
+
+---
+
+## ЧАСТЬ 4. ЧТО ИЗ ЭТОГО МОЖНО СДЕЛАТЬ
+
+**Вариант 1: Расширить `/reel-luke` режимом `format=talking-head`**
+- Добавить секцию "ЧАСТЬ 7: Talking Head вариант" с 5-блочной структурой выше
+- На входе указывать `ФОРМАТ: talking-head` или `animated`
+- Скилл генерит сценарий + визуальный бриф (для talking-head — план съёмки: фон, кадрирование, ритм, monitor с тезисами на чтение)
+
+**Вариант 2: Отдельный скилл `/reel-luke-th`**
+- Если правил станет много (съёмка, риг, B-roll, монтажные склейки), лучше выделить
+- Талкинг-хед — это реально другая боль продакшена
+
+**Вариант 3: Гибрид — пайплайн "новость → talking-head за 30 минут"**
+- Скилл-конвейер: парсинг новости (Reuters/Bloomberg) → 2-сценарный анализ → черновик скрипта в стиле Luke → CTA-блок под текущую кампанию (FTT/Workshop/Intro)
+- Полезно для D-Trader / Garry / Solva — у них формат "говорящая голова" работает лучше анимации
+
+**Моя рекомендация:** Вариант 1. Не плодить скиллы пока не подтверждено, что D-Trader/Garry будут снимать talking-head регулярно. Минимальная итерация — добавить блок в существующий скилл, обкатать на 2-3 рилсах CK, потом решать про выделение.
+
+---
+
+## ЧАСТЬ 5. ЧЕКЛИСТ ДЛЯ TALKING-HEAD РИЛСА (черновик)
+
+- [ ] Хук — прямое обращение к сегменту в 0:00–0:03 ("Crypto investors, listen up")?
+- [ ] В первые 8 сек — конкретное событие/новость текущей недели?
+- [ ] Есть структура "сценарий А или Б"?
+- [ ] Минимум одна личная маркировка ("my take", "in my opinion", "I'm hosting")?
+- [ ] Hedge-фраза для обхода compliance ("I'm not saying X, but Y")?
+- [ ] CTA с конкретным триггер-словом и артефактом в DM?
+- [ ] Pre-qualification в CTA для high-ticket?
+- [ ] 40–75 секунд?
+- [ ] 2–4 цифры (не больше — это не animated)?
+- [ ] Финал — мантра или FOMO-петля?
+- [ ] Без визуальных аналогий (это не animated, не нужно описывать "пылесос")?
+- [ ] Нет упоминаний РФ/рубля?
+
+---
+
+## ПРИЛОЖЕНИЕ: что хочется уточнить у Влада
+
+1. **Под кого адаптируем формат?** D-Trader, Garry, Solva — у каждого свой тон. Стоит зафиксировать в скилле "креатор-пресеты" или делать generic?
+2. **CK-CTA-маппинг.** Триггеры Luke: workshop, podcast, BMB, BTC. Под CK логично: `воркшоп` → FTT live, `подкаст` → YouTube эпизод, `интро` → free Intro, `вб` → вебинар. Подтверждаешь?
+3. **Регулярность.** Talking-head без эпизодической связки выгорает быстрее, чем animated (там аналогии-картинки разнообразят). Имеет смысл для CK только если есть продукт-кампания, к которой ведём.
+4. **Нужны ли B-roll вставки?** Чистый talking-head у Luke без B-roll. Для CK можно усилить графиком или скриншотом раз в 15 сек — но это уже гибрид с animated, не чистый формат.
