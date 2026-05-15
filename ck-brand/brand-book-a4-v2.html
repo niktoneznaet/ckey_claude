@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Cryptology Key — Brand Book A4 v2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 0; }
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #000000;
+  --border: #2A2A2E;
+  --pattern: #1F1F22;
+  --text: #FFFFFF;
+  --text-muted: #8A8A8E;
+  --text-mute2: #5A5A5E;
+  --lime: #C9F858;
+  --t-junior: #FFFFFF; --t-middle: #22C55E; --t-senior: #F8D038; --t-super: #F97316;
+  --r-pink: #F472B6; --r-emer: #10B981; --r-violet: #A855F7;
+  --ftt-blue: #1828D0; --ws-1: #F7CCBC; --ws-2: #E5936E;
+  --lb-ice: #F5F6FC; --lb-purple: #6232FF; --lb-mid: #14141A; --lb-em1: #CEFF1C; --lb-em2: #00FF8C;
+  --red: #EF4444;
+}
+html, body { font-family: 'JetBrains Mono', monospace; background: #222; }
+.page {
+  width: 210mm; height: 297mm; padding: 10mm; background: var(--bg); color: var(--text);
+  background-image: radial-gradient(circle, var(--pattern) 1px, transparent 1px);
+  background-size: 16px 16px;
+  position: relative; overflow: hidden;
+}
+.inner { border: 1px solid var(--border); height: 100%; padding: 6mm 6mm; display: flex; flex-direction: column; gap: 4mm; }
+/* HEADER */
+.hdr { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 3mm; border-bottom: 1px solid var(--border); }
+.wm { font-size: 22pt; font-weight: 800; letter-spacing: -0.04em; line-height: 0.92; }
+.wm .lime { color: var(--lime); }
+.meta { font-size: 6.5pt; text-align: right; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.15em; line-height: 1.6; }
+.meta .tag { color: var(--text); text-transform: none; font-size: 8pt; letter-spacing: 0; margin-bottom: 1pt; line-height: 1.2; max-width: 70mm; }
+.meta .src { color: var(--text-mute2); }
+.st { font-size: 7pt; text-transform: uppercase; letter-spacing: 0.22em; color: var(--text-muted); margin-bottom: 1.5mm; }
+.st .num { color: var(--text-mute2); margin-right: 4pt; }
+.st .lime { color: var(--lime); }
+/* ARCHITECTURE BAR */
+.arch { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5mm; }
+.arch .c { border: 1px solid var(--border); padding: 2mm 2.5mm; }
+.arch .c.l1 { border-color: var(--lb-purple); }
+.arch .c.l2 { border-color: var(--text-muted); }
+.arch .c.l3 { border-color: var(--lime); }
+.arch .c .lvl { font-size: 5pt; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-mute2); margin-bottom: 1mm; }
+.arch .c .nm { font-size: 9pt; font-weight: 700; letter-spacing: -0.01em; }
+.arch .c.l1 .nm { color: var(--lb-purple); }
+.arch .c.l3 .nm { color: var(--lime); }
+.arch .c .ds { font-size: 5.5pt; color: var(--text-muted); margin-top: 1mm; line-height: 1.35; }
+/* COLORS — production grammar */
+.prod-colors { display: grid; grid-template-columns: repeat(8, 1fr); gap: 1mm; }
+.cc { border: 1px solid var(--border); padding: 2mm; }
+.cc .sw { width: 100%; height: 8mm; margin-bottom: 1.5mm; outline: 1px solid var(--border); outline-offset: -1px; }
+.cc .nm { font-size: 6pt; font-weight: 700; line-height: 1.1; }
+.cc .hx { font-size: 5pt; color: var(--text-muted); letter-spacing: 0.1em; margin-top: 1pt; }
+/* TWO COLUMNS — typo + tiers */
+.row { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4mm; }
+/* TYPO */
+.typo { border: 1px solid var(--border); padding: 3mm; display: grid; gap: 2mm; }
+.typo .ln { display: flex; align-items: baseline; gap: 2mm; border-bottom: 1px solid var(--border); padding-bottom: 1.2mm; }
+.typo .ln:last-child { border-bottom: 0; padding-bottom: 0; }
+.typo .lbl { font-size: 5pt; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-mute2); width: 14mm; flex-shrink: 0; }
+.typo .sp { font-size: 5pt; color: var(--text-mute2); text-align: right; flex-shrink: 0; width: 20mm; letter-spacing: 0.12em; }
+.t-cv { font-size: 22pt; font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; flex: 1; }
+.t-dl { font-size: 16pt; font-weight: 800; letter-spacing: -0.02em; flex: 1; line-height: 1; }
+.t-h2 { font-size: 11pt; font-weight: 700; flex: 1; line-height: 1.05; }
+.t-h2 .lime { color: var(--lime); }
+.t-cd { font-size: 8pt; font-weight: 700; text-transform: uppercase; flex: 1; }
+.t-lb { font-size: 6.5pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; flex: 1; }
+.t-bd { font-size: 7pt; font-weight: 400; color: var(--text-muted); flex: 1; line-height: 1.35; }
+.t-nm { font-size: 22pt; font-weight: 200; color: transparent; -webkit-text-stroke: 0.5px var(--text); flex: 1; line-height: 1; }
+/* TIERS row */
+.tiers { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1mm; }
+.tier { border: 1px solid var(--border); padding: 2mm; }
+.tier .badge { display: inline-block; padding: 1pt 4pt; font-size: 4.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.5mm; }
+.tier .ttl { font-size: 9pt; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1mm; }
+.tier .pl { display: flex; gap: 1mm; flex-wrap: wrap; margin-bottom: 1mm; }
+.tier .pl .p { padding: 1pt 3pt; font-size: 4.5pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; border: 1px solid currentColor; }
+.tier ul { list-style: none; font-size: 5pt; color: var(--text-muted); line-height: 1.5; }
+.tier ul li { padding-left: 2mm; position: relative; margin-bottom: 0.5mm; }
+.tier ul li::before { content: ''; position: absolute; left: 0; top: 1.5pt; width: 1.2mm; height: 0.4pt; background: currentColor; opacity: 0.5; }
+.tier .hx { font-size: 4.5pt; color: var(--text-mute2); margin-top: 1.5mm; text-transform: uppercase; letter-spacing: 0.15em; }
+.t-jun { color: var(--t-junior); } .t-mid { color: var(--t-middle); } .t-sen { color: var(--t-senior); } .t-sup { color: var(--t-super); }
+/* PRINCIPLES — 6 rules */
+.princ { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1mm; }
+.pr { border: 1px solid var(--border); padding: 1.8mm; }
+.pr .n { font-size: 12pt; font-weight: 200; color: transparent; -webkit-text-stroke: 0.4px var(--lime); line-height: 1; margin-bottom: 1mm; }
+.pr .t { font-size: 6.5pt; font-weight: 700; margin-bottom: 0.6mm; line-height: 1.1; }
+.pr .b { font-size: 5pt; color: var(--text-muted); line-height: 1.4; }
+/* PRODUCT ACCENT row */
+.prod-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; }
+.pacc { border: 1px solid var(--border); padding: 2.5mm; }
+.pacc.ftt { border-color: rgba(201, 248, 88, 0.4); }
+.pacc.ws { border-color: rgba(229, 147, 110, 0.4); }
+.pacc .lbl { font-size: 5pt; text-transform: uppercase; letter-spacing: 0.22em; color: var(--text-mute2); margin-bottom: 1mm; }
+.pacc .nm { font-size: 11pt; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1.5mm; }
+.pacc .nm .lime { color: var(--lime); }
+.pacc .sws { display: flex; gap: 1mm; margin-bottom: 1mm; }
+.pacc .sws .s { flex: 1; height: 7mm; outline: 1px solid var(--border); outline-offset: -1px; position: relative; }
+.pacc .sws .s .h { position: absolute; bottom: 0.5mm; left: 1mm; font-size: 4.5pt; font-weight: 700; color: rgba(0,0,0,0.7); }
+.pacc .sws .s.dk .h { color: rgba(255,255,255,0.8); }
+.pacc .ds { font-size: 5pt; color: var(--text-muted); line-height: 1.45; }
+/* LOGOBOOK */
+.lb { border: 1px dashed var(--lb-purple); padding: 2.5mm; }
+.lb-head { display: flex; gap: 2mm; align-items: center; margin-bottom: 1.5mm; }
+.lb-badge { padding: 1pt 4pt; background: var(--lb-purple); color: var(--lb-ice); font-size: 5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; }
+.lb-head .h { font-size: 7pt; font-weight: 700; }
+.lb-head .s { font-size: 5pt; color: var(--text-mute2); }
+.lb-cs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1mm; }
+.lb-c { border: 1px solid rgba(98,50,255,0.3); padding: 1.5mm; }
+.lb-c .sw { width: 100%; height: 6mm; margin-bottom: 1mm; outline: 1px solid rgba(98,50,255,0.2); outline-offset: -1px; }
+.lb-c .nm { font-size: 5pt; font-weight: 700; }
+.lb-c .hx { font-size: 4.5pt; color: var(--text-muted); margin-top: 0.5pt; letter-spacing: 0.1em; }
+/* WORDMARKS / FOOTER */
+.wms { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1mm; }
+.wm-t { border: 1px solid var(--border); padding: 3mm; text-align: center; }
+.wm-t.inv { background: #fff; border-color: #fff; }
+.wm-t.lime-bg { background: var(--lime); border-color: var(--lime); }
+.wm-t .wt { font-size: 11pt; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.wm-t .sub { font-size: 4.5pt; text-transform: uppercase; letter-spacing: 0.3em; color: var(--text-mute2); margin-top: 1.5mm; }
+.wm-t.inv .wt { color: #000; } .wm-t.lime-bg .wt { color: #000; }
+.wm-t.inv .sub, .wm-t.lime-bg .sub { color: #555; }
+.wm-t .lime-acc { color: var(--lime); }
+/* FOOTER */
+.ftr { display: flex; justify-content: space-between; font-size: 5pt; color: var(--text-mute2); text-transform: uppercase; letter-spacing: 0.18em; padding-top: 1.5mm; border-top: 1px solid var(--border); margin-top: auto; }
+/* Logos */
+.hdr-logo { height: 14mm; max-width: 90mm; object-fit: contain; object-position: left center; display: block; }
+.wm-img { display: flex; align-items: center; justify-content: center; padding: 2mm; }
+.wm-img img { max-width: 90%; max-height: 12mm; object-fit: contain; }
+.lb-logos { display: grid; grid-template-columns: 1.4fr 1fr 0.8fr; gap: 1mm; margin-top: 1.5mm; }
+.lb-logo-tile { background: #000; border: 1px solid rgba(98,50,255,0.3); padding: 2mm; display: flex; align-items: center; justify-content: center; min-height: 14mm; }
+.lb-logo-tile img { max-width: 100%; max-height: 10mm; object-fit: contain; }
+</style>
+</head>
+<body>
+<div class="page"><div class="inner">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div>
+      <img class="hdr-logo" src="logobook/assets/ck-wordmark-horizontal.png" alt="Cryptology Key">
+    </div>
+    <div class="meta">
+      <div class="tag">Production design system. Синтез из FTT v2.0 + Workshop deck + Logobook.</div>
+      <div>Brand book v 2.0</div>
+      <div class="src">2026-05-13</div>
+    </div>
+  </div>
+
+  <!-- ARCHITECTURE -->
+  <div>
+    <div class="st"><span class="num">00 /</span> Architecture — <span class="lime">3 layers</span></div>
+    <div class="arch">
+      <div class="c l1"><div class="lvl">Layer 1 — Identity</div><div class="nm">Logobook</div><div class="ds">Юр.лицо · partner pitches · визитки · corporate · merch</div></div>
+      <div class="c l2"><div class="lvl">Layer 2 — Grammar</div><div class="nm">Production system</div><div class="ds">Каркас всего контента. Моноспейс + чёрный + outlined frames + numbered grids.</div></div>
+      <div class="c l3"><div class="lvl">Layer 3 — Product</div><div class="nm">Product accent</div><div class="ds">Окрашивание под продукт: FTT=lime+blue, Workshop=orange+blue, tiers свои.</div></div>
+    </div>
+  </div>
+
+  <!-- 01 PRODUCTION COLORS -->
+  <div>
+    <div class="st"><span class="num">01 /</span> Production grammar — <span class="lime">константы</span></div>
+    <div class="prod-colors">
+      <div class="cc"><div class="sw" style="background: #000; outline-color: var(--border);"></div><div class="nm">Base Black</div><div class="hx">#000000</div></div>
+      <div class="cc"><div class="sw" style="background: var(--lime);"></div><div class="nm">Signal Lime</div><div class="hx">#C9F858</div></div>
+      <div class="cc"><div class="sw" style="background: #fff;"></div><div class="nm">Workhorse</div><div class="hx">#FFFFFF</div></div>
+      <div class="cc"><div class="sw" style="background: var(--t-junior);"></div><div class="nm">Junior</div><div class="hx">#FFFFFF</div></div>
+      <div class="cc"><div class="sw" style="background: var(--t-middle);"></div><div class="nm">Middle</div><div class="hx">#22C55E</div></div>
+      <div class="cc"><div class="sw" style="background: var(--t-senior);"></div><div class="nm">Senior</div><div class="hx">#F8D038</div></div>
+      <div class="cc"><div class="sw" style="background: var(--t-super);"></div><div class="nm">Supercharged</div><div class="hx">#F97316</div></div>
+      <div class="cc"><div class="sw" style="background: var(--red);"></div><div class="nm">Signal Red</div><div class="hx">#EF4444</div></div>
+    </div>
+  </div>
+
+  <!-- 02 PRINCIPLES -->
+  <div>
+    <div class="st"><span class="num">02 /</span> Six principles</div>
+    <div class="princ">
+      <div class="pr"><div class="n">01</div><div class="t">Monospace</div><div class="b">JetBrains/Geist Mono на всём. Никогда Inter/Helvetica.</div></div>
+      <div class="pr"><div class="n">02</div><div class="t">Pure black</div><div class="b">#000000. Pattern из точек #1F1F22 шаг 24px.</div></div>
+      <div class="pr"><div class="n">03</div><div class="t">Outlined frame</div><div class="b">Внутренняя рамка 1px #2A2A2E, отступ 32-48px.</div></div>
+      <div class="pr"><div class="n">04</div><div class="t">Rect pills</div><div class="b">Border-radius 0. Скруглённые pills убивают tone.</div></div>
+      <div class="pr"><div class="n">05</div><div class="t">Outlined nums</div><div class="b">01/02/03 — font-weight 200, transparent + 1px stroke.</div></div>
+      <div class="pr"><div class="n">06</div><div class="t">Slash-accent</div><div class="b">"4 УРОВНЯ/ОТЛИЧИЯ" — lime на правой части.</div></div>
+    </div>
+  </div>
+
+  <!-- 03 TYPO + 04 TIERS -->
+  <div class="row">
+    <!-- TYPO -->
+    <div>
+      <div class="st"><span class="num">03 /</span> Type — JetBrains Mono</div>
+      <div class="typo">
+        <div class="ln"><div class="lbl">Cover XL</div><div class="t-cv">FULL TIME TRADER</div><div class="sp">72-96 / 800</div></div>
+        <div class="ln"><div class="lbl">Display</div><div class="t-dl">РЕЗУЛЬТАТЫ</div><div class="sp">48-64 / 800</div></div>
+        <div class="ln"><div class="lbl">H2</div><div class="t-h2">4 УРОВНЯ<span class="lime">/ОТЛИЧИЯ</span></div><div class="sp">28-40 / 700</div></div>
+        <div class="ln"><div class="lbl">Card</div><div class="t-cd">JUNIOR / SENIOR</div><div class="sp">18-22 / 700 UPPER</div></div>
+        <div class="ln"><div class="lbl">Label</div><div class="t-lb">УСИЛЕННАЯ ПРАКТИКА</div><div class="sp">11-14 / 600 / +0.2em</div></div>
+        <div class="ln"><div class="lbl">Body</div><div class="t-bd">Прозрачные правила, реальный рынок, измеримый результат.</div><div class="sp">13-15 / 400</div></div>
+        <div class="ln"><div class="lbl">Num thin</div><div class="t-nm">01</div><div class="sp">28-56 / 200</div></div>
+      </div>
+    </div>
+    <!-- TIERS -->
+    <div>
+      <div class="st"><span class="num">04 /</span> Tiers — <span class="lime">4 уровня</span></div>
+      <div class="tiers">
+        <div class="tier t-jun">
+          <div class="badge" style="background: var(--t-junior); color: #000;">JUNIOR</div>
+          <div class="ttl">JUNIOR</div>
+          <div class="pl"><span class="p">04 НЕД</span><span class="p">16 МОД</span></div>
+          <ul><li>База трейдинга</li><li>10 онл + Q&amp;A</li></ul>
+          <div class="hx">#FFFFFF</div>
+        </div>
+        <div class="tier t-mid">
+          <div class="badge" style="background: var(--red); color: #fff;">РЫНОК</div>
+          <div class="ttl">MIDDLE</div>
+          <div class="pl"><span class="p">08 НЕД</span><span class="p">32 МОД</span></div>
+          <ul><li>Crypto/Forex</li><li>20 онл + Q&amp;A</li><li>ДЗ с ментором</li></ul>
+          <div class="hx">#22C55E</div>
+        </div>
+        <div class="tier t-sen">
+          <div class="badge" style="background: var(--t-senior); color: #000;">ПРАКТИКА</div>
+          <div class="ttl">SENIOR</div>
+          <div class="pl"><span class="p">12 НЕД</span><span class="p">36 МОД</span></div>
+          <ul><li>Усиленная теория</li><li>Бэктест+ментор</li><li>2 мес практики</li></ul>
+          <div class="hx">#F8D038</div>
+        </div>
+        <div class="tier t-sup">
+          <div class="badge" style="background: var(--t-super); color: #fff;">ИНД ПОДХОД</div>
+          <div class="ttl">SUPERCH.</div>
+          <div class="pl"><span class="p">12 НЕД</span><span class="p">36 МОД</span></div>
+          <ul><li>Личная команда</li><li>ETF CK + куратор</li></ul>
+          <div class="hx">#F97316</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 PRODUCT ACCENT -->
+  <div>
+    <div class="st"><span class="num">05 /</span> Product accent — caster для cover'ов / CTA</div>
+    <div class="prod-row">
+      <div class="pacc ftt">
+        <div class="lbl">Deck A — confirmed FTT v2.0 (27 pp)</div>
+        <div class="nm">FULL TIME <span class="lime">TRADER</span></div>
+        <div class="sws">
+          <div class="s" style="background: var(--lime);"><span class="h">#C9F858</span></div>
+          <div class="s dk" style="background: var(--ftt-blue);"><span class="h">#1828D0</span></div>
+          <div class="s dk" style="background: #000; border: 1px solid var(--border);"><span class="h">#000000</span></div>
+        </div>
+        <div class="ds">Lime accent + Royal Blue secondary. Используется на cover, chart-визуалах, slash-разделителях, mini-square элементах.</div>
+      </div>
+      <div class="pacc ws">
+        <div class="lbl">Deck B — confirmed Workshop (29 pp)</div>
+        <div class="nm">WORKSHOP</div>
+        <div class="sws">
+          <div class="s" style="background: linear-gradient(180deg, var(--ws-1), var(--ws-2));"><span class="h">→</span></div>
+          <div class="s" style="background: var(--t-super);"><span class="h">#F97316</span></div>
+          <div class="s dk" style="background: var(--ftt-blue);"><span class="h">#1828D0</span></div>
+        </div>
+        <div class="ds">Coral-orange gradient #F7CCBC→#E5936E ТОЛЬКО на cover (frosted glass). Body слайдов = чёрный + dotted. Orange + Blue — dual для tier/bonus split.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 LOGOBOOK -->
+  <div>
+    <div class="st"><span class="num">06 /</span> Logobook (identity) — <span style="color: var(--lb-purple);">не для слайдов</span></div>
+    <div class="lb">
+      <div class="lb-head">
+        <span class="lb-badge">Identity only</span>
+        <div><div class="h">Корпоратив · partner pitches · юр.лицо · визитки · merch</div></div>
+      </div>
+      <div class="lb-cs">
+        <div class="lb-c"><div class="sw" style="background: var(--lb-ice);"></div><div class="nm">Ice White</div><div class="hx">#F5F6FC</div></div>
+        <div class="lb-c"><div class="sw" style="background: var(--lb-purple);"></div><div class="nm">Purple</div><div class="hx">#6232FF</div></div>
+        <div class="lb-c"><div class="sw" style="background: var(--lb-mid);"></div><div class="nm">Midnight</div><div class="hx">#14141A</div></div>
+        <div class="lb-c"><div class="sw" style="background: linear-gradient(180deg, var(--lb-em1), var(--lb-em2));"></div><div class="nm">Emerald Shift</div><div class="hx">#CEFF1C→#00FF8C</div></div>
+        <div class="lb-c"><div class="sw" style="background: #000; outline-color: rgba(98,50,255,0.4); display: flex; align-items: center; justify-content: center; color: var(--lb-ice); font-size: 4.5pt; font-weight: 700; text-align: center; line-height: 1.2;">CoFo Kak</div><div class="nm">Head font</div><div class="hx">CoFo Kak Medium</div></div>
+        <div class="lb-c"><div class="sw" style="background: #000; outline-color: rgba(98,50,255,0.4); display: flex; align-items: center; justify-content: center; color: var(--lb-ice); font-size: 4.5pt; font-weight: 500; text-align: center; line-height: 1.2;">Atyp Display</div><div class="nm">Body font</div><div class="hx">Atyp Display</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 WORDMARKS — real assets -->
+  <div>
+    <div class="st"><span class="num">07 /</span> Wordmarks &amp; lockups <span class="lime">— real assets</span></div>
+    <div class="lb-logos">
+      <div class="lb-logo-tile">
+        <img src="logobook/assets/ck-wordmark-horizontal.png" alt="CRYPTOLOGY KEY horizontal">
+      </div>
+      <div class="lb-logo-tile">
+        <img src="logobook/assets/ck-wordmark-vertical-gradient.png" alt="CRYPTOLOGY KEY vertical with gradient">
+      </div>
+      <div class="lb-logo-tile">
+        <img src="logobook/assets/ck-mark-icon-only.png" alt="CK mark gradient green icon">
+      </div>
+    </div>
+    <div style="margin-top: 1.5mm; font-size: 5pt; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase;">
+      logobook/assets/ — горизонтальный · vertical-gradient · gradient mark · 40 mark variations · mono small
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="ftr">
+    <div>Cryptology Key / Brand book v 2.0</div>
+    <div>brand-book-a4-v2.pdf / 2026-05-13</div>
+    <div>см. design-system-v2.html · source-decks/</div>
+  </div>
+
+</div></div>
+</body>
+</html>

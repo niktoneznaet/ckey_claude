@@ -33,6 +33,8 @@ Slash-команды (skills) для Claude Code — система автома
 | `/vsl` | Video Sales Letter — сценарий + структура |
 | `/presentation` | Продающая презентация для эфиров |
 | `/slide-brief` | Генерация ТЗ на слайды |
+| `/sufler-to-deck` | Суфлёр → slide-list.json + enriched-суфлёр + examples-brief. Методология AlexxxFX в CK Design System v3 |
+| `/deck-build` | Рендерер видео-презентаций CK: JSON slide-list → self-contained HTML + PDF по brand book v3. 20 типов слайдов |
 
 ## Курсы
 
@@ -79,5 +81,7 @@ Slash-команды (skills) для Claude Code — система автома
 ---
 
 **Knowledge Base:** 15 файлов копирайта CK в `Бизнес OS/knowledge-base/copywriting/`
+
+**Brand assets:** папка `ck-brand/` в этом репо содержит минимальный набор CK Design System v3 (design-system-v3.html, tokens.css, brand-book A4 v2, logobook/assets). На неё опираются `/sufler-to-deck` и `/deck-build`.
 
 **Установка:** Клонировать репо в `~/.claude/commands/`

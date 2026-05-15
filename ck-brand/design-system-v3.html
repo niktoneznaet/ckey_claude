@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cryptology Key — Design System v3.0 (UI Kit aligned)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ─── color tokens (UI Kit aligned) ─── */
+    /* bg */
+    --bg-black:    #000000;
+    --bg-page:     #0A0A0A;
+    --surface-1:   #0E0E10;
+    --surface-2:   #16161A;
+    /* border */
+    --border-subtle: #2A2A2E;
+    --border-dim:    #1F1F22;
+    /* text */
+    --text-primary:   #FFFFFF;
+    --text-secondary: #A1A1A6;
+    --text-tertiary:  #6B6B70;
+    /* accent */
+    --accent-lime:    #C9F858;
+    --accent-lime-soft: #7C9D38;
+    /* semantic */
+    --sem-green:  #22C55E;
+    --sem-blue:   #3B82F6;
+    --sem-violet: #A855F7;
+    --sem-orange: #F97316;
+    --sem-red:    #EF4444;
+    /* dot grid */
+    --dot:        #1F1F22;
+
+    /* ─── product accent (CK-specific, not in UI Kit) ─── */
+    --t-junior: #FFFFFF;
+    --t-middle: #22C55E;
+    --t-senior: #F8D038;
+    --t-super:  #F97316;
+    --ftt-lime: #C9F858;
+    --ftt-blue: #1828D0;
+    --ws-grad-1:#F7CCBC;
+    --ws-grad-2:#E5936E;
+    --ws-blue:  #1828D0;
+    --r-pink:   #F472B6;
+    --r-emerald:#10B981;
+    --r-violet: #A855F7;
+
+    /* ─── logobook (identity layer) ─── */
+    --lb-ice:   #F5F6FC;
+    --lb-purple:#6232FF;
+    --lb-mid:   #14141A;
+    --lb-emer1: #CEFF1C;
+    --lb-emer2: #00FF8C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg-black);
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    background-image: radial-gradient(circle, var(--dot) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+  }
+
+  .frame { max-width: 1320px; margin: 0 auto; padding: 40px 24px; }
+  .frame-inner { border: 1px solid var(--border-subtle); padding: 48px; }
+
+  /* Header */
+  .hdr { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 32px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 56px; }
+  .hdr-logo { width: 320px; max-width: 50%; height: auto; }
+  .hdr .meta { text-align: right; }
+  .hdr .tag { font-size: 13px; color: var(--text-primary); margin-bottom: 6px; max-width: 380px; line-height: 1.45; }
+  .hdr .ver { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.2em; }
+  .hdr .src { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 4px; max-width: 380px; line-height: 1.5; }
+
+  /* Sections */
+  .section { margin-bottom: 72px; }
+  .stack-label { font-size: 10px; color: var(--accent-lime); text-transform: uppercase; letter-spacing: 0.25em; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-dim); }
+  .sn { display: inline-block; font-size: 72px; font-weight: 200; color: transparent; -webkit-text-stroke: 1px var(--text-secondary); line-height: 1; margin-bottom: 12px; }
+  .st { font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em; }
+  .st .acc { color: var(--accent-lime); }
+  .sb { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 24px; }
+
+  /* Architecture diagram */
+  .arch { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .arch-card { border: 1px solid var(--border-subtle); padding: 28px; position: relative; }
+  .arch-card.identity { border-color: var(--lb-purple); }
+  .arch-card.grammar  { border-color: var(--text-secondary); }
+  .arch-card.product  { border-color: var(--accent-lime); }
+  .arch-card .lvl  { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 8px; }
+  .arch-card .name { font-size: 22px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .arch-card.identity .name { color: var(--lb-purple); }
+  .arch-card.product  .name { color: var(--accent-lime); }
+  .arch-card .who { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
+  .arch-card .where { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.12em; line-height: 1.5; }
+
+  /* Color cards */
+  .cgrid8 { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
+  .ccard { border: 1px solid var(--border-subtle); padding: 14px; }
+  .ccard .sw { width: 100%; height: 80px; margin-bottom: 12px; outline: 1px solid var(--border-subtle); outline-offset: -1px; }
+  .ccard .name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .ccard .hex { font-size: 10px; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase; }
+  .ccard .ns  { font-size: 9px; color: var(--text-tertiary); margin-top: 6px; letter-spacing: 0.08em; }
+
+  /* Typography table */
+  .typo-tbl { border: 1px solid var(--border-subtle); }
+  .typo-row { display: grid; grid-template-columns: 160px 1fr 220px; padding: 22px 26px; border-bottom: 1px solid var(--border-subtle); align-items: baseline; gap: 24px; }
+  .typo-row:last-child { border-bottom: 0; }
+  .typo-row .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent-lime); }
+  .typo-row .sp  { font-size: 10px; color: var(--text-tertiary); text-align: right; text-transform: uppercase; letter-spacing: 0.12em; line-height: 1.5; }
+  .t-dxl    { font-size: 88px; font-weight: 700; letter-spacing: 0.01em; line-height: 0.95; }
+  .t-dl     { font-size: 64px; font-weight: 700; letter-spacing: 0.01em; line-height: 1.0; }
+  .t-dm     { font-size: 44px; font-weight: 500; letter-spacing: 0.02em; line-height: 1.1; }
+  .t-hcard  { font-size: 26px; font-weight: 500; letter-spacing: 0.06em; line-height: 1.15; text-transform: uppercase; }
+  .t-hsec   { font-size: 18px; font-weight: 500; letter-spacing: 0.1em; line-height: 1.1; text-transform: uppercase; }
+  .t-blg    { font-size: 18px; font-weight: 400; line-height: 1.55; color: var(--text-primary); }
+  .t-body   { font-size: 14px; font-weight: 400; line-height: 1.6; color: var(--text-primary); }
+  .t-lup    { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; line-height: 1.4; text-transform: uppercase; color: var(--accent-lime); }
+  .t-cap    { font-size: 11px; font-weight: 400; letter-spacing: 0.05em; line-height: 1.4; color: var(--text-secondary); }
+
+  /* Principles */
+  .princ { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .pr { border: 1px solid var(--border-subtle); padding: 22px; }
+  .pr .n { font-size: 42px; font-weight: 200; color: transparent; -webkit-text-stroke: 1px var(--accent-lime); line-height: 1; margin-bottom: 12px; }
+  .pr .t { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .pr .b { font-size: 11px; color: var(--text-secondary); line-height: 1.55; }
+
+  /* Pills */
+  .pill-row { display: flex; flex-wrap: wrap; gap: 10px; padding: 24px; border: 1px solid var(--border-subtle); }
+  .pill { display: inline-flex; align-items: center; padding: 6px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; font-family: inherit; }
+  .pill.lime    { background: var(--accent-lime); color: #000; }
+  .pill.red     { background: var(--sem-red); color: #FFF; }
+  .pill.orange  { background: var(--sem-orange); color: #FFF; }
+  .pill.green   { background: var(--sem-green); color: #FFF; }
+  .pill.blue    { background: var(--sem-blue); color: #FFF; }
+  .pill.violet  { background: var(--sem-violet); color: #FFF; }
+  .pill.outline-primary { background: transparent; border: 1px solid var(--text-primary); color: var(--text-primary); }
+  .pill.outline-dim     { background: transparent; border: 1px solid var(--text-tertiary); color: var(--text-tertiary); }
+  .pill.dark-neutral    { background: var(--surface-2); color: var(--text-secondary); }
+  .pill-label { font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.18em; margin-top: 6px; }
+
+  /* Cards (UI Kit "04 CARDS" pattern) */
+  .cards4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .uikit-card { border: 1px solid var(--border-subtle); padding: 24px; min-height: 180px; display: flex; flex-direction: column; }
+  .uikit-card .topup   { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sem-green); margin-bottom: 14px; }
+  .uikit-card .topup.r { color: var(--sem-red); }
+  .uikit-card .h       { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.2; margin-bottom: 10px; }
+  .uikit-card .b       { font-size: 11px; color: var(--text-secondary); line-height: 1.55; }
+  .uikit-card .bignum  { font-size: 64px; font-weight: 200; color: transparent; -webkit-text-stroke: 1px var(--sem-red); line-height: 1; margin-bottom: 8px; }
+
+  /* Lists */
+  .lists-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+  .list-card { border: 1px solid var(--border-subtle); padding: 22px; min-height: 220px; }
+  .list-card .ll { font-size: 9px; color: var(--accent-lime); text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 18px; }
+  .ll-dash li, .ll-plus li, .ll-check li, .ll-num li { list-style: none; padding-left: 22px; position: relative; font-size: 12px; line-height: 1.5; color: var(--text-primary); margin-bottom: 9px; }
+  .ll-dash li::before  { content: '—'; position: absolute; left: 0; color: var(--text-secondary); }
+  .ll-plus li::before  { content: '+'; position: absolute; left: 0; color: var(--accent-lime); font-weight: 700; }
+  .ll-check li         { padding-left: 28px; }
+  .ll-check li::before { content: ''; position: absolute; left: 0; top: 4px; width: 11px; height: 11px; background: var(--sem-green); }
+  .ll-check li.r::before { background: var(--sem-red); }
+  .ll-check li.d::before { background: var(--text-tertiary); }
+  .ll-num     { padding: 0; }
+  .ll-num li  { padding: 12px 0; border-bottom: 1px solid var(--border-dim); display: grid; grid-template-columns: 36px 1fr 56px; gap: 14px; align-items: baseline; font-size: 12px; }
+  .ll-num li::before { content: none; }
+  .ll-num li .idx { color: var(--text-tertiary); font-size: 11px; }
+  .ll-num li .ref { color: var(--text-tertiary); font-size: 10px; text-align: right; }
+  .ll-num li.active span:not(.idx):not(.ref) { color: var(--accent-lime); }
+  .ll-num li.active .idx { color: var(--accent-lime); }
+
+  /* Numerals */
+  .num-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
+  .num-cell { border: 1px solid var(--border-subtle); padding: 24px 18px; text-align: left; min-height: 130px; display: flex; flex-direction: column; justify-content: space-between; }
+  .num-cell .lbl { font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.18em; }
+  .num-cell .n   { font-size: 56px; font-weight: 200; color: transparent; line-height: 1; }
+  .num-cell.lime    .n { -webkit-text-stroke: 1px var(--accent-lime); }
+  .num-cell.blue    .n { -webkit-text-stroke: 1px var(--sem-blue); }
+  .num-cell.green   .n { -webkit-text-stroke: 1px var(--sem-green); }
+  .num-cell.orange  .n { -webkit-text-stroke: 1px var(--sem-orange); }
+  .num-cell.violet  .n { -webkit-text-stroke: 1px var(--sem-violet); }
+  .num-cell.red     .n { -webkit-text-stroke: 1px var(--sem-red); }
+  .num-cell.white   .n { -webkit-text-stroke: 1px var(--text-primary); }
+  .num-cell.dim     .n { -webkit-text-stroke: 1px var(--text-tertiary); }
+
+  /* Stat cards */
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .stat-card { border: 1px solid var(--border-subtle); padding: 28px; }
+  .stat-card .lup { font-size: 10px; color: var(--accent-lime); text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 16px; }
+  .stat-card .big { font-size: 92px; font-weight: 700; color: var(--accent-lime); line-height: 1; letter-spacing: -0.02em; }
+  .stat-card .big .pct { font-size: 38px; color: var(--accent-lime); font-weight: 500; vertical-align: top; margin-left: 4px; }
+  .stat-card .sub { font-size: 12px; color: var(--text-secondary); margin-top: 10px; line-height: 1.5; }
+  .three-step { display: flex; align-items: center; gap: 18px; padding-top: 8px; }
+  .three-step .n { font-size: 68px; font-weight: 200; color: transparent; line-height: 1; }
+  .three-step .n.g { -webkit-text-stroke: 1px var(--sem-green); }
+  .three-step .n.b { -webkit-text-stroke: 1px var(--sem-blue); }
+  .three-step .n.o { -webkit-text-stroke: 1px var(--sem-orange); }
+  .three-step .ar { font-size: 26px; color: var(--text-tertiary); }
+  .three-step .lbl { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.18em; margin-top: 10px; }
+
+  /* Slide chrome / master frame */
+  .chrome-wrap { border: 1px solid var(--border-subtle); padding: 32px; }
+  .chrome-slide { aspect-ratio: 16/9; background: #000; position: relative; outline: 1px solid var(--border-subtle); background-image: radial-gradient(circle, var(--dot) 1.5px, transparent 1.5px); background-size: 18px 18px; }
+  .chrome-slide .inner { position: absolute; inset: 28px; border: 1px solid var(--border-subtle); }
+  .chrome-slide .ck-mark { position: absolute; top: 40px; left: 44px; display: flex; align-items: center; gap: 10px; }
+  .chrome-slide .ck-mark .sq { width: 24px; height: 24px; background: var(--accent-lime); display: grid; place-items: center; font-size: 10px; color: #000; font-weight: 800; letter-spacing: -0.05em; }
+  .chrome-slide .ck-mark .wm { font-size: 11px; letter-spacing: 0.22em; font-weight: 600; }
+  .chrome-slide .foot-l { position: absolute; bottom: 40px; left: 44px; font-size: 9px; letter-spacing: 0.22em; color: var(--text-tertiary); text-transform: uppercase; }
+  .chrome-slide .foot-r { position: absolute; bottom: 40px; right: 44px; font-size: 9px; letter-spacing: 0.22em; color: var(--text-tertiary); }
+  .chrome-slide.lime-frame .inner { border-color: var(--accent-lime); }
+  .chrome-labels { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .chrome-labels .clab { border: 1px solid var(--border-dim); padding: 16px 18px; font-size: 11px; color: var(--text-secondary); line-height: 1.55; }
+  .chrome-labels .clab strong { color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.12em; font-size: 10px; display: block; margin-bottom: 6px; }
+
+  /* Slide templates preview */
+  .tpl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .tpl-card { border: 1px solid var(--border-subtle); padding: 18px; }
+  .tpl-card .tpl-label { font-size: 10px; color: var(--accent-lime); text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 12px; }
+  .tpl-frame { aspect-ratio: 16/9; background: #000; outline: 1px solid var(--border-subtle); position: relative; padding: 38px 44px; display: flex; flex-direction: column; justify-content: center; background-image: radial-gradient(circle, var(--dot) 1.5px, transparent 1.5px); background-size: 14px 14px; }
+  .tpl-frame .corner-mark { position: absolute; top: 18px; left: 22px; display: flex; align-items: center; gap: 6px; }
+  .tpl-frame .corner-mark .sq { width: 16px; height: 16px; background: var(--accent-lime); display: grid; place-items: center; font-size: 7px; color: #000; font-weight: 800; }
+  .tpl-frame .corner-mark .wm { font-size: 7px; letter-spacing: 0.22em; font-weight: 600; }
+  .tpl-frame .corner-r { position: absolute; bottom: 16px; right: 22px; font-size: 7px; color: var(--text-tertiary); letter-spacing: 0.15em; }
+  .tpl-frame .corner-l { position: absolute; bottom: 16px; left: 22px; font-size: 7px; color: var(--text-tertiary); letter-spacing: 0.18em; text-transform: uppercase; }
+  /* template variants */
+  .tpl-cover h1   { font-size: 34px; font-weight: 700; line-height: 0.95; letter-spacing: -0.01em; margin-top: 24px; }
+  .tpl-cover .kk  { font-size: 9px; color: var(--accent-lime); letter-spacing: 0.22em; text-transform: uppercase; }
+  .tpl-cover .desc{ font-size: 9px; color: var(--text-secondary); margin-top: 14px; max-width: 60%; line-height: 1.55; }
+  .tpl-toc h2     { font-size: 18px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; }
+  .tpl-toc .row   { display: grid; grid-template-columns: 24px 1fr 32px; padding: 7px 0; border-bottom: 1px solid var(--border-dim); font-size: 10px; gap: 8px; align-items: baseline; }
+  .tpl-toc .row.act > * { color: var(--accent-lime); }
+  .tpl-toc .row .ix { color: var(--text-tertiary); font-size: 9px; }
+  .tpl-toc .row .pg { color: var(--text-tertiary); font-size: 8px; text-align: right; }
+  .tpl-section .pn  { font-size: 64px; font-weight: 200; -webkit-text-stroke: 1px var(--text-secondary); color: transparent; line-height: 1; }
+  .tpl-section .part{ font-size: 9px; color: var(--accent-lime); letter-spacing: 0.22em; margin-top: 6px; text-transform: uppercase; }
+  .tpl-section h2   { font-size: 28px; font-weight: 700; line-height: 0.95; margin-top: 8px; }
+  .tpl-section .ds  { font-size: 9px; color: var(--text-secondary); margin-top: 10px; max-width: 65%; line-height: 1.5; }
+  .tpl-num .lab     { font-size: 9px; color: var(--accent-lime); letter-spacing: 0.22em; text-transform: uppercase; }
+  .tpl-num .big     { font-size: 68px; font-weight: 700; color: var(--accent-lime); line-height: 1; margin-top: 14px; }
+  .tpl-num .big .p  { font-size: 30px; vertical-align: top; }
+  .tpl-num .desc    { font-size: 10px; color: var(--text-primary); margin-top: 10px; }
+  .tpl-num .meta    { font-size: 9px; color: var(--text-tertiary); margin-top: 4px; }
+  .tpl-recap h2     { font-size: 16px; font-weight: 700; text-transform: uppercase; margin-bottom: 14px; letter-spacing: 0.03em; }
+  .tpl-recap .rcards{ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .tpl-recap .rcard { border: 1px solid var(--border-subtle); padding: 12px; min-height: 80px; }
+  .tpl-recap .rcard .rn { font-size: 32px; font-weight: 200; -webkit-text-stroke: 1px var(--sem-red); color: transparent; line-height: 1; margin-bottom: 6px; }
+  .tpl-recap .rcard.b .rn { -webkit-text-stroke: 1px var(--text-primary); }
+  .tpl-recap .rcard.c .rn { -webkit-text-stroke: 1px var(--accent-lime); }
+  .tpl-recap .rcard .rl { font-size: 7px; color: var(--accent-lime); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 4px; }
+  .tpl-recap .rcard .rb { font-size: 8px; color: var(--text-primary); line-height: 1.4; }
+  .tpl-cta .toppill { display: inline-block; padding: 5px 11px; background: var(--accent-lime); color: #000; font-size: 7px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 14px; }
+  .tpl-cta h2 { font-size: 26px; font-weight: 700; line-height: 1; text-align: center; }
+  .tpl-cta .sub { font-size: 9px; color: var(--text-secondary); text-align: center; margin-top: 10px; }
+  .tpl-cta .pills { display: flex; gap: 8px; justify-content: center; margin-top: 14px; }
+  .tpl-cta .pp { padding: 5px 10px; border: 1px solid var(--text-primary); font-size: 7px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .tpl-roadmap h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; letter-spacing: -0.01em; }
+  .tpl-roadmap .rr { display: grid; grid-template-columns: 22px 1fr 80px; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border-dim); font-size: 10px; align-items: baseline; }
+  .tpl-roadmap .rr .ix { color: var(--text-tertiary); font-size: 8px; }
+  .tpl-roadmap .rr .rt { color: var(--text-tertiary); font-size: 7px; text-align: right; letter-spacing: 0.18em; text-transform: uppercase; }
+  .tpl-roadmap .rr.act > * { color: var(--accent-lime); }
+  .tpl-end h2 { font-size: 34px; font-weight: 700; text-align: center; letter-spacing: -0.01em; }
+  .tpl-end .ln { width: 80px; height: 1px; background: var(--text-secondary); margin: 18px auto; }
+  .tpl-end .desc { font-size: 9px; color: var(--text-secondary); text-align: center; line-height: 1.6; }
+  .tpl-end .meta { font-size: 8px; color: var(--text-tertiary); text-align: center; margin-top: 18px; }
+
+  /* Data viz */
+  .dv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .dv-card { border: 1px solid var(--border-subtle); padding: 28px; }
+  .dv-card .dv-label { font-size: 10px; color: var(--accent-lime); text-transform: uppercase; letter-spacing: 0.22em; margin-bottom: 22px; }
+  .bar-row { display: grid; grid-template-columns: 40px 1fr 50px; align-items: center; gap: 14px; padding: 6px 0; }
+  .bar-row .b-lbl { font-size: 9px; color: var(--text-tertiary); letter-spacing: 0.15em; text-transform: uppercase; }
+  .bar-row .b-track { height: 18px; background: var(--surface-2); position: relative; }
+  .bar-row .b-fill  { position: absolute; left: 0; top: 0; bottom: 0; background: var(--sem-green); }
+  .bar-row .b-val { font-size: 12px; font-weight: 700; text-align: right; }
+  .habit-grid { display: grid; grid-template-columns: repeat(15, 1fr); gap: 6px; }
+  .habit-grid .day { aspect-ratio: 1/1; background: var(--sem-green); }
+  .habit-grid .day.miss { background: var(--sem-red); }
+  .pyramid { display: grid; gap: 8px; }
+  .pyr-row { display: grid; grid-template-columns: 160px 1fr; align-items: center; padding: 12px 16px; gap: 14px; }
+  .pyr-row.fin { background: var(--sem-orange); color: #000; }
+  .pyr-row.proc{ background: var(--sem-blue); color: #FFF; }
+  .pyr-row.beh { background: var(--sem-green); color: #000; }
+  .pyr-row .pl { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .pyr-row .pi { font-size: 10px; letter-spacing: 0.12em; opacity: 0.85; }
+
+  /* Tier cards (CK-specific) */
+  .tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .tier { border: 1px solid var(--border-subtle); padding: 24px; }
+  .tier .topbadge { display: inline-block; padding: 6px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; }
+  .tier .title { font-size: 22px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
+  .tier .pillrow { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .tier .pillrow .p { padding: 4px 10px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; border: 1px solid currentColor; }
+  .tier ul { list-style: none; padding: 0; margin: 0; font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
+  .tier ul li { padding-left: 14px; position: relative; margin-bottom: 4px; }
+  .tier ul li::before { content: ''; position: absolute; left: 0; top: 7px; width: 6px; height: 1px; background: currentColor; opacity: 0.4; }
+  .tier .hex-stamp { font-size: 9px; color: var(--text-tertiary); margin-top: 14px; text-transform: uppercase; letter-spacing: 0.15em; }
+  .t-jun { color: var(--t-junior); }
+  .t-mid { color: var(--t-middle); }
+  .t-sen { color: var(--t-senior); }
+  .t-sup { color: var(--t-super); }
+
+  /* Product palettes */
+  .pp { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .pp-card { border: 1px solid var(--border-subtle); padding: 28px; }
+  .pp-card.ftt { border-color: rgba(201, 248, 88, 0.3); }
+  .pp-card.ws  { border-color: rgba(229, 147, 110, 0.4); }
+  .pp-card .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-secondary); margin-bottom: 6px; }
+  .pp-card .name { font-size: 26px; font-weight: 800; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .pp-card .name .acc { color: var(--accent-lime); }
+  .pp-card .swatches { display: flex; gap: 8px; margin-bottom: 14px; }
+  .pp-card .swatches .s { flex: 1; height: 56px; outline: 1px solid var(--border-subtle); outline-offset: -1px; position: relative; }
+  .pp-card .swatches .s .hx { position: absolute; bottom: 4px; left: 6px; font-size: 9px; color: rgba(0,0,0,0.6); font-weight: 600; }
+  .pp-card .swatches .s.dark .hx { color: rgba(255,255,255,0.6); }
+  .pp-card .desc { font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* Result iconography */
+  .resgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 36px; border: 1px solid var(--border-subtle); }
+  .res-c { text-align: center; }
+  .res-iso { width: 96px; height: 96px; margin: 0 auto 14px; display: grid; place-items: center; }
+  .res-iso .stack { width: 64px; height: 64px; position: relative; transform: rotateX(50deg) rotateZ(-10deg); }
+  .res-iso .stack .l { position: absolute; left: 0; right: 0; height: 18px; border-radius: 4px; }
+  .res-iso .stack .l1 { top: 0; opacity: 0.4; background: var(--c); }
+  .res-iso .stack .l2 { top: 16px; opacity: 0.7; background: var(--c); }
+  .res-iso .stack .l3 { top: 32px; background: var(--c); box-shadow: 0 4px 20px var(--c); }
+  .res-c .num { font-size: 20px; font-weight: 800; }
+  .res-c .lbl { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 4px; }
+  .res-c .b { font-size: 11px; color: var(--text-tertiary); margin-top: 8px; line-height: 1.5; }
+
+  /* Logobook layer */
+  .lb-wrap { border: 1px dashed var(--lb-purple); padding: 32px; background: linear-gradient(180deg, rgba(98,50,255,0.03), transparent); }
+  .lb-banner { display: flex; gap: 18px; align-items: center; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--lb-purple); }
+  .lb-banner .badge { padding: 6px 12px; background: var(--lb-purple); color: var(--lb-ice); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; }
+  .lb-banner .h { font-size: 18px; font-weight: 700; }
+  .lb-banner .sub { font-size: 11px; color: var(--text-secondary); }
+  .lb-colors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+  .lb-colors .c { border: 1px solid rgba(98,50,255,0.3); padding: 14px; }
+  .lb-colors .c .sw { width: 100%; height: 64px; margin-bottom: 10px; }
+  .lb-colors .c .nm { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+  .lb-colors .c .hx { font-size: 10px; color: var(--text-secondary); letter-spacing: 0.12em; text-transform: uppercase; }
+  .lb-fonts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .lb-font { border: 1px solid rgba(98,50,255,0.3); padding: 18px; }
+  .lb-font .label { font-size: 10px; color: var(--lb-purple); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 6px; }
+  .lb-font .sample { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; font-family: 'Inter', sans-serif; }
+  .lb-font .desc { font-size: 10px; color: var(--text-secondary); margin-top: 8px; }
+
+  /* Logo library */
+  .logo-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .logo-card { border: 1px solid var(--border-subtle); padding: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; background: #000; }
+  .logo-card img { max-width: 100%; max-height: 140px; object-fit: contain; }
+  .logo-card .cap { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.18em; margin-top: 16px; text-align: center; }
+  .logo-grid-wrap { border: 1px solid var(--border-subtle); padding: 24px; background: #050505; }
+  .logo-grid-wrap img { width: 100%; display: block; }
+  .logo-grid-wrap .cap { font-size: 11px; color: var(--text-secondary); margin-top: 16px; line-height: 1.5; }
+
+  /* Footer */
+  .ftr { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-tertiary); }
+
+  /* Print */
+  @media print {
+    body { background-image: none; }
+    .frame { max-width: 100%; padding: 0; }
+    .section { page-break-inside: avoid; margin-bottom: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+<div class="frame-inner">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <img class="hdr-logo" src="logobook/assets/ck-wordmark-horizontal.png" alt="Cryptology Key wordmark">
+    </div>
+    <div class="meta">
+      <div class="tag">Production design system для слайдов, лендингов и видео. Синтез UI Kit от дизайнера + FTT v2.0 + Workshop deck + Logobook.</div>
+      <div class="ver">v 3.0 / 2026-05-13</div>
+      <div class="src">Sources: UI Kit · CK (1 pp grid) · FTT v2.0 (27 pp) · Workshop deck (29 pp) · Logobook (10 pp)</div>
+    </div>
+  </div>
+
+  <!-- 00 ARCHITECTURE -->
+  <div class="section">
+    <div class="sn">00</div>
+    <div class="st">Architecture — <span class="acc">три слоя</span></div>
+    <div class="sb">Кто что использует и когда</div>
+    <div class="arch">
+      <div class="arch-card identity">
+        <div class="lvl">Layer 1 — Identity</div>
+        <div class="name">Logobook</div>
+        <div class="who">Корпоративный brand identity. Используется для юр.лица, partner pitches, визиток, презентаций для биржевых партнёров (OKX, Binance, Kraken).</div>
+        <div class="where">Где: визитки · letterhead · partner deck · corporate website · social profile</div>
+      </div>
+      <div class="arch-card grammar">
+        <div class="lvl">Layer 2 — Production (UI Kit)</div>
+        <div class="name">Production system</div>
+        <div class="who">Каркас всего production-контента: моноспейс, чёрный фон, dotted pattern, outlined frames, прямоугольные cards, outlined nums. Одинаковый для всех продуктов CK.</div>
+        <div class="where">Где: все слайды CK · все лендинги · on-screen video text · email-шаблоны</div>
+      </div>
+      <div class="arch-card product">
+        <div class="lvl">Layer 3 — Product accent</div>
+        <div class="name">Product palette</div>
+        <div class="who">Окрашивание каркаса под конкретный продукт или сегмент. FTT = lime+blue, Workshop = orange+blue, Junior/Middle/Senior/Supercharged — свои tier-цвета.</div>
+        <div class="where">Где: cover-слайды · tier-карточки · CTA-кнопки · product hero · accent words</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- STACK: FOUNDATION                                                 -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <div class="stack-label">▎ Foundation</div>
+
+  <!-- 01 COLOR TOKENS -->
+  <div class="section">
+    <div class="sn">01</div>
+    <div class="st">Color tokens <span class="acc">— 16 базовых</span></div>
+    <div class="sb">UI Kit aligned. Namespace: color/bg · color/surface · color/border · color/text · color/accent · color/semantic · color/dot</div>
+
+    <!-- Row 1: neutrals -->
+    <div class="cgrid8" style="margin-bottom: 12px;">
+      <div class="ccard"><div class="sw" style="background: var(--bg-black);"></div><div class="name">BG / Black</div><div class="hex">#000000</div><div class="ns">color/bg/black</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--bg-page);"></div><div class="name">BG / Page</div><div class="hex">#0A0A0A</div><div class="ns">color/bg/page</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--surface-1);"></div><div class="name">Surface 1</div><div class="hex">#0E0E10</div><div class="ns">color/surface/1</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--surface-2);"></div><div class="name">Surface 2</div><div class="hex">#16161A</div><div class="ns">color/surface/2</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--border-subtle);"></div><div class="name">Border Subtle</div><div class="hex">#2A2A2E</div><div class="ns">color/border/subtle</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--text-primary);"></div><div class="name">Text Primary</div><div class="hex">#FFFFFF</div><div class="ns">color/text/primary</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--text-secondary);"></div><div class="name">Text Secondary</div><div class="hex">#A1A1A6</div><div class="ns">color/text/secondary</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--text-tertiary);"></div><div class="name">Text Tertiary</div><div class="hex">#6B6B70</div><div class="ns">color/text/tertiary</div></div>
+    </div>
+
+    <!-- Row 2: accents + semantic -->
+    <div class="cgrid8">
+      <div class="ccard"><div class="sw" style="background: var(--accent-lime);"></div><div class="name">Accent Lime</div><div class="hex">#C9F858</div><div class="ns">color/accent/lime</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--accent-lime-soft);"></div><div class="name">Lime Soft</div><div class="hex">#7C9D38</div><div class="ns">color/accent/lime-soft</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--sem-green);"></div><div class="name">Green</div><div class="hex">#22C55E</div><div class="ns">color/semantic/green</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--sem-blue);"></div><div class="name">Blue</div><div class="hex">#3B82F6</div><div class="ns">color/semantic/blue</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--sem-violet);"></div><div class="name">Violet</div><div class="hex">#A855F7</div><div class="ns">color/semantic/violet</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--sem-orange);"></div><div class="name">Orange</div><div class="hex">#F97316</div><div class="ns">color/semantic/orange</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--sem-red);"></div><div class="name">Red</div><div class="hex">#EF4444</div><div class="ns">color/semantic/red</div></div>
+      <div class="ccard"><div class="sw" style="background: var(--dot);"></div><div class="name">Dot Grid</div><div class="hex">#1F1F22</div><div class="ns">color/dot</div></div>
+    </div>
+
+    <div style="margin-top: 16px; padding: 14px 18px; border: 1px solid var(--border-dim); font-size: 11px; color: var(--text-secondary); line-height: 1.6;">
+      <strong style="color: var(--text-primary);">Изменения v2 → v3:</strong> Text Secondary стал светлее (<code>#8A8A8E → #A1A1A6</code>), Text Tertiary тоже (<code>#5A5A5E → #6B6B70</code>), Surface 2 сдвинулся (<code>#141414 → #16161A</code>). Добавлены: Surface 1, Lime Soft, semantic Blue. Семантическая палитра (green/blue/violet/orange/red) = Tailwind 500-shades.
+    </div>
+  </div>
+
+  <!-- 02 TYPOGRAPHY -->
+  <div class="section">
+    <div class="sn">02</div>
+    <div class="st">Typography <span class="acc">— 9 ступеней</span></div>
+    <div class="sb">JetBrains Mono. Mono на заголовках и body. Точные tracking + line-height из UI Kit.</div>
+    <div class="typo-tbl">
+      <div class="typo-row"><div class="lbl">Display XL</div><div class="t-dxl">ABC 123</div><div class="sp">152px / Bold<br>tracking 1.0% / lh 95%</div></div>
+      <div class="typo-row"><div class="lbl">Display L</div><div class="t-dl">DISPLAY LARGE</div><div class="sp">96px / Bold<br>tracking 1.0% / lh 100%</div></div>
+      <div class="typo-row"><div class="lbl">Display M</div><div class="t-dm">DISPLAY MEDIUM</div><div class="sp">64px / Medium<br>tracking 2.0% / lh 110%</div></div>
+      <div class="typo-row"><div class="lbl">Heading Card</div><div class="t-hcard">HEADING CARD</div><div class="sp">30px / Medium<br>tracking 6.0% / lh 115%</div></div>
+      <div class="typo-row"><div class="lbl">Heading Section</div><div class="t-hsec">HEADING SECTION</div><div class="sp">22px / Medium<br>tracking 10.0% / lh 110%</div></div>
+      <div class="typo-row"><div class="lbl">Body LG</div><div class="t-blg">Body Large — для subtitles и intro paragraphs</div><div class="sp">22px / Regular<br>lh 155%</div></div>
+      <div class="typo-row"><div class="lbl">Body</div><div class="t-body">Body — default reading text для длинных параграфов</div><div class="sp">18px / Regular<br>lh 160%</div></div>
+      <div class="typo-row"><div class="lbl">Label Up</div><div class="t-lup">LABEL UPPERCASE</div><div class="sp">13px / Medium<br>tracking 22.0% / lh 140%</div></div>
+      <div class="typo-row"><div class="lbl">Caption</div><div class="t-cap">Caption text — supplementary info</div><div class="sp">13px / Regular<br>tracking 5.0% / lh 140%</div></div>
+    </div>
+    <div style="margin-top: 16px; padding: 14px 18px; border: 1px solid var(--border-dim); font-size: 11px; color: var(--text-secondary); line-height: 1.6;">
+      <strong style="color: var(--text-primary);">Notes:</strong> Веса теперь <strong>Bold (700) и Medium (500)</strong>, не 800. Большие tracking'и на больших размерах (Display = 1-2%, Heading Section = 10%, Label Up = 22%). Body LG и Label Up — оба 22px / 13px, но один Regular для длинных текстов, другой Medium uppercase для меток.
+    </div>
+  </div>
+
+  <!-- 03 PRINCIPLES -->
+  <div class="section">
+    <div class="sn">03</div>
+    <div class="st">Production grammar — <span class="acc">константы</span></div>
+    <div class="sb">Что одинаково на ВСЕХ продуктах CK</div>
+    <div class="princ">
+      <div class="pr"><div class="n">01</div><div class="t">Monospace везде</div><div class="b">JetBrains Mono на заголовках И body. Никогда Inter/Helvetica/Arial в content-слайдах.</div></div>
+      <div class="pr"><div class="n">02</div><div class="t">Pure black</div><div class="b">#000000 фон. Не #0F0F12, не gradient. Dotted pattern: радиальные точки #1F1F22 шаг 24px.</div></div>
+      <div class="pr"><div class="n">03</div><div class="t">Outlined frame</div><div class="b">Внутренняя рамка 1px #2A2A2E с отступом 28-48px — фирменная константа master-frame'а.</div></div>
+      <div class="pr"><div class="n">04</div><div class="t">Прямоугольные cards</div><div class="b">Border-radius 0. Скруглённые pills убивают тон. Микро-radius допустим только на маленьких label-pills.</div></div>
+      <div class="pr"><div class="n">05</div><div class="t">Outlined thin nums</div><div class="b">01/02/03 — font-weight 200, color transparent, -webkit-text-stroke 1px. Размер 28-92px.</div></div>
+      <div class="pr"><div class="n">06</div><div class="t">CK wordmark в углу</div><div class="b">Top-left каждого слайда: lime квадрат "CK" + текст "CRYPTOLOGY KEY". Фирменный chrome.</div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- STACK: COMPONENTS                                                 -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <div class="stack-label">▎ Components</div>
+
+  <!-- 04 PILLS / BADGES -->
+  <div class="section">
+    <div class="sn">04</div>
+    <div class="st">Pills · Badges <span class="acc">— 9 типов</span></div>
+    <div class="sb">Цветовые pills + outline + neutral. Высота 22px, padding 6×14, font 10px, tracking 0.15em.</div>
+    <div class="pill-row">
+      <div><span class="pill lime">LIME · CTA</span><div class="pill-label">cta / primary</div></div>
+      <div><span class="pill red">RED · ALERT</span><div class="pill-label">alert / danger</div></div>
+      <div><span class="pill orange">ORANGE · WARN</span><div class="pill-label">warn / attention</div></div>
+      <div><span class="pill green">GREEN · SUCCESS</span><div class="pill-label">success / ok</div></div>
+      <div><span class="pill blue">BLUE · INFO</span><div class="pill-label">info / neutral</div></div>
+      <div><span class="pill violet">VIOLET · TAG</span><div class="pill-label">tag / category</div></div>
+      <div><span class="pill outline-primary">OUTLINE · PRIMARY</span><div class="pill-label">outline / primary</div></div>
+      <div><span class="pill outline-dim">OUTLINE · DIM</span><div class="pill-label">outline / dim</div></div>
+      <div><span class="pill dark-neutral">DARK · NEUTRAL</span><div class="pill-label">surface / dim</div></div>
+    </div>
+  </div>
+
+  <!-- 05 CARDS -->
+  <div class="section">
+    <div class="sn">05</div>
+    <div class="st">Cards <span class="acc">— label-up + heading + body</span></div>
+    <div class="sb">Standard card: цветной label-up сверху (lime / red / orange / green), uppercase heading, body</div>
+    <div class="cards4">
+      <div class="uikit-card">
+        <div class="topup">ПРИЧИНА</div>
+        <div class="h">Отсутствие контроля</div>
+        <div class="b">Финансовая цель — это исход, а не действие. Ты не можешь контролировать рынок.</div>
+      </div>
+      <div class="uikit-card">
+        <div class="topup">СТАТИСТИКА</div>
+        <div class="h">97% сливают</div>
+        <div class="b">За первые 6 месяцев новички теряют депозит. Причина — погоня за результатом.</div>
+      </div>
+      <div class="uikit-card">
+        <div class="topup">ПРИНЦИП</div>
+        <div class="h">Цель — на действие</div>
+        <div class="b">Цели должны быть на то, что ты контролируешь. Иначе это пожелание.</div>
+      </div>
+      <div class="uikit-card">
+        <div class="bignum">01</div>
+        <div class="topup r">ТРАП</div>
+        <div class="b">«$2000 в месяц» — это пожелание, не цель.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 LISTS -->
+  <div class="section">
+    <div class="sn">06</div>
+    <div class="st">Lists <span class="acc">— 4 типа</span></div>
+    <div class="sb">Dash · Check · Plus · Numbered Row (TOC). Под каждый формат списка свой visual marker.</div>
+    <div class="lists-row">
+      <div class="list-card">
+        <div class="ll">DASH LIST</div>
+        <ul class="ll-dash">
+          <li>Поведенческие цели</li>
+          <li>Процессные цели</li>
+          <li>Финансовые цели</li>
+          <li>Контроль = устойчивость</li>
+        </ul>
+      </div>
+      <div class="list-card">
+        <div class="ll">CHECK LIST</div>
+        <ul class="ll-check">
+          <li>Веду журнал каждой сделки</li>
+          <li>Соблюдаю правила входа</li>
+          <li class="r">Превышаю риск 1%</li>
+          <li class="d">Не торгую в новостях</li>
+        </ul>
+      </div>
+      <div class="list-card">
+        <div class="ll">PLUS LIST</div>
+        <ul class="ll-plus">
+          <li>Notion-шаблон в описании</li>
+          <li>Поведенческая цель — одна</li>
+          <li>Трекер на 30 дней</li>
+          <li>Ревью раз в неделю</li>
+        </ul>
+      </div>
+      <div class="list-card">
+        <div class="ll">NUMBERED ROW · TOC</div>
+        <ul class="ll-num">
+          <li><span class="idx">01</span><span>Почему финансовая цель запускает слив</span><span class="ref">p. 05—09</span></li>
+          <li><span class="idx">02</span><span>Что трейдер реально может контролировать</span><span class="ref">p. 10—13</span></li>
+          <li class="active"><span class="idx">03</span><span>Три уровня целей</span><span class="ref">p. 14—24</span></li>
+          <li><span class="idx">04</span><span>Конкретные примеры целей</span><span class="ref">p. 15—21</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 NUMERALS / BIG NUMBERS -->
+  <div class="section">
+    <div class="sn">07</div>
+    <div class="st">Numerals · Big numbers <span class="acc">— 8 цветов</span></div>
+    <div class="sb">Outlined thin nums (weight 200, stroke 1px). 8 акцентных цветов для типизации.</div>
+    <div class="num-grid">
+      <div class="num-cell lime"><div class="lbl">THIN · LIME</div><div class="n">01</div></div>
+      <div class="num-cell blue"><div class="lbl">THIN · BLUE</div><div class="n">02</div></div>
+      <div class="num-cell green"><div class="lbl">THIN · GREEN</div><div class="n">03</div></div>
+      <div class="num-cell orange"><div class="lbl">THIN · ORANGE</div><div class="n">04</div></div>
+      <div class="num-cell violet"><div class="lbl">THIN · VIOLET</div><div class="n">05</div></div>
+      <div class="num-cell red"><div class="lbl">THIN · RED</div><div class="n">06</div></div>
+      <div class="num-cell white"><div class="lbl">THIN · WHITE</div><div class="n">07</div></div>
+      <div class="num-cell dim"><div class="lbl">THIN · DIM</div><div class="n">08</div></div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="lup">СТАТИСТИКА</div>
+        <div class="big">97<span class="pct">%</span></div>
+        <div class="sub">Сливают депозит за первые 6 месяцев</div>
+      </div>
+      <div class="stat-card">
+        <div class="lup">3 УРОВНЯ</div>
+        <div class="three-step">
+          <div class="n g">01</div>
+          <div class="ar">→</div>
+          <div class="n b">02</div>
+          <div class="ar">→</div>
+          <div class="n o">03</div>
+        </div>
+        <div class="lbl" style="display:block;">ПОВЕДЕНЧЕСКИЕ → ПРОЦЕССНЫЕ → ФИНАНСОВЫЕ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- STACK: SLIDE SYSTEM                                               -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <div class="stack-label">▎ Slide system</div>
+
+  <!-- 08 CHROME / MASTER FRAME -->
+  <div class="section">
+    <div class="sn">08</div>
+    <div class="st">Slide chrome · Master frame <span class="acc">— 1920×1080 / 16:9</span></div>
+    <div class="sb">Базовый каркас слайда. Inner outline · CK wordmark top-left · footer slots bottom</div>
+    <div class="chrome-wrap">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+        <div class="chrome-slide">
+          <div class="inner"></div>
+          <div class="ck-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <div class="foot-l">MASTER · CHROME</div>
+          <div class="foot-r">00 / 34</div>
+        </div>
+        <div class="chrome-slide lime-frame">
+          <div class="inner"></div>
+          <div class="ck-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <div class="foot-l">COVER · LIME FRAME</div>
+          <div class="foot-r">01 / 34</div>
+        </div>
+      </div>
+      <div class="chrome-labels">
+        <div class="clab"><strong>Master / default</strong>Базовый фрейм: чёрный фон + dotted pattern + inner border #2A2A2E (отступ 28-32px) + CK wordmark + footer slots.</div>
+        <div class="clab"><strong>Cover / lime frame</strong>Вариант для cover-слайдов и section-titles. Inner border = lime accent. Используется на 1-2 ключевых слайдах.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 09 SLIDE TEMPLATES -->
+  <div class="section">
+    <div class="sn">09</div>
+    <div class="st">Slide templates <span class="acc">— 8 шаблонов</span></div>
+    <div class="sb">Готовые шаблоны под типовые сценарии видео-презентации</div>
+    <div class="tpl-grid">
+
+      <!-- Cover -->
+      <div class="tpl-card">
+        <div class="tpl-label">01 · COVER</div>
+        <div class="tpl-frame tpl-cover">
+          <div class="corner-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <div class="kk">SOLVA · СУФЛЁР · 2026</div>
+          <h1>3 УРОВНЯ<br>ЦЕЛЕЙ В<br>ТРЕЙДИНГЕ</h1>
+          <div class="desc">и почему «$2000 в месяц» — главная ловушка начинающего трейдера.</div>
+          <div class="corner-l">V 1.0 · 34 SLIDES</div>
+          <div class="corner-r">01 / 34</div>
+        </div>
+      </div>
+
+      <!-- TOC -->
+      <div class="tpl-card">
+        <div class="tpl-label">02 · TOC / ЧТО ВНУТРИ</div>
+        <div class="tpl-frame tpl-toc">
+          <div class="corner-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <h2>ЧТО ВНУТРИ ВИДЕО</h2>
+          <div class="row"><div class="ix">01</div><div>Почему финансовая цель запускает слив</div><div class="pg">p. 05—09</div></div>
+          <div class="row"><div class="ix">02</div><div>Что трейдер реально может контролировать</div><div class="pg">p. 10—13</div></div>
+          <div class="row act"><div class="ix">03</div><div>Три уровня целей</div><div class="pg">p. 14—24</div></div>
+          <div class="row"><div class="ix">04</div><div>Конкретные примеры целей и трекинга</div><div class="pg">p. 15—21</div></div>
+          <div class="row"><div class="ix">05</div><div>Кейс: от слива за 3 дня до</div><div class="pg">p. 26—30</div></div>
+          <div class="corner-l">SOLVA · 3 УРОВНЯ</div>
+          <div class="corner-r">02 / 34</div>
+        </div>
+      </div>
+
+      <!-- Section title -->
+      <div class="tpl-card">
+        <div class="tpl-label">03 · SECTION TITLE</div>
+        <div class="tpl-frame tpl-section">
+          <div class="corner-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <div class="pn">03</div>
+          <div class="part">ЧАСТЬ ТРЕТЬЯ</div>
+          <h2>ФИНАНСОВЫЕ<br>ЦЕЛИ</h2>
+          <div class="ds">Когда они уместны и как их ставить, чтобы они работали на тебя, а не против.</div>
+          <div class="corner-l">PART · 03 / 03</div>
+          <div class="corner-r">14 / 34</div>
+        </div>
+      </div>
+
+      <!-- Number / Stat -->
+      <div class="tpl-card">
+        <div class="tpl-label">04 · NUMBER / STAT</div>
+        <div class="tpl-frame tpl-num">
+          <div class="corner-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <div class="lab">ЦЕНА ОШИБКИ</div>
+          <div class="big">97<span class="p">%</span></div>
+          <div class="desc">Сливают депозит за первые 6 месяцев.</div>
+          <div class="meta">Не от рынка. От поведенческих ошибок.</div>
+          <div class="corner-l">STAT · KEY METRIC</div>
+          <div class="corner-r">08 / 34</div>
+        </div>
+      </div>
+
+      <!-- Recap-3 -->
+      <div class="tpl-card">
+        <div class="tpl-label">05 · RECAP / 3 TAKEAWAYS</div>
+        <div class="tpl-frame tpl-recap">
+          <div class="corner-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <h2>3 ВЕЩИ, КОТОРЫЕ ЗАБИРАЕМ</h2>
+          <div class="rcards">
+            <div class="rcard"><div class="rn">01</div><div class="rl">ТРАП</div><div class="rb">«$2000 в месяц» — это пожелание, не цель.</div></div>
+            <div class="rcard b"><div class="rn">02</div><div class="rl">ПРИНЦИП</div><div class="rb">Цели — на то, что ты контролируешь.</div></div>
+            <div class="rcard c"><div class="rn">03</div><div class="rl">3 УРОВНЯ</div><div class="rb">Поведенческие → процессные → финансовые.</div></div>
+          </div>
+          <div class="corner-l">RECAP · 3 TAKEAWAYS</div>
+          <div class="corner-r">31 / 34</div>
+        </div>
+      </div>
+
+      <!-- Final CTA -->
+      <div class="tpl-card">
+        <div class="tpl-label">06 · FINAL CTA</div>
+        <div class="tpl-frame tpl-cta">
+          <div class="corner-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <div style="text-align: center;">
+            <div class="toppill">FINAL CTA · ПОЛНАЯ СИСТЕМА</div>
+            <h2>ПОЛНАЯ СХЕМА<br>ВЫХОДА НА СТАБИЛЬНОСТЬ<br>ЗА 3—12 МЕСЯЦЕВ</h2>
+            <div class="sub">Внутри: первые 90 дней · кейсы $50K, $230K · почему 97% сливают</div>
+            <div class="pills">
+              <div class="pp">↓ В ОПИСАНИИ</div>
+              <div class="pp">FREE · 12 МИН</div>
+            </div>
+          </div>
+          <div class="corner-l">FINAL CTA</div>
+          <div class="corner-r">33 / 34</div>
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="tpl-card">
+        <div class="tpl-label">07 · ROADMAP / 5 STEPS</div>
+        <div class="tpl-frame tpl-roadmap">
+          <div class="corner-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <h2>ЧТО ДЕЛАТЬ СЕЙЧАС</h2>
+          <div class="rr"><div class="ix">01</div><div>Скачай Notion-шаблон</div><div class="rt">↓ В ОПИСАНИИ</div></div>
+          <div class="rr"><div class="ix">02</div><div>Выбери ОДНУ поведенческую цель — самую больную</div><div class="rt">10 МИН</div></div>
+          <div class="rr"><div class="ix">03</div><div>Заведи трекер на месяц: чекбокс в день</div><div class="rt">DAILY · 30 ДНЕЙ</div></div>
+          <div class="rr"><div class="ix">04</div><div>Через месяц: &lt;70% — продли. &gt;70% — добавь процессную</div><div class="rt">REVIEW</div></div>
+          <div class="rr act"><div class="ix">05</div><div>Хочешь быстрее? Полная схема ↓</div><div class="rt">CTA</div></div>
+          <div class="corner-l">5-STEP ROADMAP</div>
+          <div class="corner-r">32 / 34</div>
+        </div>
+      </div>
+
+      <!-- End screen -->
+      <div class="tpl-card">
+        <div class="tpl-label">08 · END SCREEN</div>
+        <div class="tpl-frame tpl-end">
+          <div class="corner-mark"><div class="sq">CK</div><div class="wm">CRYPTOLOGY KEY</div></div>
+          <div style="margin-top: 12%;">
+            <div style="font-size: 8px; color: var(--text-tertiary); text-align: center; letter-spacing: 0.2em;">END · SOLVA · 2026</div>
+            <h2 style="margin-top: 14px;">ПОСТАВЬ ЛАЙК.</h2>
+            <div class="ln"></div>
+            <div class="desc">Напиши в комментариях ОДНУ<br>свою поведенческую цель.</div>
+            <div class="meta">ДО ВСТРЕЧИ В СЛЕДУЮЩЕМ ВИДЕО.</div>
+          </div>
+          <div class="corner-l">END-SCREEN</div>
+          <div class="corner-r">34 / 34</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- STACK: DATA VIZ                                                   -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <div class="stack-label">▎ Data viz</div>
+
+  <!-- 10 CHARTS & TRACKERS -->
+  <div class="section">
+    <div class="sn">10</div>
+    <div class="st">Charts & trackers</div>
+    <div class="sb">Adherence bar · Habit tracker grid · Pyramid 3-levels</div>
+
+    <div class="dv-row">
+      <div class="dv-card">
+        <div class="dv-label">ADHERENCE % · BY MONTH</div>
+        <div class="bar-row"><div class="b-lbl">M1 · ЯН</div><div class="b-track"><div class="b-fill" style="width: 42%;"></div></div><div class="b-val">42%</div></div>
+        <div class="bar-row"><div class="b-lbl">M2 · ФВ</div><div class="b-track"><div class="b-fill" style="width: 55%;"></div></div><div class="b-val">55%</div></div>
+        <div class="bar-row"><div class="b-lbl">M3 · МР</div><div class="b-track"><div class="b-fill" style="width: 68%;"></div></div><div class="b-val">68%</div></div>
+        <div class="bar-row"><div class="b-lbl">M4 · АП</div><div class="b-track"><div class="b-fill" style="width: 74%;"></div></div><div class="b-val">74%</div></div>
+        <div class="bar-row"><div class="b-lbl">M5 · МЙ</div><div class="b-track"><div class="b-fill" style="width: 81%;"></div></div><div class="b-val">81%</div></div>
+        <div class="bar-row"><div class="b-lbl">M6 · ИН</div><div class="b-track"><div class="b-fill" style="width: 89%;"></div></div><div class="b-val">89%</div></div>
+      </div>
+      <div class="dv-card">
+        <div class="dv-label">HABIT TRACKER · 30 DAYS</div>
+        <div class="habit-grid">
+          <div class="day"></div><div class="day"></div><div class="day miss"></div><div class="day"></div><div class="day"></div>
+          <div class="day"></div><div class="day"></div><div class="day"></div><div class="day miss"></div><div class="day"></div>
+          <div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div><div class="day miss"></div>
+          <div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div>
+          <div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div>
+          <div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div><div class="day"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dv-card">
+      <div class="dv-label">PYRAMID · 3 LEVELS OF GOALS</div>
+      <div class="pyramid">
+        <div class="pyr-row fin"><div class="pl">ФИНАНСОВЫЕ</div><div class="pi">ДОХОДНОСТЬ · РАЗМЕР СЧЁТА · ROI</div></div>
+        <div class="pyr-row proc"><div class="pl">ПРОЦЕССНЫЕ</div><div class="pi">ТОЧКИ ВХОДА · СОБЛЮДЕНИЕ ПЛАНА · ЖУРНАЛ</div></div>
+        <div class="pyr-row beh"><div class="pl">ПОВЕДЕНЧЕСКИЕ</div><div class="pi">ДНИ БЕЗ ЭМОЦИОНАЛЬНЫХ СДЕЛОК · СОН · ДИСЦИПЛИНА</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- STACK: PRODUCT LAYER (CK-specific, not in UI Kit)                 -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <div class="stack-label">▎ Product layer (CK-specific, не из UI Kit)</div>
+
+  <!-- 11 TIER COLORS -->
+  <div class="section">
+    <div class="sn">11</div>
+    <div class="st">Tier colors <span class="acc">— 4 уровня</span></div>
+    <div class="sb">Brand-coded цвета продуктовой линейки. Подтверждено по FTT v2.0 слайд 10.</div>
+    <div class="tiers">
+      <div class="tier t-jun">
+        <div class="topbadge" style="background: var(--t-junior); color: #000;">JUNIOR LVL</div>
+        <div class="title">JUNIOR</div>
+        <div class="pillrow"><span class="p">04 недели</span><span class="p">16 модулей</span></div>
+        <ul>
+          <li>База трейдинга</li>
+          <li>16 тем на платформе</li>
+          <li>10 онлайн-сессий + Q&amp;A</li>
+        </ul>
+        <div class="hex-stamp">#FFFFFF</div>
+      </div>
+      <div class="tier t-mid">
+        <div class="topbadge" style="background: var(--sem-red); color: #fff;">ВЫБОР РЫНКА</div>
+        <div class="title">MIDDLE</div>
+        <div class="pillrow"><span class="p">08 недель</span><span class="p">32 модуля</span></div>
+        <ul>
+          <li>Crypto / Forex track</li>
+          <li>20 онлайн-сессий + Q&amp;A</li>
+          <li>4 ДЗ + работа с ментором</li>
+        </ul>
+        <div class="hex-stamp">#22C55E</div>
+      </div>
+      <div class="tier t-sen">
+        <div class="topbadge" style="background: var(--t-senior); color: #000;">УСИЛЕННАЯ ПРАКТИКА</div>
+        <div class="title">SENIOR</div>
+        <div class="pillrow"><span class="p">12 недель</span><span class="p">36 модулей</span></div>
+        <ul>
+          <li>Усиленная теория</li>
+          <li>Бэктест-сессии + менторство</li>
+          <li>2 месяца усиленной практики</li>
+        </ul>
+        <div class="hex-stamp">#F8D038</div>
+      </div>
+      <div class="tier t-sup">
+        <div class="topbadge" style="background: var(--t-super); color: #fff;">ИНДИВИДУАЛЬНЫЙ ПОДХОД</div>
+        <div class="title">SUPERCHARGED</div>
+        <div class="pillrow"><span class="p">12 недель</span><span class="p">36 модулей</span></div>
+        <ul>
+          <li>Личная торговая команда</li>
+          <li>Занятия с ETF Cryptology Key</li>
+          <li>Еженедельные звонки куратора</li>
+        </ul>
+        <div class="hex-stamp">#F97316</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12 PRODUCT PALETTES -->
+  <div class="section">
+    <div class="sn">12</div>
+    <div class="st">Product accent palettes</div>
+    <div class="sb">Окрашивание каркаса под конкретный продукт. Caster для cover-слайдов / CTA / hero.</div>
+    <div class="pp">
+      <div class="pp-card ftt">
+        <div class="label">Product accent — Deck A</div>
+        <div class="name">FULL TIME <span class="acc">TRADER</span></div>
+        <div class="swatches">
+          <div class="s" style="background: var(--ftt-lime);"><span class="hx">#C9F858</span></div>
+          <div class="s dark" style="background: var(--ftt-blue);"><span class="hx" style="color: rgba(255,255,255,0.7)">#1828D0</span></div>
+          <div class="s dark" style="background: #000; border: 1px solid var(--border-subtle);"><span class="hx" style="color: rgba(255,255,255,0.7)">#000000</span></div>
+        </div>
+        <div class="desc">Lime — основной accent, slash-разделители, мини-квадратики chart-визуал. Royal Blue — secondary accent для линий, кнопок, badge. Источник: FTT v2.0 27pp.</div>
+      </div>
+      <div class="pp-card ws">
+        <div class="label">Product accent — Deck B</div>
+        <div class="name">WORKSHOP</div>
+        <div class="swatches">
+          <div class="s" style="background: linear-gradient(180deg, var(--ws-grad-1), var(--ws-grad-2));"><span class="hx">#F7CCBC → #E5936E</span></div>
+          <div class="s dark" style="background: var(--ws-blue);"><span class="hx" style="color: rgba(255,255,255,0.7)">#1828D0</span></div>
+          <div class="s" style="background: var(--t-super);"><span class="hx">#F97316</span></div>
+        </div>
+        <div class="desc">Coral-orange gradient — только на cover (frosted glass cards). Royal blue — для tier-cards. Orange #F97316 — bonus / CTA / icons. Body слайдов = тот же чёрный + dotted, не orange. Источник: Workshop deck 29pp.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13 RESULT ICONOGRAPHY -->
+  <div class="section">
+    <div class="sn">13</div>
+    <div class="st">Result icons — 3D iso stacks</div>
+    <div class="sb">Особый визуальный жанр для статистики (slide 20 типа "РЕЗУЛЬТАТЫ")</div>
+    <div class="resgrid">
+      <div class="res-c">
+        <div class="res-iso"><div class="stack" style="--c: var(--r-pink);"><div class="l l1"></div><div class="l l2"></div><div class="l l3"></div></div></div>
+        <div class="num">БОЛЕЕ 15 000</div>
+        <div class="lbl">Выпускников</div>
+        <div class="b">Самое большое количество людей получили знания для торговли на финансовых рынках</div>
+      </div>
+      <div class="res-c">
+        <div class="res-iso"><div class="stack" style="--c: var(--r-emerald);"><div class="l l1"></div><div class="l l2"></div><div class="l l3"></div></div></div>
+        <div class="num">FUNDED КОМЬЮНИТИ</div>
+        <div class="lbl">Топ рынка</div>
+        <div class="b">Самое большое количество FUNDED трейдеров среди всех остальных комьюнити</div>
+      </div>
+      <div class="res-c">
+        <div class="res-iso"><div class="stack" style="--c: var(--r-violet);"><div class="l l1"></div><div class="l l2"></div><div class="l l3"></div></div></div>
+        <div class="num">1000+</div>
+        <div class="lbl">Профессиональных</div>
+        <div class="b">Тысячи людей избрали трейдинг своей профессией для полной занятости</div>
+      </div>
+    </div>
+    <div style="margin-top: 12px; font-size: 11px; color: var(--text-secondary); padding: 14px 18px; border: 1px solid var(--border-subtle);">
+      Pink <code style="color: var(--r-pink);">#F472B6</code> · Emerald <code style="color: var(--r-emerald);">#10B981</code> · Violet <code style="color: var(--r-violet);">#A855F7</code>. Используются ТОЛЬКО для 3D-стеков на стат-слайдах. Не выносить в pill'ы и body.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- STACK: IDENTITY LAYER                                             -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <div class="stack-label">▎ Identity layer (только для корпоративки)</div>
+
+  <!-- 14 LOGOBOOK -->
+  <div class="section">
+    <div class="sn">14</div>
+    <div class="st">Logobook <span class="acc">— Layer 1 (identity)</span></div>
+    <div class="sb">Brand identity для корпоративных применений. НЕ для production-слайдов школы.</div>
+    <div class="lb-wrap">
+      <div class="lb-banner">
+        <span class="badge">Identity only</span>
+        <div>
+          <div class="h">Когда использовать</div>
+          <div class="sub">Юр.лицо · letterhead · визитки · partner pitch (OKX/Binance/Kraken) · corporate website · social profile · merch</div>
+        </div>
+      </div>
+      <div class="lb-colors">
+        <div class="c"><div class="sw" style="background: var(--lb-ice); outline: 1px solid var(--border-subtle);"></div><div class="nm">Ice White</div><div class="hx">#F5F6FC</div></div>
+        <div class="c"><div class="sw" style="background: var(--lb-purple);"></div><div class="nm">Purple</div><div class="hx">#6232FF</div></div>
+        <div class="c"><div class="sw" style="background: var(--lb-mid);"></div><div class="nm">Midnight</div><div class="hx">#14141A</div></div>
+        <div class="c"><div class="sw" style="background: linear-gradient(180deg, var(--lb-emer1), var(--lb-emer2));"></div><div class="nm">Emerald Shift</div><div class="hx">#CEFF1C → #00FF8C</div></div>
+      </div>
+      <div class="lb-fonts">
+        <div class="lb-font">
+          <div class="label">Display / headlines</div>
+          <div class="sample">CoFo Kak Medium</div>
+          <div class="desc">Для заголовков в identity-материалах. В preview показан Inter Bold как substitute — реальный CoFo Kak используется в production-файлах logobook'а.</div>
+        </div>
+        <div class="lb-font">
+          <div class="label">Body / text</div>
+          <div class="sample" style="font-weight: 500;">Atyp Display</div>
+          <div class="desc">7 весов от ExtraLight до ExtraBold. Для основного текста в identity-материалах.</div>
+        </div>
+      </div>
+      <div style="margin-top: 18px; padding: 14px 18px; border: 1px solid var(--lb-purple); font-size: 11px; color: var(--text-secondary); line-height: 1.5;">
+        <strong style="color: var(--lb-purple);">Важно:</strong> Identity-палитра (Purple/Ice/Midnight/Emerald) и шрифты CoFo Kak + Atyp Display — это <strong style="color: var(--text-primary);">отдельный слой</strong>. В content-слайдах школы (FTT/Workshop/Intro/Alpha) НЕ используются. Там работают только Production grammar (моноспейс) + Product accent layers.
+      </div>
+    </div>
+  </div>
+
+  <!-- 15 LOGO LIBRARY -->
+  <div class="section">
+    <div class="sn">15</div>
+    <div class="st">Logo library <span class="acc">— реальные ассеты</span></div>
+    <div class="sb">Wordmark'и и mark'и из Logobook. Готовые PNG с прозрачностью в logobook/assets/.</div>
+
+    <div style="margin-bottom: 16px;">
+      <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px;">Primary lockups</div>
+      <div class="logo-row">
+        <div class="logo-card">
+          <img src="logobook/assets/ck-wordmark-horizontal.png" alt="CRYPTOLOGY KEY horizontal wordmark">
+          <div class="cap">Horizontal / dark surface</div>
+        </div>
+        <div class="logo-card">
+          <img src="logobook/assets/ck-wordmark-vertical-gradient.png" alt="CRYPTOLOGY KEY vertical lockup with gradient">
+          <div class="cap">Vertical · gradient KEY (purple→cyan)</div>
+        </div>
+        <div class="logo-card">
+          <img src="logobook/assets/ck-mark-icon-only.png" alt="CK mark — gradient green icon">
+          <div class="cap">Mark · gradient green primary</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <div style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px;">Mark variations (40+) — из Logobook стр. 10</div>
+      <div class="logo-grid-wrap">
+        <img src="logobook/assets/ck-mark-variations-grid.png" alt="CK mark variations grid">
+        <div class="cap">Полная библиотека вариаций CK mark: gradient backgrounds (pink/violet/teal/orange/blue), glass, neon, outlined, monochrome, dark/light surfaces. Используется как банк ассетов для соцсетей, аватарок креаторов и тематических обложек.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="ftr">
+    <div>Cryptology Key / Brand reference v 3.0</div>
+    <div>design-system-v3.html / 2026-05-13</div>
+    <div>UI Kit aligned · см. v2 для diff</div>
+  </div>
+
+</div>
+</div>
+</body>
+</html>

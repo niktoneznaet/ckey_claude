@@ -17,13 +17,16 @@ HTML — **интерактивный**: scroll-snap, fadeUp animations, dot-nav
 
 ## Источник правды
 
-**Brand book v3 (UI Kit aligned):** `/Users/admin/Documents/Рабочее пространство Claude/Бизнес OS/knowledge-base/references/ck-brand/`
-- `_index.md` — карта KB, читать первым
+**Brand book v3 (UI Kit aligned):** ищи папку `ck-brand/` рядом со скиллом.
+- У Vlad: `/Users/admin/Documents/Рабочее пространство Claude/Бизнес OS/knowledge-base/references/ck-brand/` (полный набор + `source-decks/` для референса)
+- У сотрудника (клон `niktoneznaet/ckey_claude`): `~/.claude/commands/ck-brand/` (минимальный пакет: design-system-v3 + tokens + logobook/assets + brand-book-a4-v2)
+
+Файлы:
+- `_index.txt` (у сотрудника) / `_index.md` (у Vlad) — карта KB, читать первым
 - `design-system-v3.html` — главный документ (15 секций: tokens, typography, components, slide chrome, 8 templates, data viz, tier colors, product palettes, logobook)
 - `tokens.css` — переиспользуемые CSS variables (подключать через `<link>` или `@import`)
 - `logobook/assets/ck-wordmark-horizontal.png` — wordmark для углов слайдов
-- `source-decks/deck-A_FTT-v2/` и `source-decks/deck-B/` — референс-слайды (FTT v2.0 + Workshop)
-- `design-system-v2.html` — старая версия (для diff, не использовать)
+- `source-decks/deck-A_FTT-v2/` и `source-decks/deck-B/` — референс-слайды (только в полном наборе у Vlad)
 
 ## Что подаётся на вход
 
@@ -38,7 +41,7 @@ HTML — **интерактивный**: scroll-snap, fadeUp animations, dot-nav
 4. `examples-brief.md` — бриф для монтажника / Open Design / Higgsfield (по одному блоку на каждый `example-slot` с готовым промптом)
 5. `README.md` — короткая инструкция
 
-**Где сохранять:** `Бизнес OS/outbox/deck-build/ГГГГ-ММ-ДД_название/`
+**Где сохранять:** `Бизнес OS/outbox/deck-build/ГГГГ-ММ-ДД_название/` (у Vlad). Сотрудник адаптирует путь под свою структуру.
 
 ---
 

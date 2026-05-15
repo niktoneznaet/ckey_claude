@@ -1,0 +1,114 @@
+# CK Brand — индекс
+
+Single source of truth по брендингу Cryptology Key. Используется во всех скиллах генерации слайдов / лендингов / видео-overlay.
+
+**Текущая версия: v3.0 (UI Kit aligned, 2026-05-13)**
+
+---
+
+## Что где лежит
+
+### Источники правды (читать перед любой брендовой задачей)
+
+| Файл | Описание |
+|---|---|
+| [design-system-v3.html](design-system-v3.html) | **Главный документ.** 15 секций: tokens, typography, principles, components (pills/cards/lists/numerals), slide chrome, 8 templates, data viz, tier colors, product palettes, iso stacks, logobook, logo library. |
+| [tokens.css](tokens.css) | Переиспользуемые CSS variables v3 — подключай в любой HTML-презентации через `<link rel="stylesheet" href="path/to/tokens.css">`. |
+| [design-system-v3-preview.pdf](design-system-v3-preview.pdf) | PDF превью v3 (10 страниц) для просмотра / отправки. |
+
+### Архив (старые версии)
+
+| Файл | Описание |
+|---|---|
+| design-system-v2.html | Версия до UI Kit. Сохранена для diff. |
+| design-system.html | v1 (стартовая, до brand book v2). |
+| brand-book-a4-v2.pdf | A4 свод v2. |
+| brand-book-a4.pdf | A4 свод v1. |
+
+### Ассеты
+
+- [logobook/assets/](logobook/) — готовые PNG с прозрачностью:
+  - `ck-wordmark-horizontal.png` — для углов слайдов
+  - `ck-wordmark-vertical-gradient.png` — для cover-слайдов
+  - `ck-mark-icon-only.png` — primary mark (1874×1874)
+  - `ck-mark-variations-grid.png` — 40 вариаций (нарезать по запросу)
+  - `ck-mark-small-mono.png` — favicon / video corner
+- [source-decks/](source-decks/) — референс-декки:
+  - `deck-A_FTT-v2/` — FTT v2.0 (27pp)
+  - `deck-B/` — Workshop (29pp)
+
+---
+
+## Как применять в новых презентациях
+
+### 1. CSS variables — через tokens.css
+
+```html
+<link rel="stylesheet" href="path/to/tokens.css">
+<style>
+  body {
+    background: var(--bg-black);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+  }
+  .accent { color: var(--accent-lime); }
+  .card   { background: var(--surface-1); border: 1px solid var(--border-subtle); }
+</style>
+```
+
+### 2. Master frame (slide chrome)
+
+Каждый слайд 1920×1080, 16:9, чёрный фон + dotted pattern (#1F1F22, шаг 24px) + inner border (отступ 28-32px) + CK wordmark top-left + footer slots bottom (label slева, page X/Y справа).
+
+### 3. Typography
+
+JetBrains Mono. 9 ступеней (от 152px Display XL до 13px Caption). Веса: 700 (Bold), 500 (Medium), 400 (Regular), 200 (thin nums).
+
+### 4. Color rules
+
+- **Один акцент на слайде** — обычно lime, изредка semantic (orange для warn, red для alert).
+- **Tier colors** (Junior/Middle/Senior/Supercharged) — только для tier-карточек, не для произвольных акцентов.
+- **Logobook palette** (Purple/Ice/Midnight/Emerald) — НЕ для слайдов школы. Только корпоративка/partner-pitches.
+
+### 5. Принципы grammar (см. секцию 03)
+
+- Monospace везде
+- Pure black (#000000)
+- Outlined frame (1px #2A2A2E)
+- Прямоугольные cards (border-radius 0)
+- Outlined thin nums (weight 200, stroke 1px)
+- CK wordmark в углу каждого слайда
+
+---
+
+## Скиллы, которые опираются на эту KB
+
+| Скилл | Использует |
+|---|---|
+| `/deck-build` | tokens.css + design-system-v3.html (рендер слайдов) |
+| `/video-from-stream` | design-system-v3.html (промпт для Open Design в стиле CK) |
+| `/sites-vova` | tokens.css (генератор лендингов CK) |
+| `/frontend-slides` | design-system-v3.html (если задача про CK) |
+
+---
+
+## Changelog
+
+**v3.0 (2026-05-13)** — UI Kit aligned
+- Сверка с UI Kit от дизайнера (1pp full design system)
+- Text colors светлее (A1A1A6 / 6B6B70 вместо 8A/5A)
+- Surface 2 → #16161A
+- Добавлены: Surface 1, Lime Soft, semantic Blue
+- Семантическая палитра = Tailwind 500-shades
+- Typography → 9 ступеней с точными tracking/lh
+- Новые секции: Pills (9 типов), Cards, Lists (4 типа), Numerals (8 цветов), Slide chrome, 8 templates, Data viz
+- Создан tokens.css как переиспользуемый CSS-фундамент
+
+**v2.0 (2026-05-13)** — pre-UI-Kit
+- Извлечение по PIL из FTT v2.0 + Workshop deck
+- 3-слойная архитектура (Identity / Production / Product accent)
+- Tier colors confirmed (Senior = gold #F8D038, не blue)
+- Logobook extracted + 6 готовых ассетов
+
+**v1.0 (2026-05-13)** — стартовая
+- Первая итерация по памяти из reference_ck_design_system.md

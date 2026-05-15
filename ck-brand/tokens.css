@@ -1,0 +1,128 @@
+/* ═══════════════════════════════════════════════════════════════════
+   CRYPTOLOGY KEY — Design tokens v3.0
+   Source: design-system-v3.html · UI Kit aligned · 2026-05-13
+
+   Подключение в HTML:
+     <link rel="stylesheet" href="path/to/tokens.css">
+   или импорт в CSS:
+     @import url('tokens.css');
+
+   Не редактировать здесь — source of truth = design-system-v3.html.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─── BG ─── */
+  --bg-black:    #000000;   /* color/bg/black     — основной фон слайдов/лендингов */
+  --bg-page:     #0A0A0A;   /* color/bg/page      — почти-чёрный для секций */
+  --surface-1:   #0E0E10;   /* color/surface/1    — карточки на чёрном фоне */
+  --surface-2:   #16161A;   /* color/surface/2    — приподнятые поверхности */
+
+  /* ─── BORDER ─── */
+  --border-subtle: #2A2A2E; /* color/border/subtle — основная рамка master-frame */
+  --border-dim:    #1F1F22; /* (alias for dot)     — лёгкие разделители */
+
+  /* ─── TEXT ─── */
+  --text-primary:   #FFFFFF; /* color/text/primary   — заголовки и основной текст */
+  --text-secondary: #A1A1A6; /* color/text/secondary — body muted / captions */
+  --text-tertiary:  #6B6B70; /* color/text/tertiary  — labels, footers, метки */
+
+  /* ─── ACCENT ─── */
+  --accent-lime:      #C9F858; /* color/accent/lime      — главный CK акцент */
+  --accent-lime-soft: #7C9D38; /* color/accent/lime-soft — приглушённый lime */
+
+  /* ─── SEMANTIC (Tailwind 500-shades) ─── */
+  --sem-green:  #22C55E; /* color/semantic/green  — success, ok */
+  --sem-blue:   #3B82F6; /* color/semantic/blue   — info, neutral data */
+  --sem-violet: #A855F7; /* color/semantic/violet — tag, category */
+  --sem-orange: #F97316; /* color/semantic/orange — warn, attention */
+  --sem-red:    #EF4444; /* color/semantic/red    — alert, danger */
+
+  /* ─── DOT GRID ─── */
+  --dot: #1F1F22;        /* color/dot — radial dotted bg pattern, шаг 24px */
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRODUCT LAYER — CK-specific tokens (не из UI Kit)
+     Brand-coded цвета для продуктовой линейки.
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Tier colors (FTT v2.0 slide 10 confirmed) */
+  --t-junior: #FFFFFF;   /* Junior tier */
+  --t-middle: #22C55E;   /* Middle tier (= sem-green) */
+  --t-senior: #F8D038;   /* Senior tier — gold, не blue */
+  --t-super:  #F97316;   /* Supercharged tier (= sem-orange) */
+
+  /* Product accents */
+  --ftt-lime: #C9F858;   /* FTT primary  (= accent-lime) */
+  --ftt-blue: #1828D0;   /* FTT secondary — royal blue */
+  --ws-grad-1: #F7CCBC;  /* Workshop coral gradient start */
+  --ws-grad-2: #E5936E;  /* Workshop coral gradient end */
+  --ws-blue:   #1828D0;  /* Workshop tier-card blue */
+
+  /* Result iconography (3D iso stacks) */
+  --r-pink:    #F472B6;
+  --r-emerald: #10B981;
+  --r-violet:  #A855F7;   /* (= sem-violet) */
+
+  /* ═══════════════════════════════════════════════════════════════
+     IDENTITY LAYER — Logobook tokens
+     ТОЛЬКО для corporate/identity. Не для content-слайдов школы.
+     ═══════════════════════════════════════════════════════════════ */
+  --lb-ice:     #F5F6FC;
+  --lb-purple:  #6232FF;
+  --lb-mid:     #14141A;
+  --lb-emer-1:  #CEFF1C;
+  --lb-emer-2:  #00FF8C;
+
+  /* ═══════════════════════════════════════════════════════════════
+     TYPOGRAPHY scale (UI Kit aligned)
+     Везде JetBrains Mono. Веса 700 (Bold), 500 (Medium), 400 (Regular), 200 (thin nums).
+     ═══════════════════════════════════════════════════════════════ */
+  --font-mono: 'JetBrains Mono', 'Geist Mono', ui-monospace, monospace;
+
+  /* sizes (px) */
+  --fs-display-xl: 152px;
+  --fs-display-l:  96px;
+  --fs-display-m:  64px;
+  --fs-heading-card:    30px;
+  --fs-heading-section: 22px;
+  --fs-body-lg: 22px;
+  --fs-body:    18px;
+  --fs-label-up: 13px;
+  --fs-caption:  13px;
+
+  /* line-height ratios */
+  --lh-display-xl: 0.95;
+  --lh-display-l:  1.0;
+  --lh-display-m:  1.10;
+  --lh-heading-card:    1.15;
+  --lh-heading-section: 1.10;
+  --lh-body-lg: 1.55;
+  --lh-body:    1.60;
+  --lh-label-up: 1.40;
+  --lh-caption:  1.40;
+
+  /* letter-spacing (em) */
+  --ls-display-xl: 0.010em;
+  --ls-display-l:  0.010em;
+  --ls-display-m:  0.020em;
+  --ls-heading-card:    0.060em;
+  --ls-heading-section: 0.100em;
+  --ls-label-up: 0.220em;
+  --ls-caption:  0.050em;
+
+  /* ═══════════════════════════════════════════════════════════════
+     SPACING / SIZING (slide grid)
+     ═══════════════════════════════════════════════════════════════ */
+  --slide-w: 1920px;
+  --slide-h: 1080px;
+  --slide-inner-pad: 32px;     /* master-frame inner border offset */
+  --slide-content-pad: 96px;   /* breathing room around content */
+  --pattern-step: 24px;        /* dotted pattern grid */
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL BG PATTERN — рекомендуемый default для production-слайдов
+   Применяй на body или .slide:
+     body { background: var(--bg-black); }
+     body::before { content: ''; ... background: var(--dot) radial-gradient... }
+   ═══════════════════════════════════════════════════════════════════ */
